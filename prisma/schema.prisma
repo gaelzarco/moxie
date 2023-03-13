@@ -51,6 +51,7 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
+  role      Role @default(USER)
   accounts      Account[]
   sessions      Session[]
   posts         Post[]
@@ -71,7 +72,7 @@ model Post {
   userId    String
   media     String?
   link      String?
-  body      String? @db.VarChar(500)
+  body      String @db.VarChar(500)
   likes     Like[]
   replies   Reply[]
   createdAt DateTime @default(now())
@@ -101,8 +102,8 @@ model Like {
   id        String   @id @default(cuid())
   userId    String
   postId    String?
-  replyId    String?
-  postType  String
+  replyId   String?  
+  postType  PostType
   createdAt DateTime @default(now())
 
   user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -112,4 +113,14 @@ model Like {
   @@index([userId])
   @@index([postId])
   @@index([replyId])
+}
+
+enum Role {
+    ADMIN
+    USER
+}
+
+enum PostType {
+    POST
+    REPLY
 }
