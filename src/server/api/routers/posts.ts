@@ -8,7 +8,9 @@ export const postsRouter = createTRPCRouter({
     }),
 
     getOne: protectedProcedure
-    .input(postSchema)
+    .input(z.object({
+        postId: z.string(),
+      }))
     .query(({ ctx, input }) => {
         return ctx.prisma.post.findUnique({
         where: {
