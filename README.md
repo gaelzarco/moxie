@@ -14,9 +14,9 @@
 
 <div align='center'>
 
-<img src="https://badgen.net/badge/TypeScript/v4/?icon=typescript" alt="TypeScript">
+<img src="https://badgen.net/badge/TypeScript/v4.9/?icon=typescript" alt="TypeScript">
 
-<img src='https://img.shields.io/badge/NextJS-v13-black/?logo=nextdotjs' alt='NextJS'>
+<img src='https://img.shields.io/badge/NextJS-v13.2-black/?logo=nextdotjs' alt='NextJS'>
 
 <img src='https://img.shields.io/badge/Prisma-v4.9-black/?logo=prisma' alt='Prisma'>
 
