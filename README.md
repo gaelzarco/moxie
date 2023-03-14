@@ -2,10 +2,6 @@
 <div align="center">
 <img src='https://readmeimg.s3.us-west-2.amazonaws.com/moxie.png' width='100%'>
 
-<a href='https://github.com/gaelzarco'><img src='https://avatars.githubusercontent.com/u/76548719?v=4' width='100'></a>
-
-Gael Zarco
-
 ![GitHub last commit](https://img.shields.io/github/last-commit/gaelzarco/ai-hackathon?style=for-the-badge)
 
 
