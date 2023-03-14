@@ -10,21 +10,21 @@
 
 <div align='center'>
 
-<img src='https://img.shields.io/badge/NextJS-v13.2/?logo=nextdotjs&color=black' alt='NextJS'>
+<img src='https://img.shields.io/badge/NextJS-NextJS/?logo=nextdotjs&color=black' alt='NextJS'>
 
-<img src="https://img.shields.io/badge/TypeScript-v4.9/?icon=typescript&color=black" alt="TypeScript">
+<img src="https://img.shields.io/badge/TypeScript-TypeScript/?icon=typescript&color=black" alt="TypeScript">
 
-<img src='https://img.shields.io/badge/Tailwind-v3.2/?logo=tailwindcss&color=black' alt= 'Tailwind CSS'>
+<img src='https://img.shields.io/badge/Tailwind-Tailwind/?logo=tailwindcss&color=black' alt= 'Tailwind CSS'>
 
-<img src='https://img.shields.io/badge/Prisma-v4.9/?logo=prisma&color=black' alt='Prisma'>
+<img src='https://img.shields.io/badge/Prisma-Prisma/?logo=prisma&color=black' alt='Prisma'>
 
-<img src='https://img.shields.io/badge/PlanetScale-MySQL/?logo=planetscale&color=black' alt='PlanetScale'>
+<img src='https://img.shields.io/badge/PlanetScale-PlanetScale/?logo=planetscale&color=black' alt='PlanetScale'>
 
 <img src='https://img.shields.io/badge/MySQL-MySQL/?logo=mysql&color=black' alt='MySQL'>
 
 <img src='https://img.shields.io/badge/TRPC-TRPC/?logo=trpc&color=black' alt='TRPC'>
 
-<img src='https://img.shields.io/badge/s3-v3.2/?logo=amazons3&color=black' alt='s3'>
+<img src='https://img.shields.io/badge/s3-s3/?logo=amazons3&color=black' alt='s3'>
 
 </div>
 
