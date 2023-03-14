@@ -7,7 +7,9 @@ Be the first to know what your friends are up to.
 
 Blazingly fast and bootstrapped with `create-t3-app`
 
-![GitHub last commit](https://img.shields.io/github/last-commit/gaelzarco/ai-hackathon?style=for-the-badge)
+<img src='https://img.shields.io/github/last-commit/gaelzarco/ai-hackathon?style=for-the-badge' alt='Last Commit Badge'>
+
+<img src='https://img.shields.io/github/commit-activity/m/gaelzarco/socialt3?style=plastic' alt='Commits per Month'>
 
 #### Stack
 <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcreazilla-store.fra1.digitaloceanspaces.com%2Ficons%2F3254134%2Fnextjs-icon-icon-sm.png&f=1&nofb=1&ipt=0a7ddff483fc717c0f942be1d1c43c230d567e34d3cdabd473e9ba84c67a1b3d&ipo=images" alt="NextJS" width='50'>
