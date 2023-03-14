@@ -7,13 +7,22 @@
 
 #### Blazingly fast and bootstrapped with `create-t3-app`
 
-<img src='https://img.shields.io/github/contributors/gaelzarco/socialt3?style=plastic' alt='Contributors'>
 
 <img src='https://img.shields.io/github/commit-activity/m/gaelzarco/socialt3?style=plastic' alt='Commits per Month'>
 
 <img src="https://badgen.net/github/stars/gaelzarco/socialt3" alt="Stars">
 
-<img src="https://badgen.net/badge/TypeScript/v4.9.5/?icon=typescript" alt="TypeScript">
+<div align='center'>
+
+<img src="https://badgen.net/badge/TypeScript/v4/?icon=typescript" alt="TypeScript">
+
+<img src='https://img.shields.io/badge/NextJS-v13-black/?logo=nextdotjs' alt='NextJS>
+
+<img src='https://img.shields.io/badge/Prisma-v4.9-black/?logo=prisma' alt='Prisma'>
+
+<img src='https://img.shields.io/badge/s3-v3.2-black/?logo=amazons3' alt='s3'>
+
+</div>
 
 ## Learn More
 To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
