@@ -1,27 +1,32 @@
-
 <div align="center">
 <img src='https://readmeimg.s3.us-west-2.amazonaws.com/moxie.png' width='100%'>
-
-<img src='https://img.shields.io/github/commit-activity/m/gaelzarco/socialt3?style=plastic' alt='Commits per Month'>
-
-<img src="https://badgen.net/github/stars/gaelzarco/socialt3" alt="Stars">
-
-<div align='center'>
-
-<img src="https://badgen.net/badge/TypeScript/v4.9/?icon=typescript" alt="TypeScript">
-
-<img src='https://img.shields.io/badge/NextJS-v13.2-black/?logo=nextdotjs' alt='NextJS'>
-
-<img src='https://img.shields.io/badge/Prisma-v4.9-black/?logo=prisma' alt='Prisma'>
-
-<img src='https://img.shields.io/badge/s3-v3.2-black/?logo=amazons3' alt='s3'>
-
-</div>
 
 # Moxie
 #### Be the first to know what your friends are up to. 
 
 #### Blazingly fast and bootstrapped with `create-t3-app`
+
+<img src='https://img.shields.io/github/commit-activity/m/gaelzarco/socialt3?style=plastic' alt='Commits per Month'>
+
+<div align='center'>
+
+<img src='https://img.shields.io/badge/NextJS-v13.2/?logo=nextdotjs&color=black' alt='NextJS'>
+
+<img src="https://img.shields.io/badge/TypeScript-v4.9/?icon=typescript&color=black" alt="TypeScript">
+
+<img src='https://img.shields.io/badge/Tailwind-v3.2/?logo=tailwindcss&color=black' alt= 'Tailwind CSS'>
+
+<img src='https://img.shields.io/badge/Prisma-v4.9/?logo=prisma&color=black' alt='Prisma'>
+
+<img src='https://img.shields.io/badge/PlanetScale-MySQL/?logo=planetscale&color=black' alt='PlanetScale'>
+
+<img src='https://img.shields.io/badge/MySQL-MySQL/?logo=mysql&color=black' alt='MySQL'>
+
+<img src='https://img.shields.io/badge/TRPC-TRPC/?logo=trpc&color=black' alt='TRPC'>
+
+<img src='https://img.shields.io/badge/s3-v3.2/?logo=amazons3&color=black' alt='s3'>
+
+</div>
 
 ## Learn More
 To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
