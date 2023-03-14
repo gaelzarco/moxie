@@ -12,7 +12,7 @@
 
 <img src='https://img.shields.io/badge/NextJS-NextJS/?logo=nextdotjs&color=black' alt='NextJS'>
 
-<img src="https://img.shields.io/badge/TypeScript-TypeScript/?icon=typescript&color=black" alt="TypeScript">
+<img src="https://img.shields.io/badge/TypeScript-TypeScript/?logo=typescript&color=black" alt="TypeScript">
 
 <img src='https://img.shields.io/badge/Tailwind-Tailwind/?logo=tailwindcss&color=black' alt= 'Tailwind CSS'>
 
