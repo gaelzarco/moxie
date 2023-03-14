@@ -1,11 +1,6 @@
 <div align="center">
 <img src='https://readmeimg.s3.us-west-2.amazonaws.com/moxie.png' width='100%'>
 
-# Moxie
-#### Be the first to know what your friends are up to. 
-
-#### Blazingly fast and bootstrapped with `create-t3-app`
-
 <img src='https://img.shields.io/github/commit-activity/m/gaelzarco/socialt3?style=plastic' alt='Commits per Month'>
 
 <div align='center'>
@@ -28,12 +23,17 @@
 
 </div>
 
+# Moxie
+#### Be the first to know what your friends are up to. 
+
+#### Serverless, blazingly fast, secure, and bootstrapped with `create-t3-app`
+
 ## Learn More
 To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
 
-[Documentation](https://create.t3.gg/)
+✧ [Documentation](https://create.t3.gg/) ✧
 
-[Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available)
+✧ [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) ✧
 
 You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app)
 
