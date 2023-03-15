@@ -9,17 +9,6 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { env } from "~/env.mjs";
 import { prisma } from "~/server/db";
-import { api } from "~/utils/api";
-import { User } from "@prisma/client";
-
-interface Credentials {
-  userName: string
-  firstName: string
-  lastName: string
-  email: string
-  image: string
-  bio: string
-}
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -64,7 +53,7 @@ export const authOptions: NextAuthOptions = {
       clientSecret: env.GITHUB_CLIENT_SECRET,
     }),
     CredentialsProvider({
-      name: 'Credentials',
+      name: "Credentials",
       credentials: {
         userName: { label: "Username", type: "text" },
         firstName: { label: 'First Name', type: 'text' },
@@ -73,12 +62,20 @@ export const authOptions: NextAuthOptions = {
         image: { label: 'Profile Picture', type: 'text' },
         bio : { label: 'Add a bio!', type: 'text-input' }
       },
-      async authorize(credentials, req): Promise<User | null> {
-          // const userEmailCheck = api.users.getOneByEmail.useQuery({ email: credentials.email })
-          // const userUsernameCheck = api.users.getOneByUsername.useQuery({ userName: credentials.userName })
-          return null
-      }
-    })
+      async authorize(credentials) {
+        const user = await prisma.user.findUnique({
+          where: {
+            email: credentials!.email,
+          },
+        });
+
+        if (user && user.email === credentials!.email) {
+          return user;
+        } else {
+          throw new Error("Invalid credentials");
+        }
+      },
+    }),
     /**
      * ...add more providers here.
      *
