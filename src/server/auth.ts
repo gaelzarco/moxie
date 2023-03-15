@@ -5,9 +5,21 @@ import {
   type DefaultSession,
 } from "next-auth";
 import GitHubProvider from "next-auth/providers/github"
+import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { env } from "~/env.mjs";
 import { prisma } from "~/server/db";
+import { api } from "~/utils/api";
+import { User } from "@prisma/client";
+
+interface Credentials {
+  userName: string
+  firstName: string
+  lastName: string
+  email: string
+  image: string
+  bio: string
+}
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -51,6 +63,22 @@ export const authOptions: NextAuthOptions = {
       clientId: env.GITHUB_CLIENT_ID,
       clientSecret: env.GITHUB_CLIENT_SECRET,
     }),
+    CredentialsProvider({
+      name: 'Credentials',
+      credentials: {
+        userName: { label: "Username", type: "text" },
+        firstName: { label: 'First Name', type: 'text' },
+        lastName: { label: 'Last Name', type: 'text' },
+        email: { label: 'Email', type: 'text' },
+        image: { label: 'Profile Picture', type: 'text' },
+        bio : { label: 'Add a bio!', type: 'text-input' }
+      },
+      async authorize(credentials, req): Promise<User | null> {
+          // const userEmailCheck = api.users.getOneByEmail.useQuery({ email: credentials.email })
+          // const userUsernameCheck = api.users.getOneByUsername.useQuery({ userName: credentials.userName })
+          return null
+      }
+    })
     /**
      * ...add more providers here.
      *
@@ -62,7 +90,8 @@ export const authOptions: NextAuthOptions = {
      */
   ],
   pages: {
-    signIn: "/signIn",
+    newUser: '/auth/new-user',
+    signIn: "/auth/sign-in",
   },
 };
 
