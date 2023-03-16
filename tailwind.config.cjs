@@ -4,6 +4,9 @@ const config = {
   theme: {
     extend: {},
   },
+  variants: {
+    width: ["responsive", "hover", "focus"]
+},
   plugins: [],
 };
 

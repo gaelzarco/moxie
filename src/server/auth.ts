@@ -5,10 +5,12 @@ import {
   type DefaultSession,
 } from "next-auth";
 import GitHubProvider from "next-auth/providers/github"
-import CredentialsProvider from "next-auth/providers/credentials";
+import Credentials from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { env } from "~/env.mjs";
 import { prisma } from "~/server/db";
+import { User } from "@prisma/client";
+import { signOut } from "next-auth/react";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -38,9 +40,16 @@ declare module "next-auth" {
  */
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    session({ session, user }) {
-      if (session.user) {
-        session.user.id = user.id;
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.email = user.email;
+      }
+      return token;
+    },
+    session({ session, token }) {
+      if (session.user && token) {
+        session.user.id = token.id as string
         // session.user.role = user.role; <-- put other properties on the session here
       }
       return session;
@@ -52,28 +61,33 @@ export const authOptions: NextAuthOptions = {
       clientId: env.GITHUB_CLIENT_ID,
       clientSecret: env.GITHUB_CLIENT_SECRET,
     }),
-    CredentialsProvider({
-      name: "Credentials",
+    Credentials({
+      name: "credentials",
       credentials: {
-        userName: { label: "Username", type: "text" },
-        firstName: { label: 'First Name', type: 'text' },
-        lastName: { label: 'Last Name', type: 'text' },
-        email: { label: 'Email', type: 'text' },
-        image: { label: 'Profile Picture', type: 'text' },
-        bio : { label: 'Add a bio!', type: 'text-input' }
+        userName: { label: "Username", type: "text", placeholder: "Username" },
+        name: { label: "Name", type: "text", placeholder: "Name" },
+        email: { label: 'Email', type: 'text', placeholder: 'Email' },
+        image: { label: 'Profile Picture', type: 'text', placeholder: 'Profile Picture' },
+        bio: { label: 'Add a bio!', type: 'text-input', placeholder: 'Bio' }
       },
-      async authorize(credentials) {
-        const user = await prisma.user.findUnique({
-          where: {
-            email: credentials!.email,
-          },
-        });
-
-        if (user && user.email === credentials!.email) {
-          return user;
-        } else {
-          throw new Error("Invalid credentials");
-        }
+      async authorize(credentials): Promise<User | null> {
+          const { userName, name, email, image, bio } = credentials as {
+            userName: string;
+            name: string;
+            email: string;
+            image: string;
+            bio: string;
+          };
+          if (!userName || !name || !email || !image || !bio) {
+            return null;
+          } else {
+            const user = await prisma.user.upsert({
+              where: { email: email },
+              update: { userName, name, email, image, bio },
+              create: { userName, name, email, image, bio },
+            });
+            return user;
+          }
       },
     }),
     /**
@@ -86,9 +100,9 @@ export const authOptions: NextAuthOptions = {
      * @see https://next-auth.js.org/providers/github
      */
   ],
+  secret: env.NEXTAUTH_SECRET,
   pages: {
-    newUser: '/auth/new-user',
-    signIn: "/auth/sign-in",
+    newUser: "auth/gettingstarted"
   },
 };
 

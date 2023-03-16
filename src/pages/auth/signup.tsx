@@ -3,7 +3,7 @@ import { NextPage } from "next";
 
 import UserForm from "../components/userform";
 
-const CreateAccount: NextPage = () => {
+const NewUser: NextPage = () => {
   return (
     <div className='h-screen w-screen bg-stone-800 text-white flex flex-col items-center justify-center'>
       <div className='h-5/6 w-2/3 bg-stone-900 rounded-lg flex flex-col drop-shadow-lg items-center justify-center'>
@@ -25,4 +25,4 @@ const CreateAccount: NextPage = () => {
   );
 };
 
-export default CreateAccount;
+export default NewUser;

@@ -30,8 +30,7 @@ export const usersRouter = createTRPCRouter({
     createOne: publicProcedure
     .input(z.object({
         userName: z.string(),
-        firstName: z.string(),
-        lastName: z.string(),
+        name: z.string(),
         email: z.string(),
         image: z.string(),
         bio: z.string(),
@@ -40,8 +39,7 @@ export const usersRouter = createTRPCRouter({
         return ctx.prisma.user.create({
             data: {
                 userName: input.userName,
-                firstName: input.firstName,
-                lastName: input.lastName,
+                name: input.name,
                 email: input.email,
                 image: input.image,
                 bio: input.bio

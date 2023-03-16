@@ -1,16 +1,12 @@
 import { type NextPage } from "next";
-import Link from "next/link";
+import NavBar from "./components/navbar";
 import { signIn, signOut, useSession } from "next-auth/react";
 
-import { api } from "~/utils/api";
-
 const Home: NextPage = () => {
-  const posts = api.posts.getAll.useQuery();
-  console.log(posts)
-
   return (
     <>
-      <main className="flex bg-black min-h-screen flex-col items-center justify-center">
+      <main className="flex bg-black h-screen flex-col items-center justify-center">
+      <NavBar />
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
           <div className="flex flex-col items-center gap-2">
             <h2 className="text-3xl text-white">
@@ -37,21 +33,21 @@ export const AuthShowcase: React.FC = () => {
       <p className="text-center text-2xl text-white">
         {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
       </p>
-      {sessionData ? null : (
-        <Link href='/auth/create-user'>
-          <button
-            className="w-48 rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
-          >
-            Create Account
-          </button>
-        </Link>
-      )}
-      <button
+      {sessionData ? (
+        <button
         className="w-48 rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
-        onClick={sessionData ? () => void signOut() : () => void signIn()}
+        onClick={() => void signOut()}
       >
-        {sessionData ? "Sign out" : "Sign in"}
+        Sign Out
       </button>
+      ) : (
+        <button
+          className="w-48 rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
+          onClick={() => void signIn()}
+          >
+          Get Started
+        </button>
+      )}
     </div>
   );
 };
