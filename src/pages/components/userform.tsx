@@ -7,7 +7,7 @@ export default function UserForm() {
         password: ''
     })
 
-      const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+      const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         console.log(credentials)
       }
