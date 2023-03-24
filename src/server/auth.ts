@@ -5,11 +5,9 @@ import {
   type DefaultSession,
 } from "next-auth";
 import GitHubProvider from "next-auth/providers/github"
-import Credentials from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { env } from "~/env.mjs";
 import { prisma } from "~/server/db";
-import type { User } from "@prisma/client";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -59,35 +57,6 @@ export const authOptions: NextAuthOptions = {
     GitHubProvider({
       clientId: env.GITHUB_CLIENT_ID,
       clientSecret: env.GITHUB_CLIENT_SECRET,
-    }),
-    Credentials({
-      name: "credentials",
-      credentials: {
-        userName: { label: "Username", type: "text", placeholder: "Username" },
-        name: { label: "Name", type: "text", placeholder: "Name" },
-        email: { label: 'Email', type: 'text', placeholder: 'Email' },
-        image: { label: 'Profile Picture', type: 'text', placeholder: 'Profile Picture' },
-        bio: { label: 'Add a bio!', type: 'text-input', placeholder: 'Bio' }
-      },
-      async authorize(credentials): Promise<User | null> {
-          const { userName, name, email, image, bio } = credentials as {
-            userName: string;
-            name: string;
-            email: string;
-            image: string;
-            bio: string;
-          };
-          if (!userName || !name || !email || !image || !bio) {
-            return null;
-          } else {
-            const user = await prisma.user.upsert({
-              where: { email: email },
-              update: { userName, name, email, image, bio },
-              create: { userName, name, email, image, bio },
-            });
-            return user;
-          }
-      },
     }),
     /**
      * ...add more providers here.

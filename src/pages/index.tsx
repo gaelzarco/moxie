@@ -1,8 +1,11 @@
 import { type NextPage } from "next";
 import NavBar from "./components/navbar";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { SignInButton, SignOutButton, useUser } from '@clerk/nextjs'
 
 const Home: NextPage = () => {
+  const user = useUser()
+
   return (
     <>
       <main className="flex bg-black h-screen flex-col items-center justify-center">
@@ -15,7 +18,12 @@ const Home: NextPage = () => {
             <p className="text-2xl text-white">
               The bleeding edge social media site made for everyone.
             </p>
-            <AuthShowcase />
+
+            <div className="text-white">
+              {!user.isSignedIn && <SignInButton />}
+              {!!user.isSignedIn && <SignOutButton />}
+            </div>
+
           </div>
         </div>
       </main>
