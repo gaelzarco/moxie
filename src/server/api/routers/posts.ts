@@ -1,5 +1,4 @@
 import { z } from 'zod'
-
 import { createTRPCRouter, publicProcedure, protectedProcedure } from "~/server/api/trpc";
 
 export const postsRouter = createTRPCRouter({
@@ -21,13 +20,14 @@ export const postsRouter = createTRPCRouter({
 
     createOne: protectedProcedure
     .input(z.object({
+        userId: z.string(),
         media: z.string(),
         body: z.string(),
     }))
     .mutation(({ ctx, input }) => {
         return ctx.prisma.post.create({
             data: {
-                userId: ctx.session.user.id,
+                userId: input.userId,
                 media: input.media,
                 body: input.body
             },
