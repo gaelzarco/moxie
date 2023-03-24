@@ -1,12 +1,11 @@
 import { NextPage } from "next";
 import { 
-  type FormEvent, type ChangeEvent, type DragEventHandler,
-  useRef ,useState
+  type FormEvent, type ChangeEvent, type DragEventHandler, 
+  useState
  } from "react";
 
 const CreatePost: NextPage = () => {
 
-    const fileRef = useRef()
     const [ file, setFile ] = useState<File | undefined>(undefined);
     const [ post, setPost ] = useState({
         body: '',
