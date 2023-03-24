@@ -15,7 +15,6 @@
  * These allow you to access things when processing a request, like the database, the session, etc.
  */
 import { prisma } from "~/server/db";
-
 /**
  * This helper generates the "internals" for a tRPC context. If you need to use it, you can export
  * it from here.
@@ -47,9 +46,10 @@ export const createTRPCContext = () => {
  *
  * This is where the tRPC API is initialized, connecting the context and transformer.
  */
-import { initTRPC } from "@trpc/server";
+import { initTRPC, TRPCError } from "@trpc/server";
 // import { TRPCError } from "@trpc/server";
 import superjson from "superjson";
+import { useUser } from "@clerk/nextjs";
 
 const t = initTRPC.context<typeof createTRPCContext>().create({
   transformer: superjson,
@@ -91,4 +91,17 @@ export const publicProcedure = t.procedure;
  *
  * @see https://trpc.io/docs/procedures
  */
-export const protectedProcedure = t.procedure;
+const isAuthed = t.middleware(({ ctx, next }) => { 
+  const user = useUser()
+  if (!user) {
+    throw new TRPCError({ code: 'UNAUTHORIZED' });
+  }
+
+  return next({
+    ctx: {
+      user
+    }
+  })
+})
+
+export const protectedProcedure = t.procedure.use(isAuthed);
