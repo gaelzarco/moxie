@@ -23,7 +23,7 @@
 
 </div>
 
-# Moxie
+# [Moxie](https://moxie-x.vercel.app)
 #### Be the first to know what your friends are up to. 
 
 #### Serverless, blazingly fast, secure, and bootstrapped with `create-t3-app`
