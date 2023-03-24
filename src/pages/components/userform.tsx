@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { type FormEvent, type ChangeEvent, useState } from "react";
 
 export default function UserForm() {
     const [ credentials, setCredentials ] = useState({
@@ -12,13 +12,13 @@ export default function UserForm() {
         console.log(credentials)
       }
 
-      const emailHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+      const emailHandler = (event: ChangeEvent<HTMLInputElement>) => {
         setCredentials({...credentials, email: event.target.value});
       };
-      const nameHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+      const nameHandler = (event: ChangeEvent<HTMLInputElement>) => {
         setCredentials({...credentials, name: event.target.value});
       };
-      const passwordHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+      const passwordHandler = (event: ChangeEvent<HTMLInputElement>) => {
         setCredentials({...credentials, password: event.target.value});
       };
 

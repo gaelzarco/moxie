@@ -10,15 +10,14 @@ const SignIn = ({ providers }: { providers: AppProps }) => {
         <h1 className='text-3xl font-semibold'>Sign in</h1>
         <div className="justify-center border-bottom">
           {Object.values(providers).map((provider) => (
-            <div className="flex justify-center">
+            <div key={provider.id!} className="flex justify-center">
               <button
               className="w-35 rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
-              key={provider.id}
               onClick={() => 
-                signIn(provider.id, {
+                signIn(provider.id!, {
                 callbackUrl: `${window.location.origin}`,
               })
-            }>Sign in with {provider.id === 'github'? 'Github' : 'E-Mail'}</button>
+            }>Sign in with {provider.id! === 'github'? 'Github' : 'E-Mail'}</button>
             </div>
           ))}
           <div className="flex justify-center">
