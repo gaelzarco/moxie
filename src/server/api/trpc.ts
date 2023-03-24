@@ -38,7 +38,7 @@ const createInnerTRPCContext = () => {
  *
  * @see https://trpc.io/docs/context
  */
-export const createTRPCContext = async () => {
+export const createTRPCContext = () => {
   return createInnerTRPCContext();
 };
 
@@ -47,7 +47,8 @@ export const createTRPCContext = async () => {
  *
  * This is where the tRPC API is initialized, connecting the context and transformer.
  */
-import { initTRPC, TRPCError } from "@trpc/server";
+import { initTRPC } from "@trpc/server";
+// import { TRPCError } from "@trpc/server";
 import superjson from "superjson";
 
 const t = initTRPC.context<typeof createTRPCContext>().create({
