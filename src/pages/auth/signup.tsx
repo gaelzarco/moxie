@@ -1,5 +1,5 @@
 import { signIn } from "next-auth/react";
-import { NextPage } from "next";
+import type { NextPage } from "next";
 
 import UserForm from "../components/userform";
 

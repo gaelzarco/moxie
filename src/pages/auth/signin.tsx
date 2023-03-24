@@ -1,6 +1,6 @@
-import { GetServerSideProps } from "next";
+import type { GetServerSideProps } from "next";
 import { getProviders, signIn} from "next-auth/react";
-import { type AppProps } from "next/app";
+import type { AppProps } from "next/app";
 import Link from "next/link";
 
 const SignIn = ({ providers }: { providers: AppProps }) => {
