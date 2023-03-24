@@ -1,13 +1,14 @@
 import { type NextPage } from "next"
 import { api } from "~/utils/api";
 
+import CreatePost from "./components/createpost";
+
 const Feed: NextPage = () => {
     const { data } = api.posts.getAll.useQuery();
 
-    console.log(data)
-
     return (
-        <div className='h-screen w-screen bg-black text-white flex flex-col items-center justify-center'>
+        <div className='h-screen w-screen flex flex-col items-center justify-center'>
+            <CreatePost />
             <h2>Feed</h2>
             {data?.map((post) => {
                 return (
