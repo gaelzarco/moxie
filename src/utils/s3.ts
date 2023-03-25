@@ -4,8 +4,8 @@ import { randomBytes } from "crypto";
 
 const bucketName = process.env.AWS_BUCKET_NAME
 const bucketRegion = process.env.AWS_BUCKET_REGION
-const accessKey = process.env.AWS_ACCESS_KEY
-const secretKey = process.env.AWS_SECRET_KEY
+const accessKey = process.env.AWS_ACCESS_KEY_ID
+const secretKey = process.env.AWS_SECRET_KEY_ID
 
 const s3 = new S3Client({
     region: bucketRegion,

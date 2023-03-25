@@ -11,7 +11,8 @@ const server = z.object({
   CLERK_SECRET_KEY: z.string().min(1),
   AWS_BUCKET_NAME: z.string().min(1),
   AWS_BUCKET_REGION: z.string().min(1),
-  AWS_SECRET_KEY: z.string().min(1),
+  AWS_ACCESS_KEY_ID: z.string().min(1),
+  AWS_SECRET_KEY_ID: z.string().min(1),
 
   // Add `.min(1) on ID and SECRET if you want to make sure they're not empty
 });
@@ -37,7 +38,8 @@ const processEnv = {
   CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
   AWS_BUCKET_NAME: process.env.AWS_BUCKET_NAME,
   AWS_BUCKET_REGION: process.env.AWS_BUCKET_REGION,
-  AWS_SECRET_KEY: process.env.AWS_SECRET_KEY,
+  AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
+  AWS_SECRET_KEY_ID: process.env.AWS_SECRET_KEY,
   // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
 };
 
