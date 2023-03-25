@@ -1,26 +1,35 @@
 import { 
-  type DragEventHandler, 
-  useState, useRef
+  type DragEventHandler, type MouseEventHandler,
+  useState, useRef, useEffect
 } from "react";
 
-interface FuncProps {
-    changeState: (file: File | any) => void;
+interface ChangeParentStateProps {
+    setParentState: (file: File | any) => void
 }
 
-const DragAndDrop: React.FC<FuncProps> = ( props: FuncProps ) => {
+const DragAndDrop: React.FC<ChangeParentStateProps> = ({ setParentState }: ChangeParentStateProps ) => {
 
-    const fileRef = useRef<HTMLInputElement>(null)
+    // const fileRef = useRef<HTMLInputElement>(null)
     const [ file, setFile ] = useState<File | null>(null)
 
     const handleDragOver: DragEventHandler<HTMLInputElement> = (event) => event.preventDefault()
     const handleDrop: DragEventHandler<HTMLInputElement> = (event) => {
         event.preventDefault()
-        if (event.dataTransfer) {
-            console.log(event.dataTransfer.files[0])
+        if (event.dataTransfer.files) {
             setFile(event.dataTransfer.files[0]!)
-            props.changeState(event.dataTransfer.files[0]!)
+            setParentState(file)
         }
     }
+    // const handleFileClick: MouseEventHandler<HTMLButtonElement> = (event) => {
+    //   event.preventDefault()
+    //   fileRef.current?.click()
+    //   setParentState(file)
+    // }
+
+    useEffect(() => {
+      file ? setParentState(file) : setParentState(null)
+      // console.log(fileRef.current?.files)
+    }, [ file, setParentState ])
 
     return (
         <>
@@ -34,23 +43,22 @@ const DragAndDrop: React.FC<FuncProps> = ( props: FuncProps ) => {
               <p>Or</p>
             <input
               type="file"
-              className="cursor-pointer relative justify-center items-center"
+              className="cursor-pointer justify-center content-center items-center flex flex-col"
               onChange={(event) => {
-                if (event.target.files) {
-                    setFile(event.target.files[0]!)
-                    props.changeState(event.target.files[0])
-                }
+                  if (event.target.files) {
+                      setFile(event.target.files[0]!)
+                      setParentState(file)
+                  }
               }}
-              hidden
-              ref={fileRef}
+              // hidden
+              // ref={fileRef}
             />
-            <button
-            onClick={() => {
-                fileRef.current?.click()
-            }}
+            {/* <button
+              onClick={(event) => handleFileClick(event)}
+              className="bg-stone-800 hover:bg-stone-500 text-white font-bold py-2 px-4 rounded"
             >
               Select Files
-            </button>
+            </button> */}
           </div>
           ) : (
             <div className="flex flex-col justify-center items-center content-center mt-10 mb-10">
@@ -59,9 +67,11 @@ const DragAndDrop: React.FC<FuncProps> = ( props: FuncProps ) => {
             </h1>
             <div>
                 <button onClick={() => {
-                    setFile(null)
-                    props.changeState(null)
-                    }}>Cancel</button>
+                  setFile(null)
+                  setParentState(null)
+                  }}>
+                  Cancel
+                  </button>
             </div>
         </div>
           )}
