@@ -15,6 +15,8 @@
  * These allow you to access things when processing a request, like the database, the session, etc.
  */
 import { prisma } from "~/server/db";
+import { getAuth } from "@clerk/nextjs/server";
+import { CreateNextContextOptions } from "@trpc/server/adapters/next";
 /**
  * This helper generates the "internals" for a tRPC context. If you need to use it, you can export
  * it from here.
@@ -25,11 +27,6 @@ import { prisma } from "~/server/db";
  *
  * @see https://create.t3.gg/en/usage/trpc#-servertrpccontextts
  */
-const createInnerTRPCContext = () => {
-  return {
-    prisma,
-  };
-};
 
 /**
  * This is the actual context you will use in your router. It will be used to process every request
@@ -37,8 +34,16 @@ const createInnerTRPCContext = () => {
  *
  * @see https://trpc.io/docs/context
  */
-export const createTRPCContext = () => {
-  return createInnerTRPCContext();
+export const createTRPCContext = (opts: CreateNextContextOptions) => {
+  const { req } = opts
+  const sesh = getAuth(req)
+
+  const userId = sesh.userId
+
+  return {
+    prisma,
+    userId
+  }
 };
 
 /**
@@ -49,12 +54,19 @@ export const createTRPCContext = () => {
 import { initTRPC, TRPCError } from "@trpc/server";
 // import { TRPCError } from "@trpc/server";
 import superjson from "superjson";
-import { useUser } from "@clerk/nextjs";
+import { ZodError } from "zod";
 
 const t = initTRPC.context<typeof createTRPCContext>().create({
   transformer: superjson,
-  errorFormatter({ shape }) {
-    return shape;
+  errorFormatter({ shape, error }) {
+    return {
+      ...shape,
+      data: {
+        ...shape.data,
+        zodError:
+          error.cause instanceof ZodError ? error.cause.flatten() : null,
+      },
+    };
   },
 });
 
@@ -91,17 +103,19 @@ export const publicProcedure = t.procedure;
  *
  * @see https://trpc.io/docs/procedures
  */
-const isAuthed = t.middleware(({ ctx, next }) => { 
-  const user = useUser()
-  if (!user) {
-    throw new TRPCError({ code: 'UNAUTHORIZED' });
+const isAuthed = t.middleware(async ({ ctx, next }) => {
+  if (!ctx.userId) {
+    throw new TRPCError({
+      code: "UNAUTHORIZED",
+    });
   }
 
   return next({
     ctx: {
-      user
-    }
-  })
-})
+      userId: ctx.userId,
+      prisma
+    },
+  });
+});
 
 export const protectedProcedure = t.procedure.use(isAuthed);

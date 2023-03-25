@@ -5,6 +5,8 @@ import { SignInButton, SignOutButton, useUser } from '@clerk/nextjs'
 const Home: NextPage = () => {
   const user = useUser()
 
+  console.log(user)
+
   return (
     <>
       <main className="flex h-screen flex-col items-center justify-center">

@@ -15,6 +15,9 @@ const Feed: NextPage = () => {
                     <div key={post.id} className='flex flex-col items-center justify-center'>
                         <h3>{post.body}</h3>
                         <p>{post.userId}</p>
+                        {post.link && (
+                            <img src={post.link} alt="Post Media"/>
+                        )}
                     </div>
                 )
             })}
