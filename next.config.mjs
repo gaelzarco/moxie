@@ -9,6 +9,16 @@
 /** @type {import("next").NextConfig} */
 const config = {
   reactStrictMode: true,
+  images: {
+    remotePatterns: [
+      {
+        hostname: "mern-social.s3.us-west-2.amazonaws.com",
+      },
+      {
+        hostname: "images.clerk.dev",
+      }
+    ],
+  },
 
   /**
    * If you have the "experimental: { appDir: true }" setting enabled, then you
