@@ -1,6 +1,6 @@
 import { 
-  type DragEventHandler, type MouseEventHandler,
-  useState, useRef, useEffect
+  type DragEventHandler,
+  useState, useEffect
 } from "react";
 
 interface ChangeParentStateProps {
@@ -9,7 +9,6 @@ interface ChangeParentStateProps {
 
 const DragAndDrop: React.FC<ChangeParentStateProps> = ({ setParentState }: ChangeParentStateProps ) => {
 
-    // const fileRef = useRef<HTMLInputElement>(null)
     const [ file, setFile ] = useState<File | null>(null)
 
     const handleDragOver: DragEventHandler<HTMLInputElement> = (event) => event.preventDefault()
@@ -20,15 +19,9 @@ const DragAndDrop: React.FC<ChangeParentStateProps> = ({ setParentState }: Chang
             setParentState(file)
         }
     }
-    // const handleFileClick: MouseEventHandler<HTMLButtonElement> = (event) => {
-    //   event.preventDefault()
-    //   fileRef.current?.click()
-    //   setParentState(file)
-    // }
 
     useEffect(() => {
       file ? setParentState(file) : setParentState(null)
-      // console.log(fileRef.current?.files)
     }, [ file, setParentState ])
 
     return (
@@ -51,15 +44,7 @@ const DragAndDrop: React.FC<ChangeParentStateProps> = ({ setParentState }: Chang
                       setParentState(file)
                   }
               }}
-              // hidden
-              // ref={fileRef}
             />
-            {/* <button
-              onClick={(event) => handleFileClick(event)}
-              className="bg-stone-800 hover:bg-stone-500 text-white font-bold py-2 px-4 rounded"
-            >
-              Select Files
-            </button> */}
           </div>
           ) : (
             <div className="flex flex-col justify-center items-center content-center mt-10 mb-10">
