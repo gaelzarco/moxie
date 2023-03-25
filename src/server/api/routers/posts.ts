@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { createTRPCRouter, publicProcedure, protectedProcedure } from "~/server/api/trpc";
-import { uploadFile, getFileURL } from '~/utils/s3';
+import { uploadFile, getFileURL } from '~/server/api/s3';
 
 export const postsRouter = createTRPCRouter({
     getAll: publicProcedure.query(async ({ ctx }) => {
@@ -19,11 +19,11 @@ export const postsRouter = createTRPCRouter({
 
     createOne: protectedProcedure
     .input(z.object({
-        body: z.string(),
+        body: z.string().min(1).max(300),
         media: z.object({
             buffer: z.string(),
             mimetype: z.string()
-        }).optional()
+        }).nullable()
     }))
     .mutation(async ({ ctx, input }) => {
         console.log(input)
