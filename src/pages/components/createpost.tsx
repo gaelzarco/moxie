@@ -79,7 +79,10 @@ const CreatePost: NextPage = () => {
             )} 
 
           <button
-            onClick={() => setImgView(!imgView)}
+            onClick={(event) => {
+              event.preventDefault()
+              setImgView(!imgView)}
+            }
             className="flex justify-center items-center m-auto rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
           >
               Attach Image
