@@ -45,6 +45,7 @@ const DragAndDrop: React.FC<ChangeParentStateProps> = ({ setParentState }: Chang
               type="file"
               className="cursor-pointer justify-center content-center items-center flex flex-col"
               onChange={(event) => {
+                event.preventDefault()
                   if (event.target.files) {
                       setFile(event.target.files[0]!)
                       setParentState(file)
@@ -66,7 +67,8 @@ const DragAndDrop: React.FC<ChangeParentStateProps> = ({ setParentState }: Chang
                 {file.name}
             </h1>
             <div>
-                <button onClick={() => {
+                <button onClick={(event) => {
+                  event.preventDefault()
                   setFile(null)
                   setParentState(null)
                   }}>
