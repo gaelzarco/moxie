@@ -39,7 +39,7 @@ const processEnv = {
   AWS_BUCKET_NAME: process.env.AWS_BUCKET_NAME,
   AWS_BUCKET_REGION: process.env.AWS_BUCKET_REGION,
   AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
-  AWS_SECRET_KEY_ID: process.env.AWS_SECRET_KEY,
+  AWS_SECRET_KEY_ID: process.env.AWS_SECRET_KEY_ID,
 };
 
 // Don't touch the part below
