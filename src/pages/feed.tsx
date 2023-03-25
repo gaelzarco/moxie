@@ -7,7 +7,7 @@ const Feed: NextPage = () => {
     const { data } = api.posts.getAll.useQuery();
 
     return (
-        <div className='h-screen w-screen flex flex-col items-center justify-center'>
+        <div className='flex flex-col items-center justify-center'>
             <CreatePost />
             <h2>Feed</h2>
             {data?.map((post) => {
@@ -16,7 +16,7 @@ const Feed: NextPage = () => {
                         <h3>{post.body}</h3>
                         <p>{post.userId}</p>
                         {post.link && (
-                            <img src={post.link} alt="Post Media"/>
+                            <img src={post.link} style={{ height:'300px' }} alt="Post Media"/>
                         )}
                     </div>
                 )

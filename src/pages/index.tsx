@@ -5,11 +5,9 @@ import { SignInButton, SignOutButton, useUser } from '@clerk/nextjs'
 const Home: NextPage = () => {
   const user = useUser()
 
-  console.log(user)
-
   return (
     <>
-      <main className="flex h-screen flex-col items-center justify-center">
+      <main className="flex h-screen flex-col">
       <NavBar />
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
           <div className="flex flex-col items-center gap-2">
