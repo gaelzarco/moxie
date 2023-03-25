@@ -1,36 +1,39 @@
 import { z } from 'zod'
 import { createTRPCRouter, publicProcedure, protectedProcedure } from "~/server/api/trpc";
+import { uploadFile, getFileURL } from '~/utils/s3';
 
 export const postsRouter = createTRPCRouter({
-    getAll: publicProcedure.query(({ ctx }) => {
-        return ctx.prisma.post.findMany()
-    }),
+    getAll: publicProcedure.query(async ({ ctx }) => {
+        const posts = await ctx.prisma.post.findMany()
 
-    getOne: protectedProcedure
-    .input(z.object({
-        postId: z.string(),
-      }))
-    .query(({ ctx, input }) => {
-        return ctx.prisma.post.findUnique({
-        where: {
-            id: input.postId,
-        },
-        });
+        const postsWithMedia = await Promise.all(posts.map(async (post) => {
+            if (post.media === null) return post
+
+            const postImgLink = await getFileURL(post.media as string)
+            post.link = postImgLink
+            return post
+        }))
+
+        return postsWithMedia
     }),
 
     createOne: protectedProcedure
     .input(z.object({
-        userId: z.string(),
-        media: z.string(),
         body: z.string(),
+        media: z.object({
+            buffer: z.string(),
+            mimetype: z.string()
+        }).optional()
     }))
-    .mutation(({ ctx, input }) => {
+    .mutation(async ({ ctx, input }) => {
+        console.log(input)
+        const fileName = input.media ? await uploadFile(input.media) : null
         return ctx.prisma.post.create({
             data: {
-                userId: input.userId,
-                media: input.media,
-                body: input.body
-            },
+                userId: ctx.userId,
+                body: input.body,
+                media: fileName
+            }
         })
     })
 })

@@ -1,35 +1,63 @@
 import { NextPage } from "next";
 import { 
-  type FormEvent, type ChangeEvent, type DragEventHandler, 
+  type FormEvent, type ChangeEvent,
   useState
- } from "react";
+} from "react";
+import { api } from "~/utils/api";
+import DragAndDrop from "./draganddrop";
 
 const CreatePost: NextPage = () => {
 
-    const [ file, setFile ] = useState<File | undefined>(undefined);
-    const [ post, setPost ] = useState({
-        body: '',
-        media: typeof File === 'undefined' ? undefined : new File([], '')
-    })
+  type Post = {
+    body: string;
+    media: {
+      buffer: string;
+      mimetype: string;
+    } | null;
+  }
 
-    const handleDragOver: DragEventHandler<HTMLInputElement> = (event) => event.preventDefault()
-    const handleDrop: DragEventHandler<HTMLInputElement> = (event) => {
-        event.preventDefault()
-        if (event.dataTransfer) {
-            setFile(event.dataTransfer.files[0])
-            mediaHandler(event.dataTransfer.files[0])
-        }
-    }
+   const postMutation = api.posts.createOne.useMutation()
+
+    const [ post, setPost ] = useState<Post>({
+        body: '',
+        media: null
+    })
+    const [ file, setFile ] = useState<File | null>(null)
+
+    const [imgView, setImgView] = useState(false)
 
       const bodyHandler = (event: ChangeEvent<HTMLInputElement>) => {
         setPost({...post, body: event.target.value});
       };
-      const mediaHandler = (file: File | undefined) => {
-        setPost({...post, media: file});
-      };
-      const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+      const imgState = (file: File) => {
+        setFile(file)
+    }
+      const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        console.log(post)
+        // let formData = new FormData()
+        // for (let [key, value] of Object.entries(post)) {
+        //   formData.append(`${key}`, value!)
+        // }
+        // if (typeof post.media !== null) {
+        //   formData.set('media', post.media!, post.media!.name)
+        // }
+        // console.log(post)
+
+        if (file) {
+          const reader = new FileReader()
+          reader.readAsArrayBuffer(file!)
+
+          reader.onload = async () => {
+            const buffer = Buffer.from(reader.result as ArrayBuffer)
+            const base64 = buffer.toString('base64')
+            setPost({...post, media: {buffer: base64, mimetype: file!.type}})
+          }
+
+          postMutation.mutate({
+            body: post.body,
+            media: post.media!
+          })
+        }
       }
 
       return (
@@ -46,38 +74,17 @@ const CreatePost: NextPage = () => {
               className="border rounded w-full py-2 px-3 text-black active:outline-none focus:outline-none"
             />
           </div>
-          {!file ? (
-            <div className="border-2 border-dashed border-gray-400 rounded-lg h-48 justify-center items-center flex flex-col"
-            onDragOver={handleDragOver}
-            onDrop={handleDrop}
-            >
-              <p>Drag and drop</p>
-              <br />
-              <p>or</p>
-            <input
-              type="file"
-              className="cursor-pointer relative justify-center items-center"
-              onChange={(event) => {
-                if (event.target.files) {
-                    setFile(event.target.files[0])
-                    mediaHandler(event.target.files[0])
-                }
-              }}
-            />
+
+          {imgView && (
+                <div>
+                    <DragAndDrop changeState={imgState}/>
+                </div>
+            )}
+
+          <div onClick={() => setImgView(!imgView)}>
+              <p>Attach Image</p>
           </div>
-          ) : (
-            <div className="uploads">
-            <h1>
-                {file.name}
-            </h1>
-            <div className="uploads-actions">
-                <button onClick={() => {
-                    setFile(undefined)
-                    mediaHandler(undefined)
-                    }}>Cancel</button>
-            </div>
-        </div>
-          )}
+
           <div className="flex items-center justify-center">
             <button
               type="submit"

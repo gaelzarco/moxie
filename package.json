@@ -10,6 +10,8 @@
     "start": "next start"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.299.0",
+    "@aws-sdk/s3-request-presigner": "^3.299.0",
     "@clerk/nextjs": "^4.11.13",
     "@next-auth/prisma-adapter": "^1.0.5",
     "@prisma/client": "^4.9.0",
@@ -26,7 +28,7 @@
   },
   "devDependencies": {
     "@types/eslint": "^8.21.1",
-    "@types/node": "^18.14.0",
+    "@types/node": "^18.15.7",
     "@types/prettier": "^2.7.2",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
