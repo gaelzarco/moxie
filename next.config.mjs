@@ -12,9 +12,11 @@ const config = {
   images: {
     remotePatterns: [
       {
+        protocol: "https",
         hostname: "mern-social.s3.us-west-2.amazonaws.com",
       },
       {
+        protocol: "https",
         hostname: "images.clerk.dev",
       }
     ],

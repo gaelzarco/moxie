@@ -29,7 +29,8 @@ export const getFileURL = async (imageName: string) => {
     return url
 }
 
-export const uploadFile = async (media: {
+export const uploadFile = async (
+    media: {
         buffer: string;
         mimetype: string;
     }) => {
