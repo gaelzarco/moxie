@@ -29,7 +29,7 @@ export const postsRouter = createTRPCRouter({
         const postsWithMediaLinks = await Promise.all(posts.map(async (post) => {
             if (post.media === null) return post
 
-            const postImgLink = await getFileURL(post.media as string)
+            const postImgLink = await getFileURL(post.media)
             post.link = postImgLink
             return post
         }))

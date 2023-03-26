@@ -1,4 +1,4 @@
-import { NextPage } from "next";
+import { type NextPage } from "next";
 import { 
   type FormEvent, type ChangeEvent,
   useState, useEffect
@@ -23,7 +23,7 @@ const CreatePost: NextPage = () => {
     const [ file, setFile ] = useState<File | null>(null)
     const [imgView, setImgView] = useState(false)
 
-    const { mutate, isLoading } = api.posts.createOne.useMutation({
+    const { mutate } = api.posts.createOne.useMutation({
       onSuccess: () => {
           setPost({ body: '', media: null })
           setFile(null)
@@ -35,9 +35,9 @@ const CreatePost: NextPage = () => {
         setPost({...post, body: event.target.value});
       };
       const postFileHandler = (file: File | null) => {
-        setFile(prevState  => prevState = file )
+        setFile(file )
     }
-      const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
+      const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         if (post.body.length > 0) {
           mutate(post)
@@ -49,10 +49,10 @@ const CreatePost: NextPage = () => {
           const reader = new FileReader()
           reader.readAsArrayBuffer(file)
       
-          reader.onload = async () => {
+          reader.onload = () => {
             const buffer = Buffer.from(reader.result as ArrayBuffer)
             const base64 = buffer.toString('base64')
-            setPost((prevState) => ({ ...prevState, media: { buffer: base64, mimetype: file!.type } }))
+            setPost((prevState) => ({ ...prevState, media: { buffer: base64, mimetype: file.type } }))
           }
         } else {
           setPost((prevState) => ({ ...prevState, media: null }))
