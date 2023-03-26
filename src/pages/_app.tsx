@@ -1,6 +1,7 @@
 import { type AppType } from "next/app";
 import Head from "next/head";
 import { ClerkProvider } from "@clerk/nextjs";
+import NavBar from "./components/navbar";
 
 import { api } from "~/utils/api";
 
@@ -15,6 +16,7 @@ const MyApp: AppType = ({ Component, pageProps: { ...pageProps } }) => {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Component {...pageProps} />
+        <NavBar />
       </ClerkProvider>
   );
 };
