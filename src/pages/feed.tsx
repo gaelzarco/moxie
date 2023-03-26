@@ -6,7 +6,7 @@ import { api } from "~/utils/api";
 import CreatePost from "./components/createpost";
 
 const Feed: NextPage = () => {
-    const { data, isLoading, isError } = api.posts.getAll.useQuery();
+    const { data } = api.posts.getAll.useQuery();
 
     return (
         <div className='flex flex-col items-center justify-center'>
@@ -20,7 +20,7 @@ const Feed: NextPage = () => {
                 return (
                     <div key={post.id} className="border border-stone-300 w-full p-8">
                         <div className="flex">
-                            <Image className="rounded-full" src={user?.profileImageURL!} height={50} width={50} alt="Profile Picture" />
+                            <Image className="rounded-full" src={user?.profileImageURL as string} height={50} width={50} alt="Profile Picture" />
                             <div className="flex">
                                 <div className="block">
                                 <h3>@{user?.userName}</h3>

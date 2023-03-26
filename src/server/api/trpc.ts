@@ -16,7 +16,7 @@
  */
 import { prisma } from "~/server/db";
 import { getAuth } from "@clerk/nextjs/server";
-import { CreateNextContextOptions } from "@trpc/server/adapters/next";
+import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
 /**
  * This helper generates the "internals" for a tRPC context. If you need to use it, you can export
  * it from here.

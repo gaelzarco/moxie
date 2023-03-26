@@ -47,7 +47,7 @@ const CreatePost: NextPage = () => {
       useEffect(() => {
         if (file) {
           const reader = new FileReader()
-          reader.readAsArrayBuffer(file!)
+          reader.readAsArrayBuffer(file)
       
           reader.onload = async () => {
             const buffer = Buffer.from(reader.result as ArrayBuffer)

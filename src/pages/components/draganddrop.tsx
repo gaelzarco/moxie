@@ -4,7 +4,7 @@ import {
 } from "react";
 
 interface ChangeParentStateProps {
-    setParentState: (file: File | any) => void
+    setParentState: (file: File | null) => void
 }
 
 const DragAndDrop: React.FC<ChangeParentStateProps> = ({ setParentState }: ChangeParentStateProps ) => {
@@ -15,7 +15,7 @@ const DragAndDrop: React.FC<ChangeParentStateProps> = ({ setParentState }: Chang
     const handleDrop: DragEventHandler<HTMLInputElement> = (event) => {
         event.preventDefault()
         if (event.dataTransfer.files) {
-            setFile(event.dataTransfer.files[0]!)
+            setFile(event.dataTransfer.files[0] as File)
             setParentState(file)
         }
     }
@@ -40,7 +40,7 @@ const DragAndDrop: React.FC<ChangeParentStateProps> = ({ setParentState }: Chang
               onChange={(event) => {
                 event.preventDefault()
                   if (event.target.files) {
-                      setFile(event.target.files[0]!)
+                      setFile(event.target.files[0] as File)
                       setParentState(file)
                   }
               }}
