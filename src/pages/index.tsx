@@ -2,6 +2,7 @@ import {
   type NextPage,
 } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { SignInButton, SignOutButton, useUser } from '@clerk/nextjs'
 import { api } from "~/utils/api";
 import CreatePost from "./components/createpost";
@@ -16,7 +17,7 @@ const Home: NextPage = () => {
 
           <div className="w-full flex justify-between gap-2">
             <h2 className="text-3xl hover:text-stone-500">
-              <a href='/'>Moxie</a>
+              <Link href='/'>Moxie</Link>
             </h2>
 
             <div className="text-2xl hover:text-stone-500">
