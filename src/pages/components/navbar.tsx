@@ -12,13 +12,6 @@ const NavBar: NextPage = () => {
                   Home
                 </button>
             </Link>
-            <Link href='/feed'>
-                <button
-                className="border border-neutral-700 rounded-md bg-white/10 w-24 py-3 text-white no-underline transition hover:bg-white/20 mr-2"
-                >
-                  Feed
-                </button>
-            </Link>
             <Link href='/profile'>
                 <button
                 className="border border-neutral-700 rounded-md bg-white/10 w-24 py-3 text-white no-underline transition hover:bg-white/20"
