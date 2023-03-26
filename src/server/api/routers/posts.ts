@@ -8,11 +8,12 @@ const filterUserForPosts = (user: User) => {
     return {
         id: user.id,
         userName: user.username,
-         profileImageURL: user.profileImageUrl,
+        profileImageURL: user.profileImageUrl,
     }
 }
 
 export const postsRouter = createTRPCRouter({
+
     getAll: publicProcedure.query(async ({ ctx }) => {
         const posts = await ctx.prisma.post.findMany({
             orderBy: {
@@ -49,7 +50,6 @@ export const postsRouter = createTRPCRouter({
         }).nullable()
     }))
     .mutation(async ({ ctx, input }) => {
-        console.log(input)
         const fileName = input.media ? await uploadFile(input.media) : null
         return ctx.prisma.post.create({
             data: {
@@ -59,4 +59,5 @@ export const postsRouter = createTRPCRouter({
             }
         })
     })
+
 })
