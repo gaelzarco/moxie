@@ -16,14 +16,20 @@ type Post = {
 
 const CreatePost: NextPage = () => {
 
-   const { mutate, isSuccess, isError } = api.posts.createOne.useMutation()
-
     const [ post, setPost ] = useState<Post>({
         body: '',
         media: null
     })
     const [ file, setFile ] = useState<File | null>(null)
     const [imgView, setImgView] = useState(false)
+
+    const { mutate, isLoading } = api.posts.createOne.useMutation({
+      onSuccess: () => {
+          setPost({ body: '', media: null })
+          setFile(null)
+          console.log(post)
+      }
+ })
 
       const postBodyHandler = (event: ChangeEvent<HTMLInputElement>) => {
         setPost({...post, body: event.target.value});
@@ -33,13 +39,9 @@ const CreatePost: NextPage = () => {
     }
       const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        console.log(post)
- 
-          mutate({
-            body: post.body,
-            media: post.media ? post.media! : null!
-          })
-
+        if (post.body.length > 0) {
+          mutate(post)
+        }
       }
 
       useEffect(() => {
@@ -58,16 +60,13 @@ const CreatePost: NextPage = () => {
       }, [file])
 
       return (
-        <form onSubmit={handleFormSubmit} className="max-w-md mx-auto">
-          <div className="mb-4">
-            <label htmlFor="body" className="block font-bold text-xl mb-2">
-              Body
-            </label>
+        <form onSubmit={handleFormSubmit} className="w-auto">
+          <div className="mb-4 w-full">
             <input
               type="text"
-              name="body"
-              id="body"
+              placeholder="What's on your mind?"
               onChange={(event) => postBodyHandler(event)}
+              value={post.body}
               className="border rounded w-full py-2 px-3 text-black active:outline-none focus:outline-none"
             />
           </div>
@@ -78,17 +77,17 @@ const CreatePost: NextPage = () => {
                 </div>
             )} 
 
-          <button
-            onClick={(event) => {
-              event.preventDefault()
-              setImgView(!imgView)}
-            }
-            className="flex justify-center items-center m-auto rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
-          >
-              Attach Image
-          </button>
-
-          <div className="flex items-center justify-center">
+          <div className="flex flex-row justify-center content-center items-center mb-8">
+            <button
+              onClick={(event) => {
+                event.preventDefault()
+                setImgView(!imgView)}
+              }
+              className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
+            >
+                Attach Image
+            </button>
+            
             <button
               type="submit"
               className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
@@ -96,6 +95,7 @@ const CreatePost: NextPage = () => {
               Submit
             </button>
           </div>
+
         </form>
       );
 }
