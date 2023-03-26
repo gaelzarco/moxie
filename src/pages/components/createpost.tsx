@@ -27,7 +27,7 @@ const CreatePost: NextPage = () => {
       onSuccess: () => {
           setPost({ body: '', media: null })
           setFile(null)
-          console.log(post)
+          setImgView((bool) => !bool)
       }
  })
 
