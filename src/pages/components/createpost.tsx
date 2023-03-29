@@ -49,7 +49,7 @@ const CreatePost: NextPage = () => {
         if (file) {
           reader.readAsArrayBuffer(file)
       
-          reader.onload = async () => {
+          reader.onload = () => {
             const buffer = Buffer.from(reader.result as ArrayBuffer)
             const base64 = buffer.toString('base64')
             setPost((prevState) => ({ ...prevState, media: { buffer: base64, mimetype: file.type } }))
