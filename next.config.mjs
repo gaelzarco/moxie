@@ -18,6 +18,10 @@ const config = {
       {
         protocol: "https",
         hostname: "images.clerk.dev",
+      },
+      {
+        protocol: "https",
+        hostname: "www.gravatar.com",
       }
     ],
   },
