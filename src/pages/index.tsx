@@ -2,7 +2,6 @@ import {
   type NextPage,
 } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { SignInButton, SignOutButton, useUser } from '@clerk/nextjs'
 import { api } from "~/utils/api";
 import CreatePost from "./components/createpost";
@@ -13,11 +12,11 @@ const Home: NextPage = () => {
   return (
     <>
       <main className="flex h-screen flex-col">
-        <div className="container flex flex-col items-center justify-center gap-12 px-4 mt-10 ">
+        <div className="flex flex-col items-center justify-center">
 
-          <div className="w-full flex justify-between gap-2">
-            <h2 className="text-3xl hover:text-stone-500">
-              <Link href='/'>Moxie</Link>
+          <div className="w-4/6 flex justify-between border-x border-stone-300">
+            <h2 className="text-2xl font-bold hover:text-stone-700">
+              Home
             </h2>
 
             <div className="text-2xl hover:text-stone-500">
@@ -36,35 +35,33 @@ const Home: NextPage = () => {
 
 const Feed = () => {
   const { data, isLoading } = api.posts.getAll.useQuery();
+  const { isSignedIn } = useUser()
 
   if (isLoading) return <div>Loading...</div>
   if (!data) return <div>Something went wrong...</div>
 
   return (
-      <div className='flex flex-col items-center justify-center'>
-        <div className="w-9/2">
-          <CreatePost />
+      <div className='flex flex-col items-center justify-center w-4/6'>
+          {!!isSignedIn && <CreatePost />}
           {data.map(({ post, user }) => {
                 return (
-                  <div key={post.id} className="border border-stone-300 w-full p-4">
-                      <div className="flex">
-                          <Image className="rounded-full" src={user.profileImageURL} height={50} width={50} alt="Profile Picture" />
-                          <div className="flex">
-                              <div className="block">
-                              <h3>@{user.userName}</h3>
-                              </div> 
-                              <h3>{post.body}</h3>
-                          </div> 
-                      </div>
-                      {post.link && (
-                      <div className="p-5 mt-5">
-                          <Image src={post.link} className='h-auto w-full' height={ 300 } width={ 350 } alt="Attached Media for Post" />
-                      </div>
-                      )}
+                  <div key={post.id} className="m-auto text-left border-x border-b border-stone-300 w-full p-4">
+                    <div className="flex leading-none">
+                      <Image className="rounded-full w-10 h-10" src={user.profileImageURL} height={50} width={50} alt="Profile Picture" />
+                        <div className="pl-2 mb-2">
+                          <div className=" inline-flex mb-4">
+                            <p className="pl-2">Gael Zarco</p>
+                            <p className="text-stone-500 pl-2">@{user.userName === null ? 'username' : user.userName}</p>
+                          </div>
+                          <h4 className="pl-2">{post.body}</h4>
+                          {post.link && (
+                            <Image className="h-auto w-full mt-4" src={post.link} height={300} width={500} alt="Attached Media for Post" />
+                          )}
+                        </div> 
+                    </div> 
                   </div>
               )
           })}
-        </div>
       </div>
     )
   }
