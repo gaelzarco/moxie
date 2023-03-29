@@ -26,8 +26,6 @@ const CreatePost: NextPage = () => {
     const [imgView, setImgView] = useState(false)
     const [open, setOpen] = useState(false);
 
-    const reader = new FileReader()
-
     const { mutate } = api.posts.createOne.useMutation({
       onSuccess: () => {
           setPost({ body: '', media: null })
@@ -47,6 +45,7 @@ const CreatePost: NextPage = () => {
         setOpen(true)
 
         if (file) {
+          const reader = new FileReader()
           reader.readAsArrayBuffer(file)
       
           reader.onload = () => {
@@ -68,7 +67,6 @@ const CreatePost: NextPage = () => {
       useEffect(() => {
         if (file) {
           setFile(file)
-          console.log(file)
         }
       }, [file])
 
