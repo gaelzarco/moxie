@@ -1,4 +1,3 @@
-import { useUser } from "@clerk/nextjs";
 import { type NextPage } from "next";
 import { 
   type FormEvent, type ChangeEvent,
