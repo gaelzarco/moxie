@@ -7,7 +7,7 @@ interface ChangeParentStateProps {
     setParentState: (file: File | null) => void
 }
 
-const DragAndDrop: React.FC<ChangeParentStateProps> = ({ setParentState }: ChangeParentStateProps ) => {
+const DragAndDrop = ({ setParentState }: ChangeParentStateProps ) => {
 
     const [ file, setFile ] = useState<File | null>(null)
 
@@ -21,8 +21,10 @@ const DragAndDrop: React.FC<ChangeParentStateProps> = ({ setParentState }: Chang
     }
 
     useEffect(() => {
-      file ? setParentState(file) : setParentState(null)
-    }, [ file, setParentState ])
+      if (file) {
+        setParentState(file)
+      }
+    }, [ file ])
 
     return (
         <>
@@ -38,11 +40,13 @@ const DragAndDrop: React.FC<ChangeParentStateProps> = ({ setParentState }: Chang
               type="file"
               className="cursor-pointer justify-center content-center items-center flex flex-col"
               onChange={(event) => {
-                event.preventDefault()
-                  if (event.target.files) {
-                      setFile(event.target.files[0] as File)
-                      setParentState(file)
-                  }
+                if (null) {
+                  return
+                }
+                if (event.target.files) {
+                  setFile(event.target.files[0] as File)
+                  setParentState(file)
+                }
               }}
             />
           </div>

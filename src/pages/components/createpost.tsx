@@ -1,11 +1,11 @@
 import { type NextPage } from "next";
 import { 
   type FormEvent, type ChangeEvent,
-  useState, useEffect
+  useState, useEffect, useRef
 } from "react";
-import * as Toast from '@radix-ui/react-toast';
-
 import { api } from "~/utils/api";
+
+import * as Toast from '@radix-ui/react-toast';
 import DragAndDrop from "./draganddrop";
 
 type Post = {
@@ -24,37 +24,34 @@ const CreatePost: NextPage = () => {
     })
     const [ file, setFile ] = useState<File | null>(null)
     const [imgView, setImgView] = useState(false)
+
+    const timeRef = useRef(0)
     const [open, setOpen] = useState(false);
 
     const { mutate } = api.posts.createOne.useMutation({
       onSuccess: () => {
           setPost({ body: '', media: null })
           setFile(null)
-          setImgView((bool) => !bool)
+          setImgView(false)
+
+          setOpen(false)
+          window.clearTimeout(timeRef.current)
+          timeRef.current = window.setTimeout(() => {
+            setOpen(true)
+          }, 100)
       }
- })
+    })
 
       const postBodyHandler = (event: ChangeEvent<HTMLInputElement>) => {
         setPost({...post, body: event.target.value});
       };
       const postFileHandler = (file: File | null) => {
         setFile(file)
-    }
+      }
+
       const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         setOpen(true)
-
-        if (file) {
-          const reader = new FileReader()
-          reader.readAsArrayBuffer(file)
-      
-          reader.onload = () => {
-            const buffer = Buffer.from(reader.result as ArrayBuffer)
-            const base64 = buffer.toString('base64')
-            setPost((prevState) => ({ ...prevState, media: { buffer: base64, mimetype: file.type } }))
-            console.log(post)
-          }
-        }
 
         if (post.body.length > 0) {
           mutate({
@@ -66,28 +63,41 @@ const CreatePost: NextPage = () => {
 
       useEffect(() => {
         if (file) {
-          setFile(file)
+          const reader = new FileReader()
+          reader.readAsArrayBuffer(file)
+      
+          reader.onload = () => {
+            const buffer = Buffer.from(reader.result as ArrayBuffer)
+            const base64 = buffer.toString('base64')
+            setPost((prevState) => ({ ...prevState, media: { buffer: base64, mimetype: file.type } }))
+          }
         }
+
+        return () => clearTimeout(timeRef.current)
       }, [file])
 
       return (
+        <Toast.Provider swipeDirection="right">
         <form onSubmit={handleFormSubmit} className="w-full border border-stone-300">
-            <Toast.Provider>
-                <Toast.Root open={open} onOpenChange={setOpen}>
-                  <Toast.Title> Success! </Toast.Title>
-                  <Toast.Description asChild>
-                    <p>
-                      {post.body}
-                    </p>
-                  </Toast.Description>
-                  <Toast.Action asChild altText="Refresh">
-                    <button>Reload</button>
-                  </Toast.Action>
-                  <Toast.Close />
-                </Toast.Root>
-
-                <Toast.Viewport />
-              </Toast.Provider>
+            
+          <Toast.Root className="ToastRoot" open={open} onOpenChange={setOpen}>
+            <Toast.Title className="ToastTitle">Post was successful!</Toast.Title>
+            <Toast.Description asChild>
+              <p className="ToastDescription">
+                You post was succesfully created!
+              </p>
+            </Toast.Description >
+            <Toast.Action className="ToastAction" asChild altText="close">
+              <button
+              className="Button small green"
+              onClick={() => {
+                setOpen(false)
+                clearTimeout(timeRef.current)
+              }}
+              >Close</button>
+            </Toast.Action >
+          </Toast.Root>
+          <Toast.Viewport className="ToastViewport"/>
 
           <div className="mb-4 w-full">
             <input
@@ -109,8 +119,8 @@ const CreatePost: NextPage = () => {
             <button
               onClick={(event) => {
                 event.preventDefault()
-                setImgView(!imgView)}
-              }
+                setImgView(!imgView)
+              }}
               className="rounded-full bg-stone-800/10 px-10 py-3 font-semibold no-underline transition hover:bg-stone-800/20"
             >
                 Attach Image
@@ -125,6 +135,7 @@ const CreatePost: NextPage = () => {
           </div>
 
         </form>
+        </Toast.Provider>
       );
 }
 
