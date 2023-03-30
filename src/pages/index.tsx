@@ -11,10 +11,9 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <main className="flex h-screen flex-col">
         <div className="flex flex-col items-center justify-center">
 
-          <div className="w-4/6 flex justify-between border-x border-stone-300">
+          <div className="w-full flex justify-between border-x border-stone-300">
             <h2 className="text-2xl font-bold hover:text-stone-700">
               Home
             </h2>
@@ -28,7 +27,6 @@ const Home: NextPage = () => {
 
           <Feed />
         </div>
-      </main>
     </>
   );
 };
@@ -41,7 +39,7 @@ const Feed = () => {
   if (!data) return <div>Something went wrong...</div>
 
   return (
-      <div className='flex flex-col items-center justify-center w-4/6'>
+      <div className='flex flex-col items-center justify-center w-full'>
           {!!isSignedIn && <CreatePost />}
           {data.map(({ post, user }) => {
                 return (

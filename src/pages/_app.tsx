@@ -22,7 +22,7 @@ const MyApp: AppType = ({ Component, pageProps: { ...pageProps } }) => {
           <meta name="description" content="Blazingly fast, secure, and versatile. Meet the next generation of social media." />
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <main className={`${jakartaSans.variable} font-sans`}>
+        <main className={`${jakartaSans.variable} font-sans flex h-screen w-full flex-col`}>
           <Component {...pageProps} />
         </main>
         <NavBar />
