@@ -29,7 +29,7 @@ const DragAndDrop = ({ setParentState }: ChangeParentStateProps ) => {
     return (
         <>
         {!file ? (
-            <div className="border-2 border-dashed border-gray-400 rounded-lg h-48 justify-center items-center flex flex-col"
+            <div className=" w-5/6 m-auto mb-8 border border-dashed border-gray-400 rounded-lg h-48 justify-center items-center flex flex-col"
             onDragOver={handleDragOver}
             onDrop={handleDrop}
             >
@@ -56,7 +56,9 @@ const DragAndDrop = ({ setParentState }: ChangeParentStateProps ) => {
                 {file.name}
             </h1>
             <div>
-                <button onClick={(event) => {
+                <button
+                  className="rounded-full bg-black mt-8 text-white px-10 py-3 font-semibold no-underline transition hover:bg-stone-900 hover: cursor-pointer"
+                  onClick={(event) => {
                   event.preventDefault()
                   setFile(null)
                   setParentState(null)

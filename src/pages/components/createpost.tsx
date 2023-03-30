@@ -7,6 +7,7 @@ import { api } from "~/utils/api";
 
 import * as Toast from '@radix-ui/react-toast';
 import DragAndDrop from "./draganddrop";
+import { useUser } from "@clerk/nextjs";
 
 type Post = {
   body: string;
@@ -17,6 +18,8 @@ type Post = {
 }
 
 const CreatePost: NextPage = () => {
+
+  const user = useUser()
 
     const [ post, setPost ] = useState<Post>({
         body: '',
@@ -78,7 +81,7 @@ const CreatePost: NextPage = () => {
 
       return (
         <Toast.Provider swipeDirection="right">
-        <form onSubmit={handleFormSubmit} className="w-full border border-stone-300">
+        <form onSubmit={handleFormSubmit} className="w-full min-w-full border-x border-b border-stone-300">
             
           <Toast.Root className="ToastRoot" open={open} onOpenChange={setOpen}>
             <Toast.Title className="ToastTitle">Post was successful!</Toast.Title>
@@ -99,13 +102,16 @@ const CreatePost: NextPage = () => {
           </Toast.Root>
           <Toast.Viewport className="ToastViewport"/>
 
-          <div className="mb-4 w-full">
+          <div className="m-4 flex flex-row">
+            {!!user.user?.profileImageUrl && (
+              <img src={user.user?.profileImageUrl} className="w-16 h-16 m-4 rounded-full" />
+            )}
             <input
               type="text"
               placeholder="What's on your mind?"
               onChange={(event) => postBodyHandler(event)}
               value={post.body}
-              className="w-full py-2 px-3 text-black active:outline-none focus:outline-none"
+              className="w-5/6 min-w-5/6 py-2 px-3 text-black active:outline-none focus:outline-none"
             />
           </div>
 
@@ -115,20 +121,20 @@ const CreatePost: NextPage = () => {
                 </div>
             )} 
 
-          <div className="flex flex-row justify-center content-center items-center mb-8">
+          <div className="flex flex-row justify-between mb-3 mr-3">
             <button
               onClick={(event) => {
                 event.preventDefault()
                 setImgView(!imgView)
               }}
-              className="rounded-full bg-stone-800/10 px-10 py-3 font-semibold no-underline transition hover:bg-stone-800/20"
+              className="rounded-full ml-24 bg-black text-white px-10 py-3 font-semibold no-underline transition hover:bg-stone-800 hover: cursor-pointer"
             >
                 Attach Image
             </button>
             
             <button
               type="submit"
-              className="rounded-full bg-stone-800/10 px-10 py-3 font-semibold no-underline transition hover:bg-stone-800/20"
+              className="rounded-full bg-black text-white  px-10 py-3 font-semibold no-underline transition hover:bg-stone-800 hover:cursor-pointer"
             >
               Submit
             </button>
