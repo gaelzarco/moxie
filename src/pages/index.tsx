@@ -47,7 +47,9 @@ const Feed = () => {
   return (
       <div className='flex flex-col items-center justify-center'>
         {!!isSignedIn && <CreatePost />}
-        <PostView data={data} />
+        {!!data && (
+          <PostView data={data} />
+        )}
       </div>
     )
   }

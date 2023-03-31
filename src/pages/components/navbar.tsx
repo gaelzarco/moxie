@@ -1,7 +1,7 @@
 import { type NextPage } from "next";
 import Link from "next/link"
 import { SiTwitter } from "react-icons/si";
-import { HiOutlineHome } from "react-icons/hi";
+// import { HiOutlineHome } from "react-icons/hi";
 
 const NavBar: NextPage = () => {  
     return (

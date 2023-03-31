@@ -24,7 +24,7 @@ const DragAndDrop = ({ setParentState }: ChangeParentStateProps ) => {
       if (file) {
         setParentState(file)
       }
-    }, [ file ])
+    }, [ file, setParentState ])
 
     return (
         <>
