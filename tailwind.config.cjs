@@ -8,6 +8,9 @@ const config = {
       fontFamily: {
         sans: ['var(--font-jakartaSans)', ...fontFamily.sans],
       },
+      width: {
+        '750': '750px',
+      },
     },
   },
   variants: {
