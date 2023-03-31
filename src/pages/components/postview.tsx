@@ -24,7 +24,7 @@ const PostView = ({ data }: PostDataProps) => {
     
     return (
         <>
-        {data.map(({ post, user }) => {
+        {!!data && (data.map(({ post, user }) => {
             return (
                 <div key={post.id} className="m-auto text-left border-x border-b border-stone-300 w-full min-w-full p-4">
                 <div className="flex leading-none">
@@ -50,7 +50,7 @@ const PostView = ({ data }: PostDataProps) => {
                 </div> 
                 </div>
               )
-          })}
+          }))}
         </>
     )
 }
