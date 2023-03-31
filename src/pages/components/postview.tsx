@@ -21,6 +21,7 @@ interface PostDataProps {
 }
 
 const PostView = ({ data }: PostDataProps) => {
+    
     return (
         <>
         {data.map(({ post, user }) => {

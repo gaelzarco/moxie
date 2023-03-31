@@ -31,7 +31,7 @@ const CreatePost: NextPage = () => {
     const [imgView, setImgView] = useState(false)
 
     const toasterTimeRef = useRef(0)
-    const toasterCreatedDateRef = useRef(new Date());
+    // const toasterCreatedDateRef = useRef(new Date());
     const [open, setOpen] = useState(false);
 
     const { mutate } = api.posts.createOne.useMutation({
