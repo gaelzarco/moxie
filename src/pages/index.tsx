@@ -16,7 +16,9 @@ const Home: NextPage = () => {
         </h2>
       </div>
 
-      <Feed />
+      <div className='flex flex-col items-center justify-center'>
+        <Feed />
+      </div>
     </div>
   );
 };
@@ -29,12 +31,12 @@ const Feed = () => {
   if (!data) return <div>Something went wrong...</div>
 
   return (
-      <div className='flex flex-col items-center justify-center'>
+      <>
         {!!isSignedIn && <CreatePost />}
         {!!data && (
           <FeedView data={data} />
         )}
-      </div>
+      </>
     )
   }
 
