@@ -7,10 +7,10 @@ import { TRPCError } from '@trpc/server';
 
 const filterUserForPost = (user: User) => {
     return {
-        id: user.id,
-        userName: user.username,
-        firstName: user.firstName,
-        profileImageURL: user.profileImageUrl,
+        id: user.id!,
+        userName: user.username!,
+        firstName: user.firstName!,
+        profileImageURL: user.profileImageUrl!,
     }
 }
 
@@ -20,12 +20,12 @@ export const postsRouter = createTRPCRouter({
             orderBy: {
                 createdAt: 'desc'
             },
-            take: 10,
+            take: 15,
         })
 
         const users = ( await clerkClient.users.getUserList({
             userId: posts.map((post) => post.userId),
-            limit: 10,
+            limit: 15,
         }) ).map(filterUserForPost)
 
         const postsWithMediaLinks = await Promise.all(posts.map(async (post) => {
