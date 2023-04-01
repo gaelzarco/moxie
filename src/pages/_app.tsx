@@ -25,7 +25,9 @@ const MyApp: AppType = ({ Component, pageProps: { ...pageProps } }) => {
         </Head>
         <main className={`${jakartaSans.variable} font-sans h-auto mx-auto grid grid-cols-4 max-w-screen-2xl`}>
           <NavBar />
-          <Component {...pageProps} />
+          <div id='home' className="bg-white flex flex-col col-span-2 absolute w-full min-w-750 md:min-w-0 md:max-2xl:w-9/12 md:max-2xl:right-0 2xl:relative">
+            <Component {...pageProps} />
+          </div>
           <SideBar />
         </main>
       </ClerkProvider>
