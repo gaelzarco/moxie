@@ -25,7 +25,7 @@ interface PostDataProps {
 const FeedView = ({ data }: PostDataProps) => {
     return (
         <>
-        {data.map(({ post, user }) => {
+        {!!data && (data.map(({ post, user }) => {
             return (
                 <div key={post.id} className="m-auto text-left border-b border-stone-300 w-full min-w-full p-4">
                 <div className="flex leading-none">
@@ -53,7 +53,7 @@ const FeedView = ({ data }: PostDataProps) => {
                 </div> 
                 </div>
               )
-          })}
+          }))}
         </>
     )
 }

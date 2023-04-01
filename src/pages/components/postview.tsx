@@ -27,7 +27,9 @@ const PostView = ({ data }: PostDataProps) => {
     const { post, user } = data;
 
     return (
-        <div className="overflow-y-scroll h-full bg-white md:max-2xl:w-9/12 md:max-2xl:right-0 max-2xl:absolute">
+        <>
+        {!!data && (
+            <div className="overflow-y-scroll h-full bg-white md:max-2xl:w-9/12 md:max-2xl:right-0 max-2xl:absolute">
             <div id='header' className="sticky top-0 backdrop-blur-lg p-4 w-full inline-flex items-center border-b border-stone-300">
                 <FiArrowLeft className="text-stone-800 hover:cursor-pointer" size={22} onClick={() => router.back()}/>
                 <h2 className="ml-5 text-2xl font-bold">
@@ -60,6 +62,8 @@ const PostView = ({ data }: PostDataProps) => {
             </div>
         </div>
         </div>
+    )}
+    </>
     )
 }
 
