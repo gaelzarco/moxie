@@ -114,7 +114,7 @@ const CreatePost: NextPage = () => {
               placeholder="What's on your mind?"
               onChange={(event) => postBodyStateHandler(event)}
               value={post.body}
-              className="w-5/6 min-w-5/6 py-2 px-3 text-black active:outline-none focus:outline-none"
+              className="w-5/6 text-xl min-w-5/6 py-2 px-3 ml-1 text-black active:outline-none focus:outline-none"
             />
           </div>
 
@@ -124,13 +124,13 @@ const CreatePost: NextPage = () => {
                 </div>
             )} 
 
-          <div className="flex flex-row justify-between items-center mb-3 mr-3">
+          <div className="flex flex-row justify-between items-center mb-3">
             <FiImage
               onClick={(event) => {
                 event.preventDefault()
                 setImgView(!imgView)
               }}
-              className="ml-32 text-stone-500 hover:cursor-pointer"
+              className="ml-28 text-stone-800 hover:cursor-pointer"
               size={20}
             />
             

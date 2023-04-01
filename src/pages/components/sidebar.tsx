@@ -6,7 +6,7 @@ const SideBar: NextPage = () => {
     const { user } = useUser()
     
     return (
-      <nav className="sticky flex flex-col items-end col-span-1 h-screen">
+      <nav className="flex flex-col col-span-1 h-screen">
           <div className="w-11/12 mx-auto my-5 h-72 rounded-xl bg-neutral-100">
             <div className="w-full top-0 h-10 rounded-xl items-center m-3 ml-4">
                 <h2 className="font-bold text-xl mb-6">Who to follow</h2>
