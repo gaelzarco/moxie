@@ -79,7 +79,7 @@ export const postsRouter = createTRPCRouter({
             return post
         }
 
-        return postWithMediaLink().then(async (post) => {
+        return postWithMediaLink().then((post) => {
             const user = filterUserForPost(foundUser)
 
             return {

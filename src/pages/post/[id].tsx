@@ -22,7 +22,7 @@ const Post = () => {
                 <div id='header' className="sticky top-0 backdrop-blur-lg p-4 w-full inline-flex items-center border-x border-b border-stone-300">
                     <FiArrowLeft className="text-stone-800 hover:cursor-pointer" size={22} onClick={() => router.back()}/>
                     <h2 className="ml-5 text-2xl font-bold">
-                    {user.firstName}'s Post
+                    {`${user.firstName}'s Post`}
                     </h2>
                 </div>
                 <div className="flex h-screen w-full">
