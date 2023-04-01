@@ -5,16 +5,16 @@ import { clerkClient } from '@clerk/nextjs/server';
 import { type User } from '@clerk/nextjs/dist/api';
 import { TRPCError } from '@trpc/server';
 
-const filterUserForPosts = (user: User) => {
+const filterUserForPost = (user: User) => {
     return {
         id: user.id,
         userName: user.username,
+        firstName: user.firstName,
         profileImageURL: user.profileImageUrl,
     }
 }
 
 export const postsRouter = createTRPCRouter({
-
     getAll: publicProcedure.query(async ({ ctx }) => {
         const posts = await ctx.prisma.post.findMany({
             orderBy: {
@@ -26,7 +26,7 @@ export const postsRouter = createTRPCRouter({
         const users = ( await clerkClient.users.getUserList({
             userId: posts.map((post) => post.userId),
             limit: 10,
-        }) ).map(filterUserForPosts)
+        }) ).map(filterUserForPost)
 
         const postsWithMediaLinks = await Promise.all(posts.map(async (post) => {
             if (post.media === null) return post
@@ -43,6 +43,44 @@ export const postsRouter = createTRPCRouter({
                 code: 'INTERNAL_SERVER_ERROR', 
                 message: 'User for post not found'
             })
+
+            return {
+                post,
+                user
+            }
+        })
+    }),
+
+    getOne: publicProcedure
+    .input(z.string().min(1)).query(async ({ ctx, input }) => {
+        const post = await ctx.prisma.post.findUnique({
+            where: {
+                id: input
+            }
+        })
+        
+        if (!post) throw new TRPCError({ 
+            code: 'INTERNAL_SERVER_ERROR',
+            message: 'Post not found'
+        })
+
+        const foundUser = await clerkClient.users.getUser(post.userId)
+        
+        if (!foundUser) throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: 'User for post not found'
+        })
+
+        const postWithMediaLink = async () => {
+            if (post.media === null) return post
+
+            const postImgLink = await getFileURL(post.media)
+            post.link = postImgLink
+            return post
+        }
+
+        return postWithMediaLink().then(async (post) => {
+            const user = filterUserForPost(foundUser)
 
             return {
                 post,
