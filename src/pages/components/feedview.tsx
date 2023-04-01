@@ -15,8 +15,8 @@ interface PostDataProps {
         },
         user: {
             id: string;
-            userName: string;
-            firstName: string;
+            userName: string | null;
+            firstName: string | null;
             profileImageURL: string;
         }
     }[]
