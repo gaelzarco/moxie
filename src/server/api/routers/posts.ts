@@ -7,10 +7,10 @@ import { TRPCError } from '@trpc/server';
 
 const filterUserForPost = (user: User) => {
     return {
-        id: user.id!,
-        userName: user.username!,
-        firstName: user.firstName!,
-        profileImageURL: user.profileImageUrl!,
+        id: user.id,
+        userName: user.username,
+        firstName: user.firstName,
+        profileImageURL: user.profileImageUrl,
     }
 }
 
