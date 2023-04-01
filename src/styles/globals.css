@@ -4,7 +4,16 @@
 
 body {
   @apply bg-white text-black;
-  @apply min-h-screen w-screen overflow-x-hidden; 
+  @apply min-h-screen w-screen overflow-x-hidden;
+}
+
+#home::-webkit-scrollbar {
+  display: none;
+}
+
+#home {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 button {
