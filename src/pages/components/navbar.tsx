@@ -12,7 +12,7 @@ const NavBar: NextPage = () => {
   const { isSignedIn, user } = useUser()
 
     return (
-      <nav className="bg-white z-10 h-full border-r border-stone-300">
+      <nav className="bg-white h-full">
         <div className="flex flex-col h-full justify-between">
           <div className="mt-1 flex flex-col h-auto">
           <Link href='https://github.com/gaelzarco/moxie'>

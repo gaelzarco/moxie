@@ -2,17 +2,8 @@ import { z } from 'zod'
 import { createTRPCRouter, publicProcedure, protectedProcedure } from "~/server/api/trpc";
 import { uploadFile, getFileURL } from '~/server/api/s3';
 import { clerkClient } from '@clerk/nextjs/server';
-import { type User } from '@clerk/nextjs/dist/api';
 import { TRPCError } from '@trpc/server';
-
-const filterUserForPost = (user: User) => {
-    return {
-        id: user.id,
-        userName: user.username,
-        firstName: user.firstName,
-        profileImageURL: user.profileImageUrl,
-    }
-}
+import filterUserForPost from '~/server/helpers/filterUserForPost';
 
 export const postsRouter = createTRPCRouter({
     getAll: publicProcedure.query(async ({ ctx }) => {

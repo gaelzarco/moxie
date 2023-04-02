@@ -23,11 +23,11 @@ const MyApp: AppType = ({ Component, pageProps: { ...pageProps } }) => {
           <meta name="description" content="Blazingly fast, secure, and versatile. Meet the next generation of social media." />
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <main className={`${jakartaSans.variable} fixed right-0 left-0 font-sans h-auto mx-auto grid grid-cols-4 max-w-screen-2xl`}>
-          <div className="h-screen bg-white col-span-1 z-10">
+        <main className={`${jakartaSans.variable} font-sans h-auto mx-auto grid grid-cols-4 max-w-screen-2xl`}>
+          <div className="h-screen bg-white col-span-1">
           <NavBar />
           </div>
-          <div id='home' className="z-10 bg-white flex flex-col col-span-2 w-full min-w-750 bg-white max-lg:absolute">
+          <div id='home' className="flex flex-col col-span-2 w-full min-w-750 bg-white max-lg:absolute">
             <Component {...pageProps} />
           </div>
           <div className="h-screen bg-white col-span-1">

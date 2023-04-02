@@ -84,7 +84,7 @@ const CreatePost: NextPage = () => {
 
       return (
         <Toast.Provider swipeDirection="right">
-        <form onSubmit={handleFormSubmit} className="top-0 min-w-full border-b border-stone-300">
+        <form onSubmit={handleFormSubmit} className="min-w-full border-b border-stone-300">
             
           <Toast.Root className="ToastRoot" open={open} onOpenChange={setOpen}>
             <Toast.Title className="ToastTitle">Post was successful!</Toast.Title>

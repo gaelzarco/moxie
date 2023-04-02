@@ -9,7 +9,7 @@ import FeedView from "./components/feedview";
 
 const Home: NextPage = () => {
   return (
-    <div className="overflow-y-scroll h-screen bg-white min-w-750 md:max-2xl:w-9/12 md:max-2xl:right-0 max-2xl:absolute">
+    <div className="h-auto min-h-screen bg-white min-w-750 md:max-2xl:w-9/12 md:max-2xl:right-0 max-2xl:absolute border-b border-x border-stone-300">
       <div id='header' className="sticky top-0 backdrop-blur-lg p-4 w-full flex border-b border-stone-300">
         <h2 className="text-2xl font-bold">
           Home
@@ -23,7 +23,7 @@ const Home: NextPage = () => {
   );
 };
 
-const Feed = () => {
+const Feed: NextPage = () => {
   const { data, isLoading } = api.posts.getAll.useQuery();
   const { isSignedIn } = useUser()
 
@@ -33,9 +33,7 @@ const Feed = () => {
   return (
       <>
         {!!isSignedIn && <CreatePost />}
-        {!!data && (
-          <FeedView data={data} />
-        )}
+        {!!data && <FeedView data={data} />}
       </>
     )
   }
