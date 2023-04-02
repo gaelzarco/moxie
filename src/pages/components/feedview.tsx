@@ -1,31 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { RouterOutputs } from "~/utils/api";
 import { FiHeart, FiMessageCircle, FiShare, FiMoreHorizontal,  } from 'react-icons/fi'
 
-interface PostDataProps {
-    data: {
-        post: {
-            id: string;
-            body: string;
-            media: string | null;
-            link: string | null;
-            createdAt: Date;
-            updatedAt: Date;
-            userId: string;
-        },
-        user: {
-            id: string;
-            userName: string | null;
-            firstName: string | null;
-            profileImageURL: string;
-        }
-    }[]
-}
+type PostsWithUsersAndImages = RouterOutputs["posts"]["getAll"][number]
 
-const FeedView = ({ data }: PostDataProps) => {
+const FeedView = ( data : Array<PostsWithUsersAndImages> ) => {
     return (
         <>
-        {!!data && (data.map(({ post, user }) => {
+        {!!data && (Object.values(data).map(({ post, user }) => {
             return (
                 <div key={post.id} className="m-auto text-left border-b border-stone-300 w-full min-w-full p-4">
                 <div className="flex leading-none">

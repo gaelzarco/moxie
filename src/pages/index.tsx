@@ -6,6 +6,7 @@ import { useUser } from '@clerk/nextjs'
 
 import CreatePost from "./components/createpost";
 import FeedView from "./components/feedview";
+import PostView from "./components/postview";
 
 const Home: NextPage = () => {
   return (
@@ -17,7 +18,9 @@ const Home: NextPage = () => {
       </div>
 
       <div className='flex flex-col items-center justify-center'>
+      <div className="m-auto text-left w-full min-w-full">
         <Feed />
+        </div>
       </div>
     </div>
   );
@@ -33,7 +36,7 @@ const Feed: NextPage = () => {
   return (
       <>
         {!!isSignedIn && <CreatePost />}
-        {!!data && <FeedView data={data} />}
+        {!!data && <FeedView {...data} />}
       </>
     )
   }
