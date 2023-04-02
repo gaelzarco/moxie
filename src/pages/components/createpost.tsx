@@ -1,14 +1,15 @@
-import { type NextPage } from "next";
+import type { NextPage } from "next";
 import Image from "next/image";
 import { 
   type FormEvent, type ChangeEvent,
   useState, useEffect, useRef
 } from "react";
+import { useUser } from "@clerk/nextjs";
 import { api } from "~/utils/api";
 
-import * as Toast from '@radix-ui/react-toast';
 import DragAndDrop from "./draganddrop";
-import { useUser } from "@clerk/nextjs";
+
+import * as Toast from '@radix-ui/react-toast';
 import { FiImage } from 'react-icons/fi';
 
 type Post = {

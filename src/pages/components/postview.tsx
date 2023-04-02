@@ -14,7 +14,7 @@ const PostView = ( data : PostWithUserAndImage ) => {
         <>
         { (!!post && !!user) && (
             <div className="w-full">
-                <div id='header' className="sticky top-0 backdrop-blur-lg p-4 w-full inline-flex items-center border-b border-stone-300">
+                <div id='header' className="sticky top-0 backdrop-blur-lg p-4 w-full inline-flex items-center">
                     <FiArrowLeft className="text-stone-800 hover:cursor-pointer"
                     size={22} 
                     onClick={(event) => {

@@ -1,8 +1,9 @@
-import { type NextPage } from "next";
+import type { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link"
-import { SignInButton,useUser } from '@clerk/nextjs'
+import { SignInButton, useUser } from '@clerk/nextjs'
 // import { SignOutButton } from '@clerk/nextjs'
+
 import { FiMoreHorizontal, FiUser } from 'react-icons/fi'
 // import { FiLogOut } from "react-icons/fi";
 import { SiTwitter } from "react-icons/si";

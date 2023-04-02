@@ -1,6 +1,4 @@
-import { 
-  type NextPage,
-} from "next";
+import type { NextPage } from "next";
 import { api } from "~/utils/api";
 import { useUser } from '@clerk/nextjs'
 

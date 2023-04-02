@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { RouterOutputs } from "~/utils/api";
-import { FiHeart, FiMessageCircle, FiShare, FiMoreHorizontal,  } from 'react-icons/fi'
+import { FiHeart, FiMessageCircle, FiShare, FiMoreHorizontal } from 'react-icons/fi'
 
 type PostsWithUsersAndImages = RouterOutputs["posts"]["getAll"][number]
 
