@@ -6,7 +6,6 @@ import { useUser } from '@clerk/nextjs'
 
 import CreatePost from "./components/createpost";
 import FeedView from "./components/feedview";
-import PostView from "./components/postview";
 
 const Home: NextPage = () => {
   return (
