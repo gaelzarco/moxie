@@ -83,7 +83,7 @@ const CreatePost: NextPage = () => {
       }, [file])
 
       return (
-        <Toast.Provider swipeDirection="right">
+
         <form onSubmit={handleFormSubmit} className="min-w-full border-b border-stone-300">
             
           <Toast.Root className="ToastRoot" open={open} onOpenChange={setOpen}>
@@ -143,7 +143,6 @@ const CreatePost: NextPage = () => {
           </div>
 
         </form>
-        </Toast.Provider>
       );
 }
 
