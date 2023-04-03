@@ -48,6 +48,7 @@ model Reply {
   postId    String
   userId    String
   media     String?
+  link      String?
   body      String   @db.VarChar(500)
   likes     Like[]
   createdAt DateTime @default(now())
