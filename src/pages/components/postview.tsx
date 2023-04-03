@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import type { RouterOutputs } from "~/utils/api";
 import { FiHeart, FiMessageCircle, FiShare, FiMoreHorizontal, FiArrowLeft } from 'react-icons/fi'
 
-type PostWithUserAndImage = RouterOutputs["posts"]["getOne"]
+type PostWithUserAndImage = RouterOutputs["posts"]["getOneById"]
 
 const PostView = ( data : PostWithUserAndImage ) => {
     const router = useRouter()
@@ -44,8 +44,14 @@ const PostView = ( data : PostWithUserAndImage ) => {
                                 )}
                             </Link>
                             <div className="mt-1 inline-flex ml-2">
-                            <FiHeart className="hover:cursor-pointer text-stone-800" size={20}/>
-                            <FiMessageCircle className="hover:cursor-pointer text-stone-800 ml-20" size={20}/>
+                            <div className="inline-flex w-auto justify-between">
+                                <FiHeart className="hover:cursor-pointer text-stone-800" size={20}/>
+                                <p className='ml-2'>{post.likes.length}</p>
+                            </div>
+                            <div className="inline-flex w-auto justify-between">
+                                <FiMessageCircle className="hover:cursor-pointer text-stone-800 ml-20" size={20}/>
+                                <p className='ml-2'>{post.replies.length}</p>
+                            </div>
                             <FiShare className="hover:cursor-pointer text-stone-800 ml-20 align-right" size={20}/>
                             </div>
                         </div> 
