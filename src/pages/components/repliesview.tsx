@@ -1,3 +1,4 @@
+import type { NextPage } from 'next'
 import Image from "next/image";
 // import Link from "next/link";
 import type { RouterOutputs } from "~/utils/api";
@@ -5,7 +6,7 @@ import { FiHeart, FiShare, FiMoreHorizontal } from 'react-icons/fi'
 
 type RepliesWithUsersAndImages = RouterOutputs["replies"]["getAllByPostId"]
 
-const RepliesView = ( data: RepliesWithUsersAndImages ) => {
+const RepliesView: NextPage<RepliesWithUsersAndImages> = ( data: RepliesWithUsersAndImages ) => {
     return (
         <>
         {!!data && (Object.values(data).map(({ reply, user }) => {

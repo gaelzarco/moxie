@@ -1,11 +1,13 @@
+import type { NextPage } from 'next'
 import Image from "next/image";
 import Link from "next/link";
 import type { RouterOutputs } from "~/utils/api";
 import { FiHeart, FiMessageCircle, FiShare, FiMoreHorizontal } from 'react-icons/fi'
 
-type PostsWithUsersAndImages = RouterOutputs["posts"]["getAll"][number]
+type PostsWithUsersAndImages = RouterOutputs["posts"]["getAll"]
 
-const FeedView = ( data : Array<PostsWithUsersAndImages> ) => {
+const FeedView: NextPage<PostsWithUsersAndImages> = ( data: PostsWithUsersAndImages ) => {
+    console.log(data)
     return (
         <>
         {!!data && (Object.values(data).map(({ post, user }) => {
@@ -24,18 +26,18 @@ const FeedView = ( data : Array<PostsWithUsersAndImages> ) => {
                         </div>
                         <h4 className="pl-2 mb-6">{post.body}</h4>
                         {post.link && (
-                        <Image className="h-auto w-full min-w-full mb-4 rounded-3xl" src={post.link} height={300} width={500} alt="Attached Media for Post" />
+                            <Image className="h-auto w-full min-w-full mb-4 rounded-3xl" src={post.link} height={300} width={500} alt="Attached Media for Post" />
                         )}
                         <div className="mt-1 inline-flex ml-2">
-                        <div className="inline-flex w-auto justify-between">
-                            <FiHeart className="hover:cursor-pointer text-stone-800" size={20}/>
-                            <p className='ml-2'>{post.likes.length}</p>
-                        </div>
-                        <div className="inline-flex w-auto justify-between">
-                            <FiMessageCircle className="hover:cursor-pointer text-stone-800 ml-20" size={20}/>
-                            <p className='ml-2'>{post.replies.length}</p>
-                        </div>
-                        <FiShare className="hover:cursor-pointer text-stone-800 ml-20 align-right" size={20}/>
+                            <div className="inline-flex w-auto justify-between">
+                                <FiHeart className="hover:cursor-pointer text-stone-800" size={20}/>
+                                <p className='ml-2'>{post.likes.length}</p>
+                            </div>
+                            <div className="inline-flex w-auto justify-between">
+                                <FiMessageCircle className="hover:cursor-pointer text-stone-800 ml-20" size={20}/>
+                                <p className='ml-2'>{post.replies.length}</p>
+                            </div>
+                            <FiShare className="hover:cursor-pointer text-stone-800 ml-20 align-right" size={20}/>
                         </div>
                     </div> 
                     </Link>

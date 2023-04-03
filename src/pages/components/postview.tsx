@@ -1,4 +1,4 @@
-import Link from "next/link";
+import type { NextPage } from 'next'
 import Image from "next/image";
 import { useRouter } from "next/router";
 import type { RouterOutputs } from "~/utils/api";
@@ -6,14 +6,14 @@ import { FiHeart, FiMessageCircle, FiShare, FiMoreHorizontal, FiArrowLeft } from
 
 type PostWithUserAndImage = RouterOutputs["posts"]["getOneById"]
 
-const PostView = ( data : PostWithUserAndImage ) => {
+const PostView: NextPage<PostWithUserAndImage> = ( data : PostWithUserAndImage ) => {
     const router = useRouter()
     const { post, user } = data;
 
     return (
         <>
         { (!!post && !!user) && (
-            <div className="w-full">
+            <div className="w-full cursor-default">
                 <div id='header' className="sticky top-0 backdrop-blur-lg p-4 w-full inline-flex items-center">
                     <FiArrowLeft className="text-stone-800 hover:cursor-pointer"
                     size={22} 
@@ -37,12 +37,10 @@ const PostView = ( data : PostWithUserAndImage ) => {
                             </div>
                             <FiMoreHorizontal className="text-stone-500 hover:cursor-pointer" size={22}/>
                             </div>
-                            <Link href={`post/${post.id}`}>
-                                <h4 className="pl-2 mb-6">{post.body}</h4>
-                                {post.link && (
-                                <Image className="h-auto w-full min-w-full mb-4 rounded-3xl" src={post.link} height={300} width={500} alt="Attached Media for Post" />
-                                )}
-                            </Link>
+                            <h4 className="pl-2 mb-6">{post.body}</h4>
+                            {post.link && (
+                            <Image className="h-auto w-full min-w-full mb-4 rounded-3xl" src={post.link} height={300} width={500} alt="Attached Media for Post" />
+                            )}
                             <div className="mt-1 inline-flex ml-2">
                             <div className="inline-flex w-auto justify-between">
                                 <FiHeart className="hover:cursor-pointer text-stone-800" size={20}/>

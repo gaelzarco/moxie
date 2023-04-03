@@ -1,4 +1,4 @@
-// import type { NextPage } from "next";
+import type { NextPage } from "next";
 import Image from "next/image";
 import { type FormEvent, type ChangeEvent, useState, useEffect, useRef } from "react";
 import { useUser } from "@clerk/nextjs";
@@ -22,7 +22,7 @@ type PostProps = {
   postId?: string;
 }
 
-const CreatePost = ({ reply, postId }: PostProps) => {
+const CreatePost: NextPage<PostProps> = ( { reply, postId }: PostProps ) => {
 
   const { user, isSignedIn } = useUser()
 
@@ -42,7 +42,7 @@ const CreatePost = ({ reply, postId }: PostProps) => {
     setFile(null)
     setImgView(false)
     setOpen(false)
-    
+
     window.clearTimeout(toasterTimeRef.current)
     toasterTimeRef.current = window.setTimeout(() => {
       setOpen(true)
@@ -133,7 +133,6 @@ const CreatePost = ({ reply, postId }: PostProps) => {
             type="text"
             placeholder="What's on your mind?"
             onChange={(event) => postBodyStateHandler(event)}
-            // value={post.body}
             className="w-5/6 text-xl min-w-5/6 py-2 px-3 ml-1 text-black active:outline-none focus:outline-none"
           />
         </div>

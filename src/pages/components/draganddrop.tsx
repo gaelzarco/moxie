@@ -1,13 +1,9 @@
-import { 
-  type DragEventHandler,
-  useState, useEffect
-} from "react";
+import type { NextPage } from "next";
+import { type DragEventHandler, useState, useEffect } from "react";
 
-interface ChangeParentStateProps {
-    setParentState: (file: File | null) => void
-}
+interface ChangeParentStateProps { setParentState: (file: File | null) => void }
 
-const DragAndDrop = ({ setParentState }: ChangeParentStateProps ) => {
+const DragAndDrop: NextPage<ChangeParentStateProps> = ({ setParentState }: ChangeParentStateProps ) => {
 
     const [ file, setFile ] = useState<File | null>(null)
 
