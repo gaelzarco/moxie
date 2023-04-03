@@ -11,6 +11,10 @@ export const postsRouter = createTRPCRouter({
             orderBy: {
                 createdAt: 'desc'
             },
+            include: {
+                likes: true,
+                replies: true
+            },
             take: 15,
         })
 
@@ -42,11 +46,15 @@ export const postsRouter = createTRPCRouter({
         })
     }),
 
-    getOne: publicProcedure
+    getOneById: publicProcedure
     .input(z.string().min(1)).query(async ({ ctx, input }) => {
         const post = await ctx.prisma.post.findUnique({
             where: {
                 id: input
+            },
+            include: {
+                likes: true,
+                replies: true
             }
         })
         
@@ -82,7 +90,7 @@ export const postsRouter = createTRPCRouter({
 
     createOne: protectedProcedure
     .input(z.object({
-        body: z.string().min(1).max(300),
+        body: z.string().min(1).max(500),
         media: z.object({
             buffer: z.string(),
             mimetype: z.string()
@@ -90,6 +98,12 @@ export const postsRouter = createTRPCRouter({
     }))
     .mutation(async ({ ctx, input }) => {
         const fileName = input.media ? await uploadFile(input.media) : null
+
+        if (!ctx.userId) throw new TRPCError({
+            code: 'UNAUTHORIZED',
+            message: 'You are not logged in.'
+        })
+
         return ctx.prisma.post.create({
             data: {
                 userId: ctx.userId,
@@ -97,6 +111,6 @@ export const postsRouter = createTRPCRouter({
                 media: fileName
             }
         })
-    })
+    }),
 
 })
