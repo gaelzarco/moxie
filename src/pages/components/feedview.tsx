@@ -7,7 +7,6 @@ import { FiHeart, FiMessageCircle, FiShare, FiMoreHorizontal } from 'react-icons
 type PostsWithUsersAndImages = RouterOutputs["posts"]["getAll"]
 
 const FeedView: NextPage<PostsWithUsersAndImages> = ( data: PostsWithUsersAndImages ) => {
-    console.log(data)
     return (
         <>
         {!!data && (Object.values(data).map(({ post, user }) => {

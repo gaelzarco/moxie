@@ -52,7 +52,6 @@ const CreatePost: NextPage<PostProps> = ( { reply, postId }: PostProps ) => {
   const postMutation = api.posts.createOne.useMutation({
     onSuccess: mutationSuccess
   })
-
   const replyMutation = api.replies.createOne.useMutation({
     onSuccess: mutationSuccess
   })
