@@ -2,7 +2,8 @@ import type { NextPage } from 'next'
 import Image from "next/image";
 import Link from "next/link";
 import type { RouterOutputs } from "~/utils/api";
-import { FiHeart, FiMessageCircle, FiShare, FiMoreHorizontal } from 'react-icons/fi'
+import { FiMessageCircle, FiShare, FiMoreHorizontal } from 'react-icons/fi'
+import CreateLike from './createlike';
 
 type PostsWithUsersAndImages = RouterOutputs["posts"]["getAll"]
 
@@ -29,7 +30,7 @@ const FeedView: NextPage<PostsWithUsersAndImages> = ( data: PostsWithUsersAndIma
                         )}
                         <div className="mt-1 inline-flex ml-2">
                             <div className="inline-flex w-auto justify-between">
-                                <FiHeart className="hover:cursor-pointer text-stone-800" size={20}/>
+                                <CreateLike postId={post.id} replyId={null} postType="POST" />
                                 <p className='ml-2'>{post.likes.length}</p>
                             </div>
                             <div className="inline-flex w-auto justify-between">
