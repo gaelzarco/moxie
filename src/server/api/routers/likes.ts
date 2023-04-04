@@ -8,8 +8,8 @@ export const likesRouter = createTRPCRouter({
     
     createOne: protectedProcedure
     .input(z.object({
-        postId: z.string().min(1).optional(),
-        replyId: z.string().min(1).optional(),
+        postId: z.string().min(1).nullable(),
+        replyId: z.string().min(1).nullable(),
         postType: z.enum(['POST', 'REPLY'])
     })).mutation(async ({ ctx, input }) => {
 
