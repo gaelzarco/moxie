@@ -5,6 +5,7 @@ import { TRPCError } from '@trpc/server';
 // import filterUserForPost from '~/server/helpers/filterUserForPost';
 
 export const likesRouter = createTRPCRouter({
+    
     createOne: protectedProcedure
     .input(z.object({
         postId: z.string().min(1).nullable(),
@@ -70,5 +71,6 @@ export const likesRouter = createTRPCRouter({
                 message: 'Invalid post type'
             })
         }
-    }),
+    })
+
 })
