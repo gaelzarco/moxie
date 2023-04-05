@@ -13,7 +13,7 @@ const PostView: NextPage<PostWithUserAndImage> = ( data : PostWithUserAndImage )
 
     return (
         <>
-        { (!!post && !!user) && (
+        {(!!post && !!user) && (
             <div className="w-full cursor-default">
                 <div id='header' className="sticky top-0 backdrop-blur-lg p-4 w-full inline-flex items-center">
                     <FiArrowLeft className="text-stone-800 hover:cursor-pointer"
@@ -44,7 +44,12 @@ const PostView: NextPage<PostWithUserAndImage> = ( data : PostWithUserAndImage )
                             )}
                             <div className="mt-1 inline-flex ml-2">
                             <div className="inline-flex w-auto justify-between">
-                                <CreateLike postId={post.id} replyId={null} postType="POST" />
+                                <CreateLike 
+                                    postId={post.id} 
+                                    postType="POST" 
+                                    likeType='POST' 
+                                    liked={post.likes.find((like) => like.userId === user.id) ? true : false}
+                                />
                                 <p className='ml-2'>{post.likes.length}</p>
                             </div>
                             <div className="inline-flex w-auto justify-between">

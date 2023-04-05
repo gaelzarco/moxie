@@ -15,7 +15,6 @@ const FeedView: NextPage<PostsWithUsersAndImages> = ( data: PostsWithUsersAndIma
                 <div key={post.id} className="m-auto text-left border-b border-stone-300 w-full min-w-full p-4">
                 <div className="flex leading-none">
                     <Image className="rounded-full w-10 h-10" src={user.profileImageURL} height={50} width={50} alt="Profile Picture" />
-                    <Link href={`post/${post.id}`} className="w-full">
                     <div className="pl-2 mb-1 w-full">
                         <div className="inline-flex mb-6 w-full justify-between">
                         <div className="inline-flex items-center">
@@ -24,13 +23,20 @@ const FeedView: NextPage<PostsWithUsersAndImages> = ( data: PostsWithUsersAndIma
                         </div>
                         <FiMoreHorizontal className="text-stone-500 hover:cursor-pointer" size={22}/>
                         </div>
+                        <Link href={`post/${post.id}`} className="w-full">
                         <h4 className="pl-2 mb-6">{post.body}</h4>
                         {post.link && (
                             <Image className="h-auto w-full min-w-full mb-4 rounded-3xl" src={post.link} height={300} width={500} alt="Attached Media for Post" />
                         )}
+                        </Link>
                         <div className="mt-1 inline-flex ml-2">
                             <div className="inline-flex w-auto justify-between">
-                                <CreateLike postId={post.id} replyId={null} postType="POST" />
+                                <CreateLike 
+                                    postId={post.id} 
+                                    postType='POST' 
+                                    likeType='FEED'
+                                    liked={post.likes.find((like) => like.userId === user.id) ? true : false}    
+                                />
                                 <p className='ml-2'>{post.likes.length}</p>
                             </div>
                             <div className="inline-flex w-auto justify-between">
@@ -40,7 +46,6 @@ const FeedView: NextPage<PostsWithUsersAndImages> = ( data: PostsWithUsersAndIma
                             <FiShare className="hover:cursor-pointer text-stone-800 ml-20 align-right" size={20}/>
                         </div>
                     </div> 
-                    </Link>
                 </div> 
                 </div>
               )

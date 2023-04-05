@@ -6,107 +6,100 @@ import { TRPCError,  } from '@trpc/server';
 
 export const likesRouter = createTRPCRouter({
     
-    handleOne: protectedProcedure
+    handlePostLike: protectedProcedure
     .input(z.object({
-        postId: z.string().min(1).nullable(),
-        replyId: z.string().min(1).nullable(),
-        postType: z.enum(['POST', 'REPLY'])
+        postId: z.string().min(1),
+        postType: z.enum(['POST'])
     })).mutation(async ({ ctx, input }) => {
 
-         if(!input.postId && !input.replyId) throw new TRPCError({
+         if (!input.postId || input.postType !== 'POST') throw new TRPCError({
             code: 'BAD_REQUEST',
-            message: 'An ID is required'
+            message: 'A post ID is required and post type must be "POST"'
         })
 
-        if (input.postId && input.replyId) throw new TRPCError({
-            code: 'BAD_REQUEST',
-            message: 'Only one ID is allowed at a time'
-        })
-
-        if (input.postType === 'POST' && input.postId) {
-
-            const post = await ctx.prisma.post.findUnique({
-                where: {
-                    id: input.postId
-                },
-				include: {
-					likes: true,
-				}
-            })
-
-            if (!post) throw new TRPCError({
-                code: 'NOT_FOUND',
-                message: 'Post not found'
-            })
-
-			if (post.likes.find((like) => like.userId === ctx.userId)) {
-                const deletedLike = await ctx.prisma.like.deleteMany({
-                    where: {
-                        userId: ctx.userId,
-                        postId: post.id
-                    }
-                })
-
-                return deletedLike
-
-			} else {
-                const like = await ctx.prisma.like.create({
-                    data: {
-                        userId: ctx.userId,
-                        postId: post.id,
-                        postType: input.postType
-                    }
-                })
-    
-                return like
+        const post = await ctx.prisma.post.findUnique({
+            where: {
+                id: input.postId
+            },
+            include: {
+                likes: true,
             }
+        })
 
-        } else if (input.postType === 'REPLY' && input.replyId) {
+        if (!post) throw new TRPCError({
+            code: 'NOT_FOUND',
+            message: 'Post not found'
+        })
 
-            const reply = await ctx.prisma.reply.findUnique({
+        if (post.likes.find((like) => like.userId === ctx.userId)) {
+            const deletedLike = await ctx.prisma.like.deleteMany({
                 where: {
-                    id: input.replyId
-                },
-                include: {
-                    likes: true
+                    userId: ctx.userId,
+                    postId: post.id
                 }
             })
 
-            if (!reply) throw new TRPCError({
-                code: 'NOT_FOUND',
-                message: 'Reply not found'
-            })
-
-            if (reply.likes.find((like) => like.userId === ctx.userId)) {
-                const deletedLike = await ctx.prisma.like.deleteMany({
-                    where: {
-                        userId: ctx.userId,
-                        replyId: reply.id
-                    }
-                })
-
-                return deletedLike
-
-            } else {
-                const like = await ctx.prisma.like.create({
-                    data: {
-                        userId: ctx.userId,
-                        replyId: reply.id,
-                        postType: input.postType
-                    }
-                })
-        
-                return like
-            }
+            return deletedLike
 
         } else {
-
-            throw new TRPCError({
-                code: 'BAD_REQUEST',
-                message: 'Invalid post type'
+            const like = await ctx.prisma.like.create({
+                data: {
+                    userId: ctx.userId,
+                    postId: post.id,
+                    postType: input.postType
+                }
             })
 
+            return like
         }
     }),
+
+    handleReplyLike: protectedProcedure
+    .input(z.object({
+        replyId: z.string().min(1).nullable(),
+        postType: z.enum(['REPLY'])
+    })).mutation(async ({ ctx, input }) => {
+
+        if (!input.replyId || input.postType !== 'REPLY') throw new TRPCError({
+            code: 'BAD_REQUEST',
+            message: 'A reply ID is required and post type must be "REPLY"'
+        })
+
+        const reply = await ctx.prisma.reply.findUnique({
+            where: {
+                id: input.replyId
+            },
+            include: {
+                likes: true
+            }
+        })
+
+        if (!reply) throw new TRPCError({
+            code: 'NOT_FOUND',
+            message: 'Reply not found'
+        })
+
+        if (reply.likes.find((like) => like.userId === ctx.userId)) {
+            const deletedLike = await ctx.prisma.like.deleteMany({
+                where: {
+                    userId: ctx.userId,
+                    replyId: reply.id
+                }
+            })
+
+            return deletedLike
+
+        } else {
+            const like = await ctx.prisma.like.create({
+                data: {
+                    userId: ctx.userId,
+                    replyId: reply.id,
+                    postType: input.postType
+                }
+            })
+    
+            return like
+        }
+    })
 
 })
