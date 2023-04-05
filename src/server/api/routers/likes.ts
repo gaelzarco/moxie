@@ -1,12 +1,12 @@
 import { z } from 'zod'
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 // import { clerkClient } from '@clerk/nextjs/server';
-import { TRPCError } from '@trpc/server';
+import { TRPCError,  } from '@trpc/server';
 // import filterUserForPost from '~/server/helpers/filterUserForPost';
 
 export const likesRouter = createTRPCRouter({
     
-    createOne: protectedProcedure
+    handleOne: protectedProcedure
     .input(z.object({
         postId: z.string().min(1).nullable(),
         replyId: z.string().min(1).nullable(),
@@ -24,10 +24,14 @@ export const likesRouter = createTRPCRouter({
         })
 
         if (input.postType === 'POST' && input.postId) {
+
             const post = await ctx.prisma.post.findUnique({
                 where: {
                     id: input.postId
-                }
+                },
+				include: {
+					likes: true,
+				}
             })
 
             if (!post) throw new TRPCError({
@@ -35,19 +39,36 @@ export const likesRouter = createTRPCRouter({
                 message: 'Post not found'
             })
 
-            const like = await ctx.prisma.like.create({
-                data: {
-                    userId: ctx.userId,
-                    postId: post.id,
-                    postType: input.postType
-                }
-            })
+			if (post.likes.find((like) => like.userId === ctx.userId)) {
+                const deletedLike = await ctx.prisma.like.deleteMany({
+                    where: {
+                        userId: ctx.userId,
+                        postId: post.id
+                    }
+                })
 
-            return like
+                return deletedLike
+
+			} else {
+                const like = await ctx.prisma.like.create({
+                    data: {
+                        userId: ctx.userId,
+                        postId: post.id,
+                        postType: input.postType
+                    }
+                })
+    
+                return like
+            }
+
         } else if (input.postType === 'REPLY' && input.replyId) {
+
             const reply = await ctx.prisma.reply.findUnique({
                 where: {
                     id: input.replyId
+                },
+                include: {
+                    likes: true
                 }
             })
 
@@ -56,21 +77,36 @@ export const likesRouter = createTRPCRouter({
                 message: 'Reply not found'
             })
 
-            const like = await ctx.prisma.like.create({
-                data: {
-                    userId: ctx.userId,
-                    replyId: reply.id,
-                    postType: input.postType
-                }
-            })
+            if (reply.likes.find((like) => like.userId === ctx.userId)) {
+                const deletedLike = await ctx.prisma.like.deleteMany({
+                    where: {
+                        userId: ctx.userId,
+                        replyId: reply.id
+                    }
+                })
 
-            return like
+                return deletedLike
+
+            } else {
+                const like = await ctx.prisma.like.create({
+                    data: {
+                        userId: ctx.userId,
+                        replyId: reply.id,
+                        postType: input.postType
+                    }
+                })
+        
+                return like
+            }
+
         } else {
+
             throw new TRPCError({
                 code: 'BAD_REQUEST',
                 message: 'Invalid post type'
             })
+
         }
-    })
+    }),
 
 })

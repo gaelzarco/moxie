@@ -2,10 +2,10 @@ import type { NextPage } from 'next'
 import { type RouterInputs, api } from "~/utils/api";
 import { FiHeart } from 'react-icons/fi'
 
-type Like = RouterInputs["likes"]["createOne"]
+type Like = RouterInputs["likes"]["handleOne"]
 
 const CreateLike: NextPage<Like> = ( { postId, replyId, postType }: Like ) => {
-    const { mutate } = api.likes.createOne.useMutation({
+    const { mutate } = api.likes.handleOne.useMutation({
         onSuccess: (data) => {
             console.log(data)
         }
