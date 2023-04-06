@@ -1,9 +1,10 @@
-import type { NextPage } from "next";
+import type { NextPage, GetServerSideProps } from "next";
 import { api } from "~/utils/api";
 import { useUser } from '@clerk/nextjs'
 
 import CreatePost from "./components/createpost";
 import FeedView from "./components/feedview";
+import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 
 const Home: NextPage = () => {
   return (
@@ -36,6 +37,18 @@ const Feed: NextPage = () => {
         {!!data && <FeedView {...data} />}
       </>
     )
+}
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const ssg = generateSSGHelper()
+
+  await ssg.posts.getAll.prefetch()
+
+  return {
+    props: {
+      trpcState: ssg.dehydrate(),
+    }
   }
+}
 
 export default Home;
