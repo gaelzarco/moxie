@@ -8,7 +8,7 @@ import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 
 const Home: NextPage = () => {
   return (
-    <div className="h-auto min-h-screen bg-white min-w-750 md:max-2xl:w-9/12 md:max-2xl:right-0 max-2xl:absolute border-b border-x border-stone-300">
+    <div className="h-auto min-h-screen max-md:w-screen bg-white min-w-750 md:max-2xl:w-9/12 md:max-2xl:right-0 max-2xl:absolute border-b border-x border-stone-300">
       <div id='header' className="sticky top-0 backdrop-blur-lg p-4 w-full flex border-b border-stone-300">
         <h2 className="text-2xl font-bold">
           Home

@@ -1,9 +1,7 @@
 import type { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link"
-import { SignInButton, useUser } from '@clerk/nextjs'
-// import { SignOutButton } from '@clerk/nextjs'
-
+import { SignInButton, SignOutButton, useUser } from '@clerk/nextjs'
 import { FiMoreHorizontal, FiUser } from 'react-icons/fi'
 // import { FiLogOut } from "react-icons/fi";
 import { SiTwitter } from "react-icons/si";
@@ -46,7 +44,11 @@ const NavBar: NextPage = () => {
           </div>
 
             <div className="text-1xl p-5">
-              {!isSignedIn && <SignInButton />}
+              {!isSignedIn && (
+                <div className="inline-flex justify-center items-center w-full mb-4">
+                  <SignInButton />
+                </div>
+              )}
               {!!isSignedIn && (
                 <div className="rounded-xl">
                   {!!user && (
@@ -58,7 +60,9 @@ const NavBar: NextPage = () => {
                                 <p className="text-stone-500 text-md">@{user.username}</p>
                             </div>
                           </div>
-                          <FiMoreHorizontal className="text-stone-500 hover:cursor-pointer" size={22}/>
+                          <SignOutButton>
+                            <FiMoreHorizontal className="text-stone-500 hover:cursor-pointer" size={22} />
+                          </SignOutButton>
                       </div>
                   )}
                 </div>
