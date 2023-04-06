@@ -9,7 +9,8 @@ import { FiMoreHorizontal, FiUser } from 'react-icons/fi'
 import { SiTwitter } from "react-icons/si";
 import { AiOutlineHome } from "react-icons/ai";
 
-const NavBar: NextPage = () => {  
+const NavBar: NextPage = () => {
+  
   const { isSignedIn, user } = useUser()
 
     return (

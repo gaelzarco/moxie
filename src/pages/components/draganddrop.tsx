@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { type DragEventHandler, useState, useEffect } from "react";
 
-interface ChangeParentStateProps { setParentState: (file: File | null) => void }
+type ChangeParentStateProps = { setParentState: (file: File | null) => void }
 
 const DragAndDrop: NextPage<ChangeParentStateProps> = ({ setParentState }: ChangeParentStateProps ) => {
 

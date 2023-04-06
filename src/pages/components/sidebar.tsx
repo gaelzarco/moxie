@@ -2,9 +2,10 @@ import type { NextPage } from "next";
 import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
 
-const SideBar: NextPage = () => { 
+const SideBar: NextPage = () => {
+
     const { user } = useUser()
-    
+
     return (
       <nav className="flex flex-col col-span-1 h-screen">
           <div className="w-11/12 mx-auto mt-2 h-72 rounded-xl bg-neutral-100">

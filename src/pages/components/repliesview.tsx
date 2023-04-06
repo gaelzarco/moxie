@@ -8,7 +8,7 @@ import CreateLike from "./createlike";
 type RepliesWithUsersAndImages = RouterOutputs["replies"]["getAllByPostId"]
 
 const RepliesView: NextPage<RepliesWithUsersAndImages> = ( data: RepliesWithUsersAndImages ) => {
-
+    
     return (
         <>
         {!!data && (Object.values(data).map(({ reply, user }) => {

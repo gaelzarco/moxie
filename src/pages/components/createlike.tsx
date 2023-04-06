@@ -11,14 +11,14 @@ type Like = {
 }
 
 const CreateLike: NextPage<Like> = ( { postId, replyId, postType, likeType, liked }: Like ) => {
+    
+    const post = api.posts.getOneById
+    const posts = api.posts.getAll
+    const replies = api.replies.getAllByPostId
 
-    const post = api.posts.getOneById.useQuery(postId)
-    const posts = api.posts.getAll.useQuery()
-    const replies = api.replies.getAllByPostId.useQuery(postId)
-
-    const postLike = api.likes.handlePostLike.useMutation({ onSuccess: () => post.refetch() })
-    const postsLike = api.likes.handlePostLike.useMutation({ onSuccess: () => posts.refetch() })
-    const replyLike = api.likes.handleReplyLike.useMutation({ onSuccess: () => replies.refetch() })
+    const postLike = api.likes.handlePostLike.useMutation({ onSuccess: () => post.useQuery(postId) })
+    const postsLike = api.likes.handlePostLike.useMutation({ onSuccess: () => posts.useQuery() })
+    const replyLike = api.likes.handleReplyLike.useMutation({ onSuccess: () => replies.useQuery(postId) })
 
     const likeHandler = () => {
         if (likeType === 'POST' && postType === 'POST' && postId) {

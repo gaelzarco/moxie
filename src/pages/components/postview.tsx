@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import Image from "next/image";
+// import Link from "next/link";
 import { useRouter } from "next/router";
 import type { RouterOutputs } from "~/utils/api";
 import { FiMessageCircle, FiShare, FiMoreHorizontal, FiArrowLeft } from 'react-icons/fi'
@@ -8,6 +9,7 @@ import CreateLike from "./createlike";
 type PostWithUserAndImage = RouterOutputs["posts"]["getOneById"]
 
 const PostView: NextPage<PostWithUserAndImage> = ( data : PostWithUserAndImage ) => {
+    
     const router = useRouter()
     const { post, user } = data;
 

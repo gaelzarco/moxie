@@ -8,6 +8,7 @@ import CreateLike from './createlike';
 type PostsWithUsersAndImages = RouterOutputs["posts"]["getAll"]
 
 const FeedView: NextPage<PostsWithUsersAndImages> = ( data: PostsWithUsersAndImages ) => {
+    
     return (
         <>
         {!!data && (Object.values(data).map(({ post, user }) => {
