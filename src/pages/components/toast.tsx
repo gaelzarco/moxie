@@ -1,4 +1,4 @@
-import { NextPage } from "next";
+import type { NextPage } from "next";
 import { type ReactNode, useRef } from "react";
 import * as ToastPrimitive from '@radix-ui/react-toast';
 

@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import Image from "next/image";
 // import Link from "next/link";
-import { RouterOutputs, api } from "~/utils/api";
+import type { RouterOutputs } from "~/utils/api";
 import { FiShare, FiMoreHorizontal } from 'react-icons/fi'
 import CreateLike from "./createlike";
 
