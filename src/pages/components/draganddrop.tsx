@@ -1,17 +1,16 @@
 import type { NextPage } from "next";
 import { type DragEventHandler, useState, useEffect } from "react";
 
-type ChangeParentStateProps = { setParentState: (file: File | null) => void }
-
-const DragAndDrop: NextPage<ChangeParentStateProps> = ({ setParentState }: ChangeParentStateProps ) => {
+const DragAndDrop: NextPage<{ setParentState: (file: File | null) => void }> = (
+  { setParentState } : { setParentState: (file: File | null) => void } ) => {
 
     const [ file, setFile ] = useState<File | null>(null)
 
     const handleDragOver: DragEventHandler<HTMLInputElement> = (event) => event.preventDefault()
     const handleDrop: DragEventHandler<HTMLInputElement> = (event) => {
         event.preventDefault()
-        if (event.dataTransfer.files) {
-            setFile(event.dataTransfer.files[0] as File)
+        if (event.dataTransfer.files[0] !== undefined) {
+            setFile(event.dataTransfer.files[0])
             setParentState(file)
         }
     }
@@ -36,11 +35,8 @@ const DragAndDrop: NextPage<ChangeParentStateProps> = ({ setParentState }: Chang
               type="file"
               className="cursor-pointer justify-center content-center items-center flex flex-col"
               onChange={(event) => {
-                if (null) {
-                  return
-                }
-                if (event.target.files) {
-                  setFile(event.target.files[0] as File)
+                if (event.target.files !== null && event.target.files[0] !== undefined) {
+                  setFile(event.target.files[0])
                   setParentState(file)
                 }
               }}
@@ -58,9 +54,9 @@ const DragAndDrop: NextPage<ChangeParentStateProps> = ({ setParentState }: Chang
                   event.preventDefault()
                   setFile(null)
                   setParentState(null)
-                  }}>
+                }}>
                   Cancel
-                  </button>
+                </button>
             </div>
         </div>
           )}

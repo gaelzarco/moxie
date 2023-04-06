@@ -10,15 +10,19 @@ type Like = {
     liked?: boolean;
 }
 
-const CreateLike: NextPage<Like> = ( { postId, replyId, postType, likeType, liked }: Like ) => {
-    
-    const post = api.posts.getOneById
-    const posts = api.posts.getAll
-    const replies = api.replies.getAllByPostId
+const CreateLike: NextPage<Like> = ( { postId, replyId, postType, likeType, liked } : Like ) => {
 
-    const postLike = api.likes.handlePostLike.useMutation({ onSuccess: () => post.useQuery(postId) })
-    const postsLike = api.likes.handlePostLike.useMutation({ onSuccess: () => posts.useQuery() })
-    const replyLike = api.likes.handleReplyLike.useMutation({ onSuccess: () => replies.useQuery(postId) })
+    const context = api.useContext()
+
+    const postLike = api.likes.handlePostLike.useMutation({
+        onSuccess: () => context.posts.getOneById.fetch(postId)
+    })
+    const postsLike = api.likes.handlePostLike.useMutation({
+        onSuccess: () => context.posts.getAll.fetch()
+    })
+    const replyLike = api.likes.handleReplyLike.useMutation({
+        onSuccess: () =>  context.replies.getAllByPostId.fetch(postId)
+    })
 
     const likeHandler = () => {
         if (likeType === 'POST' && postType === 'POST' && postId) {
@@ -37,7 +41,7 @@ const CreateLike: NextPage<Like> = ( { postId, replyId, postType, likeType, like
                 postType: postType
             })
         } else {
-            throw new Error('Type of like could not be determined.')
+            throw new Error('Like type could not be determined.')
         }
     }
 
