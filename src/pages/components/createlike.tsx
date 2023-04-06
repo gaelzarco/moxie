@@ -15,13 +15,22 @@ const CreateLike: NextPage<Like> = ( { postId, replyId, postType, likeType, like
     const context = api.useContext()
 
     const postLike = api.likes.handlePostLike.useMutation({
-        onSuccess: () => context.posts.getOneById.fetch(postId)
+        onSuccess: async () => {
+            await context.posts.getOneById.fetch(postId)
+            .catch(err => console.log(err))
+        }
     })
     const postsLike = api.likes.handlePostLike.useMutation({
-        onSuccess: () => context.posts.getAll.fetch()
+        onSuccess: async () => {
+            await context.posts.getAll.fetch()
+            .catch(err => console.log(err))
+        }
     })
     const replyLike = api.likes.handleReplyLike.useMutation({
-        onSuccess: () =>  context.replies.getAllByPostId.fetch(postId)
+        onSuccess: async () => {
+            await context.replies.getAllByPostId.fetch(postId)
+            .catch(err => console.log(err))
+        }
     })
 
     const likeHandler = () => {

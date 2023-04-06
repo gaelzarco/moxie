@@ -40,15 +40,17 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = (
   }
 
   const postMutation = api.posts.createOne.useMutation({ 
-    onSuccess: () => {
+    onSuccess: async () => {
       mutationSuccess()
-      context.posts.getAll.fetch()
+      await context.posts.getAll.fetch()
+      .catch(err => console.log(err))
     }
   })
   const replyMutation = api.replies.createOne.useMutation({ 
-    onSuccess: () => {
+    onSuccess: async () => {
       mutationSuccess()
-      context.replies.getAllByPostId.fetch(postId as string)
+      await context.replies.getAllByPostId.fetch(postId as string)
+      .catch(err => console.log(err))
     }
    })
 
