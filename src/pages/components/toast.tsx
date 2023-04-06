@@ -2,8 +2,8 @@ import { NextPage } from "next";
 import { type ReactNode, useRef } from "react";
 import * as ToastPrimitive from '@radix-ui/react-toast';
 
-const ToastComponent: NextPage<{title: string, content?: string, children: ReactNode}> = (
-    { title, children }: {title: string, children: ReactNode}) => {
+const ToastComponent: NextPage<{ title: string, content?: string, children: ReactNode }> = (
+    { title, children } : { title: string, children: ReactNode }) => {
 
     const toastDateRef = useRef(new Date())
 

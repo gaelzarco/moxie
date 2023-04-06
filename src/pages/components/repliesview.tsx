@@ -7,7 +7,7 @@ import CreateLike from "./createlike";
 
 type RepliesWithUsersAndImages = RouterOutputs["replies"]["getAllByPostId"]
 
-const RepliesView: NextPage<RepliesWithUsersAndImages> = ( data: RepliesWithUsersAndImages ) => {
+const RepliesView: NextPage<RepliesWithUsersAndImages> = ( data : RepliesWithUsersAndImages ) => {
     
     return (
         <>

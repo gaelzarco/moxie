@@ -8,8 +8,6 @@ import { Plus_Jakarta_Sans } from 'next/font/google';
 import NavBar from "./components/navbar";
 import SideBar from "./components/sidebar";
 
-import * as Toast from '@radix-ui/react-toast';
-
 const jakartaSans = Plus_Jakarta_Sans({
   subsets: [ "latin" ],
   weight: [ "400", "500", "600", "700", "800" ],
@@ -26,7 +24,6 @@ const MyApp: AppType = ({ Component, pageProps: { ...pageProps } }) => {
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
-        <Toast.Provider swipeDirection="right">
         <main className={`${jakartaSans.variable} font-sans h-auto mx-auto grid grid-cols-4 max-w-screen-2xl`}>
           <div className="h-screen bg-white col-span-1">
             <NavBar />
@@ -38,7 +35,6 @@ const MyApp: AppType = ({ Component, pageProps: { ...pageProps } }) => {
             <SideBar />
           </div>
         </main>
-        </Toast.Provider>
         
       </ClerkProvider>
   );
