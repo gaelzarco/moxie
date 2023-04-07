@@ -1,8 +1,8 @@
 import { z } from 'zod'
 import { createTRPCRouter, publicProcedure, protectedProcedure } from "~/server/api/trpc";
-import { uploadFile, getFileURL } from '~/server/api/s3';
 import { clerkClient } from '@clerk/nextjs/server';
 import { TRPCError } from '@trpc/server';
+import { uploadFile, getFileURL } from '~/server/api/s3';
 import filterUserForPost from '~/server/helpers/filterUserForPost';
 
 export const repliesRouter = createTRPCRouter({
