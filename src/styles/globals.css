@@ -3,15 +3,6 @@
 @tailwind utilities;
 
 body {
-  @apply bg-zinc-900 dark:text-white;
+  @apply dark:bg-neutral-900 dark:text-white;
   @apply min-h-screen w-screen overflow-x-hidden;
-}
-
-#home::-webkit-scrollbar {
-  display: none;
-}
-
-#home {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
 }

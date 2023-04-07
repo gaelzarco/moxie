@@ -3,7 +3,8 @@ import type { NextPage } from "next";
 const Loading: NextPage<{ home?: true }> = ({ home }) => {
     
     return (
-        <div className="text-left w-full min-w-full">
+        <div 
+        className="h-auto min-h-screen max-md:w-screen dark:bg-neutral-900 min-w-750 md:max-2xl:w-9/12 md:max-2xl:right-0 max-2xl:absolute border-b border-x dark:border-stone-700">
             {!home && (
                 <div className="sticky top-0 backdrop-blur-lg p-4 w-full border-b dark:border-stone-700 z-10">
                     <div className="w-40 h-10 rounded-full animate-pulse bg-neutral-700">
