@@ -20,12 +20,11 @@ model User {
   userName         String?  @unique  @db.VarChar(20)
   name         String?  @db.VarChar(20)
   email         String   @unique
-  emailVerified DateTime?
-  image         String?
+  profileImageURL         String?   @default("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.weact.org%2Fwp-content%2Fuploads%2F2016%2F10%2FBlank-profile.png&f=1&nofb=1&ipt=b8d22b883995dd4bc48e5a76583843d517afed73ffb6d5e247e7fc3c6a876689&ipo=images")
   bio     String?   @db.VarChar(500)
   posts         Post[]
   likes         Like[]
-  Reply         Reply[]
+  replies         Reply[]
 }
 
 model Post {
