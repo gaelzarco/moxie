@@ -16,7 +16,13 @@ const RepliesView: NextPage<RepliesWithUsersAndImages> = ( data ) => {
             return (
                 <div key={reply.id} className="m-auto text-left border-b dark:border-stone-700 w-full min-w-full p-4 cursor-default">
                     <div className="flex leading-none">
-                    <UserProfileHoverCard link={`user/${user.id}`} url={user.profileImageURL} firstName={user.firstName!} userName={user.userName!} userBio='This is my profile page'/>
+                        <UserProfileHoverCard 
+                            link={`user/${user.id}`}
+                            url={user.profileImageURL}
+                            firstName={user.firstName}
+                            userName={user.userName}
+                            userBio='This is my profile page'
+                        />
                         <div className="pl-2 mb-1 w-full">
                             <div className="inline-flex mb-6 w-full justify-between">
                             <div className="inline-flex items-center">

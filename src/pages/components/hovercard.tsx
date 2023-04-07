@@ -3,7 +3,7 @@ import * as HoverCardPrimitive from '@radix-ui/react-hover-card';
 import Image from "next/image";
 import Link from "next/link";
 
-const UserProfileHoverCard: NextPage<{ link: string, url: string, firstName: string , userName: string, userBio: string}> = (
+const UserProfileHoverCard: NextPage<{ link: string, url: string, firstName: string | null , userName: string | null, userBio: string}> = (
   { link, url, firstName, userName, userBio }) => (
 
   <HoverCardPrimitive.Root>
