@@ -1,33 +1,37 @@
 import type { NextPage } from 'next'
-import Image from "next/image";
-import Link from "next/link";
 import type { RouterOutputs } from "~/utils/api";
-import { FiMessageCircle, FiShare, FiMoreHorizontal } from 'react-icons/fi'
+import Link from "next/link";
+
 import CreateLike from './createlike';
+import UserProfileHoverCard from './hovercard';
+import AspectRatioImage from './aspectratioimage';
+import { FiMessageCircle, FiShare, FiMoreHorizontal } from 'react-icons/fi'
 
 type PostsWithUsersAndImages = RouterOutputs["posts"]["getAll"]
 
-const FeedView: NextPage<PostsWithUsersAndImages> = ( data : PostsWithUsersAndImages ) => {
+const FeedView: NextPage<PostsWithUsersAndImages> = ( data ) => {
     
     return (
         <>
         {!!data && (Object.values(data).map(({ post, user }) => {
             return (
-                <div key={post.id} className="m-auto text-left border-b border-stone-300 w-full min-w-full p-4">
+                <div key={post.id} className="m-auto text-left border-b dark:border-stone-700 w-full min-w-full p-4">
                 <div className="flex leading-none">
-                    <Image className="rounded-full w-10 h-10" src={user.profileImageURL} height={50} width={50} alt="Profile Picture" />
+
+                    <UserProfileHoverCard link={`user/${user.id}`} url={user.profileImageURL} firstName={user.firstName!} userName={user.userName!} userBio='This is my profile page'/>
+
                     <div className="pl-2 mb-1 w-full">
                         <div className="inline-flex mb-6 w-full justify-between">
                         <div className="inline-flex items-center">
                             <p className="pl-2 font-medium">{user.firstName}</p>
                             <p className="text-stone-500 text-md hover:cursor-pointer pl-2">@{user.userName === null ? 'username' : user.userName}</p>
                         </div>
-                        <FiMoreHorizontal className="text-stone-500 hover:cursor-pointer" size={22}/>
+                        <FiMoreHorizontal className="dark:text-white hover:cursor-pointer" size={22}/>
                         </div>
                         <Link href={`post/${post.id}`} className="w-full">
                         <h4 className="pl-2 mb-6">{post.body}</h4>
                         {post.link && (
-                            <Image className="h-auto w-full min-w-full mb-4 rounded-3xl" src={post.link} height={300} width={500} alt="Attached Media for Post" />
+                            <AspectRatioImage src={post.link} alt="Attached Media for Post" />
                         )}
                         </Link>
                         <div className="mt-1 inline-flex ml-2">
@@ -41,10 +45,10 @@ const FeedView: NextPage<PostsWithUsersAndImages> = ( data : PostsWithUsersAndIm
                                 <p className='ml-2'>{post.likes.length}</p>
                             </div>
                             <div className="inline-flex w-auto justify-between">
-                                <FiMessageCircle className="hover:cursor-pointer text-stone-800 ml-20" size={20}/>
+                                <FiMessageCircle className="hover:cursor-pointer dark:text-white ml-20" size={20}/>
                                 <p className='ml-2'>{post.replies.length}</p>
                             </div>
-                            <FiShare className="hover:cursor-pointer text-stone-800 ml-20 align-right" size={20}/>
+                            <FiShare className="hover:cursor-pointer dark:text-white ml-20 align-right" size={20}/>
                         </div>
                     </div> 
                 </div> 

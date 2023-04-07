@@ -1,14 +1,15 @@
 import type { NextPage } from 'next'
-import Image from "next/image";
-// import Link from "next/link";
 import { useRouter } from "next/router";
 import type { RouterOutputs } from "~/utils/api";
-import { FiMessageCircle, FiShare, FiMoreHorizontal, FiArrowLeft } from 'react-icons/fi'
+import Image from "next/image";
+
 import CreateLike from "./createlike";
+import UserProfileHoverCard from './hovercard';
+import { FiMessageCircle, FiShare, FiMoreHorizontal, FiArrowLeft } from 'react-icons/fi'
 
 type PostWithUserAndImage = RouterOutputs["posts"]["getOneById"]
 
-const PostView: NextPage<PostWithUserAndImage> = ( data : PostWithUserAndImage ) => {
+const PostView: NextPage<PostWithUserAndImage> = ( data ) => {
     
     const router = useRouter()
     const { post, user } = data;
@@ -16,9 +17,9 @@ const PostView: NextPage<PostWithUserAndImage> = ( data : PostWithUserAndImage )
     return (
         <>
         {(!!post && !!user) && (
-            <div className="w-full cursor-default">
-                <div id='header' className="sticky top-0 backdrop-blur-lg p-4 w-full inline-flex items-center">
-                    <FiArrowLeft className="text-stone-800 hover:cursor-pointer"
+            <div className="w-full min-w-full cursor-default">
+                <div id='header' className="sticky top-0 backdrop-blur-lg p-4 w-full inline-flex items-center border-b dark:border-stone-700">
+                    <FiArrowLeft className="dark:text-white hover:cursor-pointer"
                     size={22} 
                     onClick={(event) => {
                         event.preventDefault();
@@ -31,14 +32,14 @@ const PostView: NextPage<PostWithUserAndImage> = ( data : PostWithUserAndImage )
                 </div>
                 <div key={post.id} className="text-left w-full min-w-full p-4">
                     <div className="flex leading-none">
-                        <Image className="rounded-full w-10 h-10" src={user.profileImageURL} height={50} width={50} alt="Profile Picture" />
+                        <UserProfileHoverCard link={`user/${user.id}`} url={user.profileImageURL} firstName={user.firstName!} userName={user.userName!} userBio='This is my profile page'/>
                         <div className="pl-2 mb-1 w-full">
                             <div className="inline-flex mb-6 w-full justify-between">
                             <div className="inline-flex items-center">
                                 <p className="pl-2 font-medium">Gael Zarco</p>
                                 <p className="text-stone-500 text-md hover:cursor-pointer pl-2">@{user.userName === null ? 'username' : user.userName}</p>
                             </div>
-                            <FiMoreHorizontal className="text-stone-500 hover:cursor-pointer" size={22}/>
+                            <FiMoreHorizontal className="dark:text-white  hover:cursor-pointer" size={22}/>
                             </div>
                             <h4 className="pl-2 mb-6">{post.body}</h4>
                             {post.link && (
@@ -55,10 +56,10 @@ const PostView: NextPage<PostWithUserAndImage> = ( data : PostWithUserAndImage )
                                 <p className='ml-2'>{post.likes.length}</p>
                             </div>
                             <div className="inline-flex w-auto justify-between">
-                                <FiMessageCircle className="hover:cursor-pointer text-stone-800 ml-20" size={20}/>
+                                <FiMessageCircle className="hover:cursor-pointer dark:text-white ml-20" size={20}/>
                                 <p className='ml-2'>{post.replies.length}</p>
                             </div>
-                            <FiShare className="hover:cursor-pointer text-stone-800 ml-20 align-right" size={20}/>
+                            <FiShare className="hover:cursor-pointer dark:text-white ml-20 align-right" size={20}/>
                             </div>
                         </div> 
                     </div> 

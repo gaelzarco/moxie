@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import { type RouterInputs, api } from "~/utils/api";
+
 import { FiHeart } from 'react-icons/fi'
 
 type Like = {
@@ -10,7 +11,7 @@ type Like = {
     liked?: boolean;
 }
 
-const CreateLike: NextPage<Like> = ( { postId, replyId, postType, likeType, liked } : Like ) => {
+const CreateLike: NextPage<Like> = ({ postId, replyId, postType, likeType, liked }) => {
 
     const context = api.useContext()
 
@@ -57,10 +58,9 @@ const CreateLike: NextPage<Like> = ( { postId, replyId, postType, likeType, like
   return (
 
     <FiHeart
-        className="hover:cursor-pointer text-stone-800"
+        className={`hover:cursor-pointer ${liked ? 'text-red-600' : 'dark:text-white text-black'}`}
         size={20}
         onClick={likeHandler}
-        color={liked ? 'red' : 'black'}
     />
 
   )

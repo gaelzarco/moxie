@@ -1,15 +1,16 @@
-import type { NextPage, GetServerSideProps } from "next";
-import { api } from "~/utils/api";
+import type { NextPage } from "next";
 import { useUser } from '@clerk/nextjs'
+import { api } from "~/utils/api";
 
 import CreatePost from "./components/createpost";
 import FeedView from "./components/feedview";
-import { generateSSGHelper } from "~/server/helpers/ssgHelper";
+import Loading from "./components/loading";
 
 const Home: NextPage = () => {
   return (
-    <div className="h-auto min-h-screen max-md:w-screen bg-white min-w-750 md:max-2xl:w-9/12 md:max-2xl:right-0 max-2xl:absolute border-b border-x border-stone-300">
-      <div id='header' className="sticky top-0 backdrop-blur-lg p-4 w-full flex border-b border-stone-300">
+    <div 
+    className="h-auto min-h-screen max-md:w-screen dark:bg-neutral-900 min-w-750 md:max-2xl:w-9/12 md:max-2xl:right-0 max-2xl:absolute border-b border-x dark:border-stone-700">
+      <div id='header' className="sticky top-0 backdrop-blur-lg p-4 w-full flex border-b dark:border-stone-700 z-10">
         <h2 className="text-2xl font-bold">
           Home
         </h2>
@@ -28,7 +29,7 @@ const Feed: NextPage = () => {
   const { data, isLoading } = api.posts.getAll.useQuery();
   const { isSignedIn } = useUser()
 
-  if (isLoading) return <div>Loading...</div>
+  if (isLoading) return <Loading home/>
   if (!data) return <div>Something went wrong...</div>
 
   return (
@@ -37,18 +38,6 @@ const Feed: NextPage = () => {
         {!!data && <FeedView {...data} />}
       </>
     )
-}
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const ssg = generateSSGHelper()
-
-  await ssg.posts.getAll.prefetch()
-
-  return {
-    props: {
-      trpcState: ssg.dehydrate(),
-    }
-  }
 }
 
 export default Home;

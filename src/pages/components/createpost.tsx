@@ -1,17 +1,16 @@
 import type { NextPage } from "next";
-import Image from "next/image";
 import { type FormEvent, type ChangeEvent, useRef, useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import { type RouterInputs, api } from "~/utils/api";
+import Image from "next/image";
+
 import DragAndDrop from "./draganddrop";
 import ToastComponent from "./toast";
 import { FiImage } from 'react-icons/fi';
 
 type Post = RouterInputs["posts"]["createOne"]
 
-const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = (
-  { reply, postId } : { reply?: boolean, postId?: string } 
-  ) => {
+const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, postId }) => {
 
   const { user, isSignedIn } = useUser()
   const context = api.useContext()
@@ -92,7 +91,7 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = (
       const reader = new FileReader()
       reader.readAsArrayBuffer(file)
   
-      return reader.onload = () => {
+      reader.onload = () => {
         const buffer = Buffer.from(reader.result as ArrayBuffer)
         const base64 = buffer.toString('base64')
         setPost((prevState) => ({ ...prevState, media: { buffer: base64, mimetype: file.type } }))
@@ -105,12 +104,12 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = (
 
     return (
       <form onSubmit={reply && postId ? handleReplyFormSubmit : handlePostFormSubmit}
-       className="min-w-full border-b border-stone-300">
+       className="min-w-full border-b dark:border-stone-700">
 
         {toastOpen && (
           <ToastComponent title='Post was successful!' >
             <button
-            className="Button small green"
+            className="text-sm px-5 h-[25px] bg-green-400 text-white shadow-md transition-colors duration-200 ease-in-out hover:bg-green-500 rounded-full"
             onClick={() => {
                 setToastOpen(false)
                 clearTimeout(toastTimeRef.current)
@@ -121,14 +120,14 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = (
           
         <div id='form-body-input' className="m-4 flex flex-row">
           {!!user && 
-            <Image src={user.profileImageUrl} width={50} height={50} className="m-4 rounded-full" alt='User Avatar'/>
+            <Image src={user.profileImageUrl} width={50} height={50} className="m-2 rounded-full bg-neutral-800" alt='User Avatar'/>
           }
           <input
             type="text"
             placeholder="What's on your mind?"
             onChange={(event) => bodyStateHandler(event)}
             value={post.body}
-            className="w-5/6 text-xl min-w-5/6 py-2 px-3 ml-1 text-black active:outline-none focus:outline-none"
+            className="w-5/6 text-xl min-w-5/6 py-2 px-3 ml-1 dark:text-white dark:bg-neutral-900 active:outline-none focus:outline-none"
           />
         </div>
 
@@ -144,14 +143,14 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = (
               event.preventDefault()
               setImgView(!imgView)
             }}
-            className="ml-28 text-stone-800 hover:cursor-pointer"
+            className="ml-28 dark:text-white hover:cursor-pointer"
             size={20}
           />
           
           <button
             id='form-submit-input'
             type="submit"
-            className="rounded-full bg-black text-white px-8 h-10 mr-5 font-semibold no-underline transition hover:bg-stone-800 hover:cursor-pointer"
+            className="rounded-full bg-black dark:text-white px-8 h-10 mr-5 font-semibold no-underline transition dark:hover:bg-neutral-800 hover:cursor-pointer"
           >
             Submit
           </button>

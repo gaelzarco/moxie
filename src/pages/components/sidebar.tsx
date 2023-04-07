@@ -8,7 +8,7 @@ const SideBar: NextPage = () => {
 
     return (
       <nav className="flex flex-col col-span-1 h-screen">
-          <div className="w-11/12 mx-auto mt-2 h-72 rounded-xl bg-neutral-100">
+          <div className="w-11/12 mx-auto mt-2 h-72 rounded-xl dark:bg-neutral-800">
             <div className="w-full top-0 h-10 rounded-xl items-center m-3 ml-4">
                 <h2 className="font-bold text-xl mb-6">Who to follow</h2>
                 <div className="w-11/12 inline-flex justify-between items-center">
@@ -22,7 +22,7 @@ const SideBar: NextPage = () => {
                         </div>
                     )}
                     <button
-                    className="rounded-full bg-black text-white px-8 h-10 font-semibold no-underline transition hover:bg-stone-800 hover:cursor-pointer"
+                    className="rounded-full bg-black text-dark:white px-8 h-10 font-semibold no-underline transition hover:dark:bg-neutral-700 hover:cursor-pointer"
                     >
                     Follow
                     </button>

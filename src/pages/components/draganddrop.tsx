@@ -1,8 +1,7 @@
 import type { NextPage } from "next";
 import { type DragEventHandler, useState, useEffect } from "react";
 
-const DragAndDrop: NextPage<{ setParentState: (file: File | null) => void }> = (
-  { setParentState } : { setParentState: (file: File | null) => void } ) => {
+const DragAndDrop: NextPage<{ setParentState: (file: File | null) => void }> = ({ setParentState }) => {
 
     const [ file, setFile ] = useState<File | null>(null)
 
@@ -24,7 +23,7 @@ const DragAndDrop: NextPage<{ setParentState: (file: File | null) => void }> = (
     return (
         <>
         {!file ? (
-            <div className=" w-5/6 m-auto mb-8 border border-dashed border-gray-400 rounded-lg h-48 justify-center items-center flex flex-col"
+            <div className=" w-5/6 m-auto mb-8 border border-dashed dark:border-stone-700 rounded-lg h-48 justify-center items-center flex flex-col"
             onDragOver={handleDragOver}
             onDrop={handleDrop}
             >
@@ -49,7 +48,7 @@ const DragAndDrop: NextPage<{ setParentState: (file: File | null) => void }> = (
             </h1>
             <div>
                 <button
-                  className="rounded-full bg-black mt-8 text-white px-10 py-3 font-semibold no-underline transition hover:bg-stone-900 hover: cursor-pointer"
+                  className="rounded-full bg-black mt-8 dark:text-white px-10 py-3 font-semibold no-underline transition hover:bg-stone-900 hover: cursor-pointer"
                   onClick={(event) => {
                   event.preventDefault()
                   setFile(null)

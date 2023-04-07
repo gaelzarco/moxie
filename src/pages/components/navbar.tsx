@@ -1,7 +1,8 @@
 import type { NextPage } from "next";
+import { SignInButton, SignOutButton, useUser } from '@clerk/nextjs'
 import Image from "next/image";
 import Link from "next/link"
-import { SignInButton, SignOutButton, useUser } from '@clerk/nextjs'
+
 import { FiMoreHorizontal, FiUser } from 'react-icons/fi'
 // import { FiLogOut } from "react-icons/fi";
 import { SiTwitter } from "react-icons/si";
@@ -12,30 +13,30 @@ const NavBar: NextPage = () => {
   const { isSignedIn, user } = useUser()
 
     return (
-      <nav className="bg-white h-full">
+      <nav className="dark:bg-neutral-900 h-full">
         <div className="flex flex-col h-full justify-between">
           <div className="mt-1 flex flex-col h-auto">
           <Link href='https://github.com/gaelzarco/moxie'>
-            <div className="rounded-full p-5 hover:bg-neutral-100 w-min">
+            <div className="rounded-full p-5 dark:hover:bg-neutral-800 w-min">
               <SiTwitter
-              className="text-black hover:text-stone-800"
+              className="dark:text-white"
               size={30}
               />
             </div>
           </Link>
           <Link href='/'>
-            <div className="inline-flex mt-2 items-center rounded-full p-5 hover:bg-neutral-100">
+            <div className="inline-flex mt-2 items-center rounded-full p-5 dark:hover:bg-neutral-800">
             <AiOutlineHome
-              className="text-black hover:text-stone-800"
+              className="dark:text-white"
               size={30} 
             />
             <h3 className="ml-10 text-xl font-bold">Home</h3>
             </div>
           </Link>
           <Link href='/profile'>
-            <div className="inline-flex mt-2 items-center rounded-full p-5 hover:bg-neutral-100">
+            <div className="inline-flex mt-2 items-center rounded-full p-5 dark:hover:bg-neutral-800">
             <FiUser
-              className="text-black hover:text-stone-800"
+              className="dark:text-white"
               size={30} 
             />
             <h3 className="ml-10 text-xl font-bold">Profile</h3>
@@ -61,7 +62,7 @@ const NavBar: NextPage = () => {
                             </div>
                           </div>
                           <SignOutButton>
-                            <FiMoreHorizontal className="text-stone-500 hover:cursor-pointer" size={22} />
+                            <FiMoreHorizontal className="dark:text-white hover:cursor-pointer" size={22} />
                           </SignOutButton>
                       </div>
                   )}
