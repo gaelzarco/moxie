@@ -32,8 +32,7 @@ const PostView: NextPage<PostWithUserAndImage> = ( data ) => {
                 </div>
                 <div key={post.id} className="text-left w-full min-w-full p-4">
                     <div className="flex leading-none">
-                        <UserProfileHoverCard 
-                            link={`user/${user.id}`}
+                        <UserProfileHoverCard
                             url={user.profileImageURL}
                             firstName={user.firstName}
                             userName={user.userName}

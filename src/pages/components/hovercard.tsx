@@ -3,18 +3,18 @@ import * as HoverCardPrimitive from '@radix-ui/react-hover-card';
 import Image from "next/image";
 import Link from "next/link";
 
-const UserProfileHoverCard: NextPage<{ link: string, url: string, firstName: string | null , userName: string | null, userBio: string}> = (
-  { link, url, firstName, userName, userBio }) => (
+const UserProfileHoverCard: NextPage<{ url: string, firstName: string | null , userName: string | null, userBio: string}> = (
+  { url, firstName, userName, userBio }) => (
 
   <HoverCardPrimitive.Root>
 
     <HoverCardPrimitive.Trigger asChild>
-      <Link
+      {/* <Link
         className="cursor-pointer h-12 w-12 rounded-full inline-block"
         href={link}
-      >
+      > */}
         <Image className="rounded-full w-12 h-11 bg-neutral-800" src={url} height={50} width={50} alt="Profile Picture" />
-      </Link>
+      {/* </Link> */}
     </HoverCardPrimitive.Trigger>
 
     <HoverCardPrimitive.Portal>

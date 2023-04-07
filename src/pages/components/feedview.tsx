@@ -17,8 +17,7 @@ const FeedView: NextPage<PostsWithUsersAndImages> = ( data ) => {
             return (
                 <div key={post.id} className="m-auto text-left border-b dark:border-stone-700 w-full min-w-full p-4">
                 <div className="flex leading-none">
-                    <UserProfileHoverCard 
-                        link={`user/${user.id}`}
+                    <UserProfileHoverCard
                         url={user.profileImageURL}
                         firstName={user.firstName}
                         userName={user.userName}
