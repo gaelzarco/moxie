@@ -43,9 +43,9 @@ const FeedView: NextPage<PostsWithUsersAndImages> = ( data ) => {
                                     postId={post.id} 
                                     postType='POST' 
                                     likeType='FEED'
-                                    liked={post.likes.find((like) => like.userId === user.id) ? true : false}    
+                                    liked={post.likes.find((like) => like.userId === user.id) ? true : false}
+                                    likesArrLength={post.likes.length}
                                 />
-                                <p className='ml-2'>{post.likes.length}</p>
                             </div>
                             <div className="inline-flex w-auto justify-between">
                                 <FiMessageCircle className="hover:cursor-pointer dark:text-white ml-20" size={20}/>

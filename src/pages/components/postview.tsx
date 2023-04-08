@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import { useRouter } from "next/router";
-import type { RouterOutputs } from "~/utils/api";
+import { type RouterOutputs, api } from "~/utils/api";
 import Image from "next/image";
 
 import CreateLike from "./createlike";
@@ -11,6 +11,7 @@ type PostWithUserAndImage = RouterOutputs["posts"]["getOneById"]
 
 const PostView: NextPage<PostWithUserAndImage> = ( data ) => {
     
+    const apiContext = api.useContext()
     const router = useRouter()
     const { post, user } = data;
 
@@ -20,10 +21,10 @@ const PostView: NextPage<PostWithUserAndImage> = ( data ) => {
             <div className="w-full min-w-full cursor-default">
                 <div id='header' className="sticky top-0 backdrop-blur-lg p-4 w-full inline-flex items-center border-b dark:border-stone-700">
                     <FiArrowLeft className="dark:text-white hover:cursor-pointer"
-                    size={22} 
-                    onClick={(event) => {
-                        event.preventDefault();
-                        router.back()
+                        size={22} 
+                        onClick={(event) => {
+                            event.preventDefault();
+                            apiContext.posts.getAll.refetch().then(() => router.back())
                         }}
                     />
                     <h2 className="ml-5 text-2xl font-bold">
@@ -57,8 +58,8 @@ const PostView: NextPage<PostWithUserAndImage> = ( data ) => {
                                     postType="POST" 
                                     likeType='POST' 
                                     liked={post.likes.find((like) => like.userId === user.id) ? true : false}
+                                    likesArrLength={post.likes.length}
                                 />
-                                <p className='ml-2'>{post.likes.length}</p>
                             </div>
                             <div className="inline-flex w-auto justify-between">
                                 <FiMessageCircle className="hover:cursor-pointer dark:text-white ml-20" size={20}/>

@@ -1,4 +1,5 @@
 import type { NextPage } from 'next'
+import { useState } from 'react';
 import { type RouterInputs, api } from "~/utils/api";
 
 import { FiHeart } from 'react-icons/fi'
@@ -9,9 +10,13 @@ type Like = {
     postType: RouterInputs['likes']['handlePostLike']['postType'] | RouterInputs['likes']['handleReplyLike']['postType'];
     likeType: 'FEED'| 'POST' | 'REPLY'
     liked?: boolean;
+    likesArrLength: number;
 }
 
-const CreateLike: NextPage<Like> = ({ postId, replyId, postType, likeType, liked }) => {
+const CreateLike: NextPage<Like> = ({ postId, replyId, postType, likeType, liked, likesArrLength }) => {
+
+    const [ likedBool, setLikedBool ] = useState(liked)
+    const [ likesLength, setLikesLength ] = useState(likesArrLength)
 
     const context = api.useContext()
 
@@ -57,11 +62,18 @@ const CreateLike: NextPage<Like> = ({ postId, replyId, postType, likeType, liked
 
   return (
 
-    <FiHeart
-        className={`hover:cursor-pointer ${liked ? 'text-red-600' : 'dark:text-white text-black'}`}
-        size={20}
-        onClick={likeHandler}
-    />
+        <>
+            <FiHeart
+                className={`hover:cursor-pointer ${likedBool ? 'text-red-600' : 'dark:text-white text-black'}`}
+                size={20}
+                onClick={() => {
+                    likeHandler()
+                    setLikedBool(!likedBool)
+                    setLikesLength(!likedBool ? likesLength + 1 :  likesLength - 1)
+                }}
+            />
+            <p className='ml-2'>{likesLength}</p>
+        </>
 
   )
 }

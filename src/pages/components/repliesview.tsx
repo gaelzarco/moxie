@@ -42,8 +42,8 @@ const RepliesView: NextPage<RepliesWithUsersAndImages> = ( data ) => {
                                         postType="REPLY" 
                                         likeType='REPLY' 
                                         liked={reply.likes.find((like) => like.userId === user.id) ? true : false}
+                                        likesArrLength={reply.likes.length}
                                     />
-                                    <p className='ml-2'>{reply.likes.length}</p>
                                 </div>
                                 <FiShare className="hover:cursor-pointer dark:text-white ml-20 align-right" size={20}/>
                             </div>
