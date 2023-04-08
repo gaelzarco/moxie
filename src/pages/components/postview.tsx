@@ -28,9 +28,9 @@ const PostView: NextPage<PostWithUserAndImage> = ( data ) => {
                 <div id='header' className="sticky top-0 backdrop-blur-lg p-4 w-full inline-flex items-center border-b dark:border-stone-700">
                     <FiArrowLeft className="dark:text-white hover:cursor-pointer"
                         size={22} 
-                        onClick={(event) => {
+                        onClick={async (event) => {
                             event.preventDefault();
-                            fetchAndGoBack()
+                            await fetchAndGoBack()
                         }}
                     />
                     <h2 className="ml-5 text-2xl font-bold">
