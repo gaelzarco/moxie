@@ -16,9 +16,12 @@ const PostView: NextPage<PostWithUserAndImage> = ( data ) => {
     const { post, user } = data;
 
     const fetchAndGoBack = async () => {
-        await apiContext.posts.getAll.refetch()
-        .then(() => router.back())
-        .catch(err => console.log(err))
+        try {
+            await apiContext.posts.getAll.refetch()
+            .then(() => router.back())
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (
