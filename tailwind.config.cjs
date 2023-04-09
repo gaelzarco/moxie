@@ -11,7 +11,6 @@ const config = {
         '750': '750px',
       },
       keyframes: {
-
         // Toast
         hide: {
           from: { opacity: 1 },
