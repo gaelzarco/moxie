@@ -15,15 +15,6 @@ const PostView: NextPage<PostWithUserAndImage> = ( data ) => {
     const router = useRouter()
     const { post, user } = data;
 
-    const fetchAndGoBack = async () => {
-        try {
-            await apiContext.posts.getAll.refetch()
-            .then(() => router.back())
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
     return (
         <>
         {(!!post && !!user) && (
@@ -33,7 +24,8 @@ const PostView: NextPage<PostWithUserAndImage> = ( data ) => {
                         size={22} 
                         onClick={(event) => {
                             event.preventDefault();
-                            fetchAndGoBack()
+                            void apiContext.posts.getAll.refetch().then(() => router.back())
+                            .catch((err) => console.log(err))
                         }}
                     />
                     <h2 className="ml-5 text-2xl font-bold">
