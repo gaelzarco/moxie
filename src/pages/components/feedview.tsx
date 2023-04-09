@@ -1,4 +1,5 @@
 import type { NextPage } from 'next'
+import { useUser } from '@clerk/nextjs';
 import type { RouterOutputs } from "~/utils/api";
 import Link from "next/link";
 
@@ -10,6 +11,8 @@ import { FiMessageCircle, FiShare, FiMoreHorizontal } from 'react-icons/fi'
 type PostsWithUsersAndImages = RouterOutputs["posts"]["getAll"]
 
 const FeedView: NextPage<PostsWithUsersAndImages> = ( data ) => {
+
+    const authUser = useUser()
     
     return (
         <>
@@ -43,7 +46,7 @@ const FeedView: NextPage<PostsWithUsersAndImages> = ( data ) => {
                                     postId={post.id} 
                                     postType='POST' 
                                     likeType='FEED'
-                                    liked={post.likes.find((like) => like.userId === user.id) ? true : false}
+                                    liked={post.likes.find((like) => like.userId === authUser.user?.id) ? true : false}
                                     likesArrLength={post.likes.length}
                                 />
                             </div>

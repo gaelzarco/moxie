@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import { useRouter } from "next/router";
+import { useUser } from '@clerk/nextjs';
 import { type RouterOutputs, api } from "~/utils/api";
 import Image from "next/image";
 
@@ -11,6 +12,7 @@ type PostWithUserAndImage = RouterOutputs["posts"]["getOneById"]
 
 const PostView: NextPage<PostWithUserAndImage> = ( data ) => {
     
+    const authUser = useUser()
     const apiContext = api.useContext()
     const router = useRouter()
     const { post, user } = data;
@@ -58,7 +60,7 @@ const PostView: NextPage<PostWithUserAndImage> = ( data ) => {
                                     postId={post.id} 
                                     postType="POST" 
                                     likeType='POST' 
-                                    liked={post.likes.find((like) => like.userId === user.id) ? true : false}
+                                    liked={post.likes.find((like) => like.userId === authUser.user?.id) ? true : false}
                                     likesArrLength={post.likes.length}
                                 />
                             </div>

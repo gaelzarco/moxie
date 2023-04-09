@@ -1,4 +1,5 @@
 import type { NextPage } from 'next'
+import { useUser } from '@clerk/nextjs'
 import type { RouterOutputs } from "~/utils/api";
 import Image from "next/image";
 
@@ -9,6 +10,8 @@ import { FiShare, FiMoreHorizontal } from 'react-icons/fi'
 type RepliesWithUsersAndImages = RouterOutputs["replies"]["getAllByPostId"]
 
 const RepliesView: NextPage<RepliesWithUsersAndImages> = ( data ) => {
+
+    const authUser = useUser()
     
     return (
         <>
@@ -41,7 +44,7 @@ const RepliesView: NextPage<RepliesWithUsersAndImages> = ( data ) => {
                                         replyId={reply.id} 
                                         postType="REPLY" 
                                         likeType='REPLY' 
-                                        liked={reply.likes.find((like) => like.userId === user.id) ? true : false}
+                                        liked={reply.likes.find((like) => like.userId === authUser.user?.id) ? true : false}
                                         likesArrLength={reply.likes.length}
                                     />
                                 </div>
