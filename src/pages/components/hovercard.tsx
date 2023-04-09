@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import * as HoverCardPrimitive from '@radix-ui/react-hover-card';
 import Image from "next/image";
 // import Link from "next/link";
+
 import { jakartaSans } from "../_app";
 
 const UserProfileHoverCard: NextPage<{ url: string, firstName: string | null , userName: string | null, userBio: string}> = (
