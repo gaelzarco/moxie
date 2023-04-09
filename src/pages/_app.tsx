@@ -1,4 +1,4 @@
-import { type AppType, AppProps } from "next/app";
+import type { AppType, AppProps } from "next/app";
 import Head from "next/head";
 import { ClerkProvider } from "@clerk/nextjs";
 import { api } from "~/utils/api";
