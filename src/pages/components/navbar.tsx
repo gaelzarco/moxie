@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
-import { SignInButton, SignOutButton, useUser, SignedOut } from '@clerk/nextjs'
+import { SignInButton, SignOutButton, useUser } from '@clerk/nextjs'
 import Image from "next/image";
 import Link from "next/link"
 
