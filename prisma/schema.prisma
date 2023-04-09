@@ -20,9 +20,9 @@ model User {
   userName         String?  @unique  @db.VarChar(20)
   name         String?  @db.VarChar(20)
   email         String   @unique
-  profileImageURL         String?   @default("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.weact.org%2Fwp-content%2Fuploads%2F2016%2F10%2FBlank-profile.png&f=1&nofb=1&ipt=b8d22b883995dd4bc48e5a76583843d517afed73ffb6d5e247e7fc3c6a876689&ipo=images")
+  profileImageURL         String? 
   bio     String?   @db.VarChar(500)
-  posts         Post[]
+  posts         Post[] 
   likes         Like[]
   replies         Reply[]
 }
@@ -37,7 +37,7 @@ model Post {
   replies   Reply[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
 }
@@ -49,10 +49,10 @@ model Reply {
   media     String?
   link      String?
   body      String   @db.VarChar(500)
-  likes     Like[]
+  likes     Like[] 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
   post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
 
   @@index([userId])
@@ -66,8 +66,7 @@ model Like {
   replyId   String?  
   postType  PostType
   createdAt DateTime @default(now())
-
-  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user    User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
   post    Post?    @relation(fields: [postId], references: [id], onDelete: Cascade)
   reply   Reply?  @relation(fields: [replyId], references: [id], onDelete: Cascade)
 
