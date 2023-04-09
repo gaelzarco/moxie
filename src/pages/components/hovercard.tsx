@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import * as HoverCardPrimitive from '@radix-ui/react-hover-card';
 import Image from "next/image";
 // import Link from "next/link";
+import { jakartaSans } from "../_app";
 
 const UserProfileHoverCard: NextPage<{ url: string, firstName: string | null , userName: string | null, userBio: string}> = (
   { url, firstName, userName, userBio }) => (
@@ -18,7 +19,7 @@ const UserProfileHoverCard: NextPage<{ url: string, firstName: string | null , u
     </HoverCardPrimitive.Trigger>
 
     <HoverCardPrimitive.Portal>
-      <HoverCardPrimitive.Content className="--font-jakartaSans cursor-pointer backdrop-blur-md dark:bg-neutral-700/30 shadow-xl w-80 rounded-xl p-5 data-[side=bottom]:animate-slideUpAndFade data-[side=right]:animate-slideLeftAndFade data-[side=left]:animate-slideRightAndFade data-[side=top]:animate-slideDownAndFade data-[state=open]:transition-all">
+      <HoverCardPrimitive.Content className={`${jakartaSans.variable} font-sans cursor-pointer backdrop-blur-md dark:bg-neutral-700/30 shadow-xl w-80 rounded-xl p-5 data-[side=bottom]:animate-slideUpAndFade data-[side=right]:animate-slideLeftAndFade data-[side=left]:animate-slideRightAndFade data-[side=top]:animate-slideDownAndFade data-[state=open]:transition-all`}>
 
         <div className="flex flex-col gap-7">
           <Image className="rounded-full bg-neutral-700/30" src={url} alt="User Avatar" width={60} height={60} />

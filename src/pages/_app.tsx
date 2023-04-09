@@ -1,4 +1,4 @@
-import { type AppType } from "next/app";
+import { type AppType, AppProps } from "next/app";
 import Head from "next/head";
 import { ClerkProvider } from "@clerk/nextjs";
 import { api } from "~/utils/api";
@@ -8,22 +8,23 @@ import "~/styles/globals.css";
 import NavBar from "./components/navbar";
 import SideBar from "./components/sidebar";
 
-const jakartaSans = Plus_Jakarta_Sans({
-  subsets: [ "latin" ],
+export const jakartaSans = Plus_Jakarta_Sans({
+  subsets: [ "latin", "latin-ext" ],
   weight: [ "400", "500", "600", "700", "800" ],
   style: [ "normal" ],
   variable: '--font-jakartaSans'
 })
 
-const MyApp: AppType = ({ Component, pageProps: { ...pageProps } }) => {
+const MyApp: AppType = ( { Component, pageProps } : AppProps  ) => {
   return (
-      <ClerkProvider {...pageProps}>
-        <Head>
-          <title>Moxie</title>
-          <meta name="description" content="Blazingly fast, secure, and versatile. Meet the next generation of social media." />
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
+    <>
+      <Head>
+        <title>Moxie</title>
+        <meta name="description" content="Blazingly fast, secure, and versatile. Meet the next generation of social media." />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
 
+      <ClerkProvider {...pageProps}>
         <main className={`${jakartaSans.variable} font-sans h-auto mx-auto grid grid-cols-4 max-w-screen-2xl`}>
           <div className="h-screen dark:bg-neutral-900 col-span-1">
             <NavBar />
@@ -35,8 +36,8 @@ const MyApp: AppType = ({ Component, pageProps: { ...pageProps } }) => {
             <SideBar />
           </div>
         </main>
-        
       </ClerkProvider>
+    </>
   );
 };
 
