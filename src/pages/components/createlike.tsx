@@ -13,7 +13,7 @@ type Like = {
     likesArrLength: number;
 }
 
-const CreateLike: NextPage<Like> = ({ postId, replyId, postType, likeType, liked, likesArrLength }) => {
+const CreateLike: NextPage< Like > = ({ postId, replyId, postType, likeType, liked, likesArrLength }) => {
 
     const [ likedBool, setLikedBool ] = useState(liked)
     const [ likesLength, setLikesLength ] = useState(likesArrLength)
@@ -22,39 +22,30 @@ const CreateLike: NextPage<Like> = ({ postId, replyId, postType, likeType, liked
 
     const postLike = api.likes.handlePostLike.useMutation({
         onSuccess: async () => {
-            await context.posts.getOneById.fetch(postId)
+            await context.posts.getOneById.refetch(postId)
             .catch(err => console.log(err))
         }
     })
     const postsLike = api.likes.handlePostLike.useMutation({
         onSuccess: async () => {
-            await context.posts.getAll.fetch()
+            await context.posts.getAll.refetch()
             .catch(err => console.log(err))
         }
     })
     const replyLike = api.likes.handleReplyLike.useMutation({
         onSuccess: async () => {
-            await context.replies.getAllByPostId.fetch(postId)
+            await context.replies.getAllByPostId.refetch(postId)
             .catch(err => console.log(err))
         }
     })
 
     const likeHandler = () => {
         if (likeType === 'POST' && postType === 'POST' && postId) {
-            postLike.mutate({
-                postId: postId,
-                postType: postType
-            })
+            postLike.mutate({ postId: postId, postType: postType })
         } else if (likeType === 'FEED' && postType === 'POST' && postId) {
-            postsLike.mutate({
-                postId: postId,
-                postType: postType
-            })
-        } else if (postType === 'REPLY' && postType === 'REPLY' && replyId) {
-            replyLike.mutate({
-                replyId: replyId,
-                postType: postType
-            })
+            postsLike.mutate({ postId: postId, postType: postType })
+        } else if (likeType === 'REPLY' && postType === 'REPLY' && replyId) {
+            replyLike.mutate({ replyId: replyId, postType: postType })
         } else {
             throw new Error('Like type could not be determined.')
         }

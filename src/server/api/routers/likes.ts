@@ -30,26 +30,22 @@ export const likesRouter = createTRPCRouter({
         })
 
         if (post.likes.find((like) => like.userId === ctx.userId)) {
-            const deletedLike = await ctx.prisma.like.deleteMany({
+            return await ctx.prisma.like.deleteMany({
                 where: {
                     userId: ctx.userId,
                     postId: post.id
                 }
             })
-
-            return deletedLike
-
         } else {
-            const like = await ctx.prisma.like.create({
+            return await ctx.prisma.like.create({
                 data: {
                     userId: ctx.userId,
                     postId: post.id,
                     postType: input.postType
                 }
             })
-
-            return like
         }
+        
     }),
 
     handleReplyLike: protectedProcedure
@@ -78,26 +74,22 @@ export const likesRouter = createTRPCRouter({
         })
 
         if (reply.likes.find((like) => like.userId === ctx.userId)) {
-            const deletedLike = await ctx.prisma.like.deleteMany({
+            return await ctx.prisma.like.deleteMany({
                 where: {
                     userId: ctx.userId,
                     replyId: reply.id
                 }
             })
-
-            return deletedLike
-
         } else {
-            const like = await ctx.prisma.like.create({
+            return await ctx.prisma.like.create({
                 data: {
                     userId: ctx.userId,
                     replyId: reply.id,
                     postType: input.postType
                 }
             })
-    
-            return like
         }
-    })
+
+    }),
 
 })
