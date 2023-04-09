@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
-import { SignInButton, SignOutButton, useUser } from '@clerk/nextjs'
+import { useRouter } from "next/router";
+import { SignInButton, SignOutButton, useUser, SignedOut } from '@clerk/nextjs'
 import Image from "next/image";
 import Link from "next/link"
 
@@ -11,6 +12,7 @@ import { AiOutlineHome } from "react-icons/ai";
 const NavBar: NextPage = () => {
   
   const { isSignedIn, user } = useUser()
+  const router = useRouter()
 
     return (
       <nav className="dark:bg-neutral-900 h-full">
@@ -50,22 +52,23 @@ const NavBar: NextPage = () => {
                   <SignInButton />
                 </div>
               )}
-              {!!isSignedIn && (
+              {(!!isSignedIn && !!user) && (
                 <div className="rounded-xl">
-                  {!!user && (
-                      <div className="inline-flex justify-between items-center w-full">
-                          <div className="inline-flex items-center">
-                            <Image src={user.profileImageUrl} width={50} height={50} className="rounded-full" alt='user avatar'/>
-                            <div className="flex flex-col ml-2">
-                                <h2 className="font-medium">Gael Zarco</h2>
-                                <p className="text-stone-500 text-md">@{user.username}</p>
-                            </div>
-                          </div>
-                          <SignOutButton>
-                            <FiMoreHorizontal className="dark:text-white hover:cursor-pointer" size={22} />
-                          </SignOutButton>
+                  <div className="inline-flex justify-between items-center w-full">
+                    <div className="inline-flex items-center">
+                      <Image src={user.profileImageUrl} width={50} height={50} className="rounded-full" alt='user avatar'/>
+                      <div className="flex flex-col ml-2">
+                          <h2 className="font-medium">Gael Zarco</h2>
+                          <p className="text-stone-500 text-md">@{user.username}</p>
                       </div>
-                  )}
+                    </div>
+                    <SignOutButton signOutCallback={router.reload}>
+                      <FiMoreHorizontal
+                        className="dark:text-white hover:cursor-pointer"
+                        size={22}
+                      />
+                    </SignOutButton>
+                  </div>
                 </div>
               )}
             </div>
