@@ -1,11 +1,11 @@
 import type { NextPage } from "next";
-import { type FormEvent, type ChangeEvent, useRef, useState, useEffect } from "react";
+import { type FormEvent, type ChangeEvent, useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import { type RouterInputs, api } from "~/utils/api";
 import Image from "next/image";
 
 import DragAndDrop from "./draganddrop";
-import ToastComponent from "./toast";
+import Toast from "./toast";
 import { FiImage } from 'react-icons/fi';
 
 type Post = RouterInputs["posts"]["createOne"]
@@ -17,38 +17,31 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, pos
 
   const [ post, setPost ] = useState<Post>({ body: '', media: null })
   const [ file, setFile ] = useState<File | null>(null)
-  const [imgView, setImgView] = useState(false)
-
-  const toastTimeRef = useRef(0)
-  const [toastOpen, setToastOpen] = useState(false);
+  const [ imgView, setImgView ] = useState(false)
+  const [ toastBool, setToastBool ] = useState(false)
 
   const mutationSuccess = () => {
     setPost({ body: '', media: null })
     setFile(null)
     setImgView(false)
-    setToastOpen(false)
+    setToastBool(true)
 
-    // console.log(post)
-    // console.log(file)
-    // console.log(imgView)
-
-    window.clearTimeout(toastTimeRef.current)
-    toastTimeRef.current = window.setTimeout(() => {
-      setToastOpen(true)
-    }, 100)
+    setTimeout(() => {
+      setToastBool(false)
+    }, 4000)
   }
 
   const postMutation = api.posts.createOne.useMutation({ 
     onSuccess: async () => {
       mutationSuccess()
-      await context.posts.getAll.fetch()
+      await context.posts.getAll.refetch()
       .catch(err => console.log(err))
     }
   })
   const replyMutation = api.replies.createOne.useMutation({ 
     onSuccess: async () => {
       mutationSuccess()
-      await context.replies.getAllByPostId.fetch(postId as string)
+      await context.replies.getAllByPostId.refetch(postId as string)
       .catch(err => console.log(err))
     }
    })
@@ -98,25 +91,15 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, pos
         setFile(null)
       }
     }
-
-    return () => clearTimeout(toastTimeRef.current)
   }, [ file, post.media ])
 
     return (
       <form onSubmit={reply && postId ? handleReplyFormSubmit : handlePostFormSubmit}
        className="min-w-full border-b dark:border-stone-700">
 
-        {toastOpen && (
-          <ToastComponent title='Post was successful!' >
-            <button
-            className="text-sm px-5 h-[25px] bg-green-400 text-white shadow-md transition-colors duration-200 ease-in-out hover:bg-green-500 rounded-full"
-            onClick={() => {
-                setToastOpen(false)
-                clearTimeout(toastTimeRef.current)
-            }}
-            >Close</button>
-        </ToastComponent>
-        )}
+        { toastBool ? (
+        <Toast title='Post created successfully!' activateToast /> 
+        ) : null }
           
         <div id='form-body-input' className="m-4 flex flex-row">
           {!!user && 
