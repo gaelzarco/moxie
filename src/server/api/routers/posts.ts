@@ -86,6 +86,7 @@ export const postsRouter = createTRPCRouter({
                 user
             }
         })
+        
     }),
 
     createOne: protectedProcedure
@@ -99,18 +100,44 @@ export const postsRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
         const fileName = input.media ? await uploadFile(input.media) : null
 
-        if (!ctx.userId) throw new TRPCError({
-            code: 'UNAUTHORIZED',
-            message: 'You are not logged in.'
-        })
-
-        return ctx.prisma.post.create({
+        return await ctx.prisma.post.create({
             data: {
                 userId: ctx.userId,
                 body: input.body,
                 media: fileName
             }
         })
+
+    }),
+
+    deleteOneById: protectedProcedure
+    .input(z.string().min(1))
+    .mutation(async ({ ctx, input }) => {
+        const post = await ctx.prisma.post.findUnique({
+            where: {
+                id: input
+            },
+            include: {
+                replies: true
+            }
+        })
+
+        if (!post) throw new TRPCError({
+            code: 'INTERNAL_SERVER_ERROR',
+            message: 'Post not found'
+        })
+
+        if (post.userId !== ctx.userId) throw new TRPCError({
+            code: 'UNAUTHORIZED',
+            message: 'You are not authorized to delete this post.'
+        })
+
+        return await ctx.prisma.post.delete({
+            where: {
+                id: input
+            }
+        })
+
     }),
 
 })

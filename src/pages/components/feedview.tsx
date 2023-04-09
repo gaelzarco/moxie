@@ -6,7 +6,8 @@ import Link from "next/link";
 import CreateLike from './createlike';
 import UserProfileHoverCard from './hovercard';
 import AspectRatioImage from './aspectratioimage';
-import { FiMessageCircle, FiShare, FiMoreHorizontal } from 'react-icons/fi'
+import DropDownMenu from './dropdownmenu';
+import { FiMessageCircle, FiShare } from 'react-icons/fi'
 
 type PostsWithUsersAndImages = RouterOutputs["posts"]["getAll"]
 
@@ -32,7 +33,7 @@ const FeedView: NextPage<PostsWithUsersAndImages> = ( data ) => {
                             <p className="pl-2 font-medium">{user.firstName}</p>
                             <p className="text-stone-500 text-md hover:cursor-pointer pl-2">@{user.userName === null ? 'username' : user.userName}</p>
                         </div>
-                        <FiMoreHorizontal className="dark:text-white hover:cursor-pointer" size={22}/>
+                        <DropDownMenu postId={post.id} postType='POST' deleteType='FEED'/>
                         </div>
                         <Link href={`post/${post.id}`} className="w-full">
                         <h4 className="pl-2 mb-6">{post.body}</h4>

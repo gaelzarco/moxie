@@ -47,6 +47,7 @@ export const repliesRouter = createTRPCRouter({
                 user
             }
         })
+        
     }),
 
 
@@ -62,11 +63,6 @@ export const repliesRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
         const fileName = input.media ? await uploadFile(input.media) : null
 
-        if (!ctx.userId) throw new TRPCError({
-            code: 'UNAUTHORIZED',
-            message: 'You are not logged in.'
-        })
-
         return ctx.prisma.reply.create({
             data: {
                 userId: ctx.userId,
@@ -75,5 +71,34 @@ export const repliesRouter = createTRPCRouter({
                 media: fileName,
             }
         })
-    })
+
+    }),
+
+    deleteOneById: protectedProcedure
+    .input(z.string().min(1))
+    .mutation(async ({ ctx, input }) => {
+        const reply = await ctx.prisma.reply.findUnique({
+            where: {
+                id: input
+            }
+        })
+
+        if (!reply) throw new TRPCError({
+            code: 'NOT_FOUND',
+            message: 'Reply not found.'
+        })
+
+        if (reply.userId !== ctx.userId) throw new TRPCError({
+            code: 'UNAUTHORIZED',
+            message: 'You are not authorized to delete this reply.'
+        })
+
+        return await ctx.prisma.reply.delete({
+            where: {
+                id: input
+            }
+        })
+
+    }),
+
 });

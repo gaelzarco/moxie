@@ -6,7 +6,8 @@ import Image from "next/image";
 
 import CreateLike from "./createlike";
 import UserProfileHoverCard from './hovercard';
-import { FiMessageCircle, FiShare, FiMoreHorizontal, FiArrowLeft } from 'react-icons/fi'
+import DropDownMenu from './dropdownmenu';
+import { FiMessageCircle, FiShare, FiArrowLeft } from 'react-icons/fi'
 
 type PostWithUserAndImage = RouterOutputs["posts"]["getOneById"]
 
@@ -48,7 +49,7 @@ const PostView: NextPage<PostWithUserAndImage> = ( data ) => {
                                 <p className="pl-2 font-medium">Gael Zarco</p>
                                 <p className="text-stone-500 text-md hover:cursor-pointer pl-2">@{user.userName === null ? 'username' : user.userName}</p>
                             </div>
-                            <FiMoreHorizontal className="dark:text-white  hover:cursor-pointer" size={22}/>
+                            <DropDownMenu postId={post.id} postType='POST' deleteType='POST'/>
                             </div>
                             <h4 className="pl-2 mb-6">{post.body}</h4>
                             {post.link && (

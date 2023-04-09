@@ -5,7 +5,8 @@ import Image from "next/image";
 
 import CreateLike from "./createlike";
 import UserProfileHoverCard from "./hovercard";
-import { FiShare, FiMoreHorizontal } from 'react-icons/fi'
+import DropDownMenu from './dropdownmenu';
+import { FiShare } from 'react-icons/fi'
 
 type RepliesWithUsersAndImages = RouterOutputs["replies"]["getAllByPostId"]
 
@@ -31,7 +32,7 @@ const RepliesView: NextPage<RepliesWithUsersAndImages> = ( data ) => {
                                 <p className="pl-2 font-medium">{user.firstName}</p>
                                 <p className="text-stone-500 text-md hover:cursor-pointer pl-2">@{user.userName === null ? 'username' : user.userName}</p>
                             </div>
-                            <FiMoreHorizontal className="dark:text-white hover:cursor-pointer" size={22}/>
+                            <DropDownMenu postId={reply.postId} replyId={reply.id} postType='REPLY' deleteType='REPLY'/>
                             </div>
                             <h4 className="pl-2 mb-6">{reply.body}</h4>
                             {reply.link && (
