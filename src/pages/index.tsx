@@ -5,22 +5,23 @@ import { api } from "~/utils/api";
 import CreatePost from "./components/createpost";
 import FeedView from "./components/feedview";
 import Loading from "./components/loading";
+import NavBar from "./components/navbar";
 
 const Home: NextPage = () => {
   return (
-    <div 
-    className="h-auto min-h-screen max-md:w-screen dark:bg-neutral-900 min-w-750 md:max-2xl:w-9/12 md:max-2xl:right-0 max-2xl:absolute border-b border-x dark:border-stone-700">
-      <div id='header' className="sticky top-0 backdrop-blur-lg p-4 w-full flex border-b dark:border-stone-700 z-10">
-        <h2 className="text-2xl font-bold">
-          Home
-        </h2>
+    <div className="h-auto min-h-screen w-full pb-5 dark:bg-black max-w-[750px]">
+
+      <div className="sticky top-0 backdrop-blur-lg p-4 h-[80px] pl-9 w-full inline-flex justify-between items-center z-10">
+        <h2 className="text-2xl font-bold">Home</h2>
+        <NavBar />
       </div>
 
-      <div className='flex flex-col items-center justify-center'>
-      <div className="m-auto text-left w-full min-w-full">
-        <Feed />
+      <div className='flex items-center justify-center'>
+        <div className="m-auto text-left w-full">
+          <Feed />
         </div>
       </div>
+
     </div>
   );
 };

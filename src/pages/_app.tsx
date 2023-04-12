@@ -5,16 +5,6 @@ import { api } from "~/utils/api";
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import "~/styles/globals.css";
 
-import NavBar from "./components/navbar";
-import SideBar from "./components/sidebar";
-
-export const jakartaSans = Plus_Jakarta_Sans({
-  subsets: [ "latin", "latin-ext" ],
-  weight: [ "400", "500", "600", "700", "800" ],
-  style: [ "normal" ],
-  variable: '--font-jakartaSans'
-})
-
 const MyApp: AppType = ( { Component, pageProps } : AppProps  ) => {
   return (
     <>
@@ -25,20 +15,21 @@ const MyApp: AppType = ( { Component, pageProps } : AppProps  ) => {
       </Head>
 
       <ClerkProvider {...pageProps}>
-        <main className={`${jakartaSans.variable} font-sans h-auto mx-auto grid grid-cols-4 max-w-screen-2xl`}>
-          <div className="h-screen dark:bg-neutral-900 col-span-1">
-            <NavBar />
-          </div>
-          <div id='home' className="flex flex-col col-span-2 w-full min-w-750 dark:bg-neutral-900 max-lg:absolute">
+        <main className={`${customFont.variable} font-sans h-auto w-screen flex flex-col items-center content-center justify-center`}>
+          <div className="mx-auto max-w-[750px] w-full dark:bg-neutral-900">
             <Component {...pageProps} />
-          </div>
-          <div className="h-screen dark:bg-neutral-900 col-span-1">
-            <SideBar />
           </div>
         </main>
       </ClerkProvider>
     </>
   );
 };
+
+export const customFont = Plus_Jakarta_Sans({
+  subsets: [ "latin", "latin-ext" ],
+  weight: [ "400", "500", "600", "700", "800" ],
+  style: [ "normal" ],
+  variable: '--font-jakartaSans'
+})
 
 export default api.withTRPC(MyApp);
