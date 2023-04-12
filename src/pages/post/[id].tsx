@@ -32,7 +32,7 @@ const Post: NextPage<{ postId: string }> = ({ postId }) => {
                     }}
                 />
                 <h2 className="ml-5 text-2xl font-bold">
-                    {`${postQuery.data?.user.firstName}'s Post`}
+                    {postQuery.data.user.firstName}
                 </h2>
             </div>
 
