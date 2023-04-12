@@ -1,9 +1,11 @@
 import type { NextPage, GetStaticProps } from "next";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useUser } from '@clerk/nextjs'
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { api } from "~/utils/api";
 
+import Header from "../components/header";
 import CreatePost from "../components/createpost";
 import PostView from "../components/postview";
 import RepliesView from "../components/repliesview";
@@ -21,29 +23,38 @@ const Post: NextPage<{ postId: string }> = ({ postId }) => {
     if (!postQuery.data || !replyQuery.data) return <div>Something went wrong...</div>
 
     return (
-        <div className="h-auto min-h-screen w-full pb-5 dark:bg-black max-w-[750px]">
+        <>
+            <Head>
+                <title>{`${postQuery.data.user.firstName}` + "'s Post ✧ Moxie"}</title>
+                <meta name="description" content={`Checkout ${postQuery.data.user.firstName}` + "'s post ✧ Moxie"} />
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
 
-            <div className="sticky top-0 backdrop-blur-lg h-[80px] pl-5 w-full inline-flex items-center z-10">
-                <CaretLeftIcon className="dark:text-white hover:cursor-pointer h-5 w-5"
-                    onClick={(event) => {
-                        event.preventDefault();
-                        void apiContext.posts.getAll.refetch().then(() => router.push('/'))
-                        .catch((err) => console.log(err))
-                    }}
-                />
-                <h2 className="ml-5 text-2xl font-bold">
-                    {postQuery.data.user.firstName}
-                </h2>
-            </div>
+            <div className="h-auto min-h-screen w-full pb-5 dark:bg-black max-w-[750px]">
 
-            <div className='flex items-center justify-center'>
-                <div className="mx-auto text-left w-full">
-                {!!postQuery.data && <PostView {...postQuery.data} />}
-                {!!isSignedIn && <CreatePost postId={postId} reply/>}
-                {!!replyQuery.data && <RepliesView {...replyQuery.data} />}
+                <Header>
+                    <CaretLeftIcon className="dark:text-white hover:cursor-pointer h-5 w-5"
+                        onClick={(event) => {
+                            event.preventDefault();
+                            void apiContext.posts.getAll.refetch().then(() => router.push('/'))
+                            .catch((err) => console.log(err))
+                        }}
+                    />
+                    <h2 className="ml-5 text-2xl font-bold">
+                        {postQuery.data.user.firstName}
+                    </h2>
+                </Header>
+
+                <div className='flex items-center justify-center'>
+                    <div className="mx-auto text-left w-full">
+                        {!!postQuery.data && <PostView {...postQuery.data} />}
+                        {!!isSignedIn && <CreatePost postId={postId} reply/>}
+                        {!!replyQuery.data && <RepliesView {...replyQuery.data} />}
+                    </div>
                 </div>
+
             </div>
-        </div>
+        </>
     )
 }
 
