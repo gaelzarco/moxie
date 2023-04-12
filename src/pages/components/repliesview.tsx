@@ -68,7 +68,7 @@ const RepliesView: NextPage<RepliesWithUsersAndImages> = ( data ) => {
                                 <Share1Icon 
                                     className="hover:cursor-pointer dark:text-white ml-20 h-5 w-5 align-right" 
                                     onClick={() => {
-                                        navigator.clipboard.writeText(`https://moxie-x.vercel.app/${user.userName}/post/${reply.postId}`)
+                                        navigator.clipboard.writeText(`https://moxie-x.vercel.app/${user.userName as string}/post/${reply.postId as string}`)
                                         .then(toastHandler)
                                         .catch((err) => console.log(err))
                                     }}    
