@@ -1,7 +1,6 @@
 import type { NextPage } from "next";
 import * as HoverCardPrimitive from '@radix-ui/react-hover-card';
 import Image from "next/image";
-// import Link from "next/link";
 
 import { customFont } from "../_app";
 
@@ -11,12 +10,7 @@ const UserProfileHoverCard: NextPage<{ url: string, firstName: string | null , u
   <HoverCardPrimitive.Root>
 
     <HoverCardPrimitive.Trigger asChild>
-      {/* <Link
-        className="cursor-pointer h-12 w-12 rounded-full inline-block"
-        href={link}
-      > */}
-        <Image className="rounded-full w-12 h-11 bg-neutral-800 cursor-pointer" src={url} height={50} width={50} alt="Profile Picture" />
-      {/* </Link> */}
+      <Image className="rounded-full w-11 h-11 bg-neutral-800 cursor-pointer" src={url} height={50} width={50} alt="Profile Picture" />
     </HoverCardPrimitive.Trigger>
 
     <HoverCardPrimitive.Portal>

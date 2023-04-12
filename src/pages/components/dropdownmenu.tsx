@@ -71,7 +71,7 @@ const DropDownMenu: NextPage< PostAndReplyDelete > = ({ postId, replyId, postTyp
 
         <DropdownMenuPrimitive.Trigger asChild>
             <button
-            className="rounded-full w-[35px] h-[20px] bg-neutral-900 inline-flex items-center justify-center outline-none"
+            className="rounded-full w-[35px] h-[20px] inline-flex items-center justify-end mr-1 outline-none"
             aria-label="Customise options"
             >
             <DotsHorizontalIcon />
