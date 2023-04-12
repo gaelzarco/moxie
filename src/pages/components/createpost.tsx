@@ -95,7 +95,7 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, pos
 
     return (
       <form onSubmit={reply && postId ? handleReplyFormSubmit : handlePostFormSubmit}
-       className="w-11/12 m-auto rounded-xl mt-5 dark:text-white dark:bg-neutral-900 p-1">
+       className="w-11/12 m-auto mt-5 rounded-xl dark:text-white dark:bg-neutral-900 p-1">
 
         { toastBool ? (
         <Toast title='Post created successfully!' activateToast /> 

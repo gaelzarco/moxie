@@ -1,5 +1,7 @@
 import type { NextPage } from "next";
 import { type DragEventHandler, useState, useEffect } from "react";
+import Image from "next/image";
+import { Link2Icon } from "@radix-ui/react-icons";
 
 const DragAndDrop: NextPage<{ setParentState: (file: File | null) => void }> = ({ setParentState }) => {
 
@@ -8,7 +10,7 @@ const DragAndDrop: NextPage<{ setParentState: (file: File | null) => void }> = (
     const handleDragOver: DragEventHandler<HTMLInputElement> = (event) => event.preventDefault()
     const handleDrop: DragEventHandler<HTMLInputElement> = (event) => {
         event.preventDefault()
-        if (event.dataTransfer.files[0] !== undefined) {
+        if (event.dataTransfer.files[0]) {
             setFile(event.dataTransfer.files[0])
             setParentState(file)
         }
@@ -23,32 +25,39 @@ const DragAndDrop: NextPage<{ setParentState: (file: File | null) => void }> = (
     return (
         <>
         {!file ? (
-            <div className=" w-5/6 m-auto mb-8 border border-dashed dark:border-stone-700 rounded-lg h-48 justify-center items-center flex flex-col"
+          <div className="flex justify-center items-center content-center p-4 mb-8"
             onDragOver={handleDragOver}
             onDrop={handleDrop}
+          >
+
+            <label htmlFor="img" 
+              className="flex w-10/12 items-center content-center justify-center p-8 py-14 rounded-xl border border-neutral-300 border-dashed cursor-pointer transition dark:bg-neutral-800 dark:hover:bg-neutral-700"
             >
-              <p>Drag and drop</p>
-              <br />
-              <p>Or</p>
-            <input
-              type="file"
-              className="cursor-pointer justify-center content-center items-center flex flex-col"
-              onChange={(event) => {
-                if (event.target.files !== null && event.target.files[0] !== undefined) {
-                  setFile(event.target.files[0])
-                  setParentState(file)
-                }
-              }}
-            />
+              <div className="flex flex-col content-center justify-center">
+                <Link2Icon className="w-10 h-10 text-neutral-400 mx-auto" />
+                <h4 className="font-semibold text-neutral-300 mx-auto">Click to upload a file</h4>
+                <span className="text-sm text-neutral-400 mx-auto">or drag & drop</span>
+              </div>
+              <input type="file" id="img" name="img" accept="image/*, .gif" hidden
+                onChange={(event) => {
+                  if (event.target.files && event.target.files[0]) {
+                    setFile(event.target.files[0])
+                    setParentState(file)
+                  }
+                }}
+              />
+            </label>
+
           </div>
-          ) : (
-            <div className="flex flex-col justify-center items-center content-center mt-10 mb-10">
-            <h1>
-                {file.name}
-            </h1>
-            <div>
+        ) : (
+          <div className="flex flex-col justify-center items-center content-center dark:text-neutral-400 mt-8 mb-8">
+
+            <label htmlFor="img" 
+              className="flex w-10/12 items-center content-center justify-center p-8 py-14 rounded-xl border border-neutral-300 border-dashed cursor-pointer dark:bg-neutral-800"
+            >
+                <Image src={URL.createObjectURL(file)} width={300} height={300} className="mx-auto rounded-xl" alt='Uploaded File'/>
                 <button
-                  className="rounded-full bg-black dark:text-white px-8 mt-5 h-10 font-semibold no-underline transition dark:hover:bg-neutral-800 hover:cursor-pointer"
+                  className="mx-auto rounded-full dark:bg-red-500 dark:text-white px-8 h-10 font-semibold no-underline transition dark:hover:bg-red-400 hover:cursor-pointer"
                   onClick={(event) => {
                   event.preventDefault()
                   setFile(null)
@@ -56,9 +65,10 @@ const DragAndDrop: NextPage<{ setParentState: (file: File | null) => void }> = (
                 }}>
                   Cancel
                 </button>
-            </div>
-        </div>
-          )}
+            </label>
+
+          </div>
+        )}
         </>
     )
 }
