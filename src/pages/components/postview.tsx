@@ -34,26 +34,28 @@ const PostView: NextPage<PostWithUserAndImage> = ( data ) => {
         ) : null }
 
         {(!!post && !!user) && (
-            <div key={post.id} className="mx-auto text-left w-11/12 p-3 rounded-xl mt-5 dark:text-white dark:bg-neutral-900">
+            <div key={post.id} className="cursor-default mx-auto text-left w-11/12 p-5 rounded-xl mt-5 dark:text-white dark:bg-neutral-900">
                 <div className="flex leading-none">
                     <UserProfileHoverCard
                         url={user.profileImageURL}
                         firstName={user.firstName}
-                        userName={user.userName}
-                        userBio='This is my profile page'
+                        userName={!user.userName ? 'username' : user.userName}
+                        userBio='This is a bio'
                     />
                     <div className="pl-2 mb-1 w-full">
-                        <div className="inline-flex mb-6 w-full justify-between">
-                            <div className="inline-flex items-center">
-                                <p className="pl-2 font-medium">Gael Zarco</p>
-                                <p className="text-stone-500 text-md hover:cursor-pointer pl-2">@{user.userName === null ? 'username' : user.userName}</p>
+                        <div className="inline-flex mb-6 w-full items-center justify-between">
+                            <div className="inline-flex content-center justify-center">
+                                <p className="pl-2 font-medium">{user.firstName}</p>
+                                <p className="text-stone-500 text-md hover:cursor-pointer pl-2">@{!user.userName ? 'username' : user.userName}</p>
                             </div>
                             <DropDownMenu postId={post.id} postType='POST' deleteType='POST'/>
                         </div>
+
                         <h4 className="pl-2 mb-6 leading-5">{post.body}</h4>
                         {post.link && (
                         <Image className="h-auto w-full min-w-full mb-4 rounded-3xl" src={post.link} height={300} width={500} alt="Attached Media for Post" />
                         )}
+
                         <div className="mt-2 inline-flex ml-2">
                             <div className="inline-flex w-auto justify-between">
                                 <CreateLike 
@@ -65,11 +67,11 @@ const PostView: NextPage<PostWithUserAndImage> = ( data ) => {
                                 />
                             </div>
                             <div className="inline-flex w-auto justify-between">
-                                <ChatBubbleIcon className="hover:cursor-pointer dark:text-white ml-20 h-5 w-5" />
+                                <ChatBubbleIcon className="hover:cursor-pointer dark:text-white ml-16 h-5 w-5" />
                                 <p className='ml-2'>{post.replies.length}</p>
                             </div>
                             <Share1Icon 
-                                className="hover:cursor-pointer dark:text-white ml-20 h-5 w-5 align-right"
+                                className="hover:cursor-pointer dark:text-white ml-16 h-5 w-5 align-right"
                                 onClick={() => {
                                     navigator.clipboard.writeText(`https://moxie-x.vercel.app/post/${post.id}`)
                                     .then(toastHandler)

@@ -35,21 +35,23 @@ const FeedView: NextPage<PostsWithUsersAndImages> = ( data ) => {
 
         {!!data && (Object.values(data).map(({ post, user }) => {
             return (
-                <div key={post.id} className="cursor-default m-auto text-left w-11/12 p-3 rounded-xl mt-5 dark:text-white dark:bg-neutral-900">
+                <div key={post.id} className="cursor-default mx-auto text-left w-11/12 p-5 rounded-xl mt-5 dark:text-white dark:bg-neutral-900">
                     <div className="flex leading-none">
                         <UserProfileHoverCard
                             url={user.profileImageURL}
                             firstName={user.firstName}
-                            userName={user.userName}
-                            userBio='This is my profile page'
+                            userName={!user.userName ? 'username' : user.userName}
+                            userBio='This is a bio'
                         />
                         <div className="pl-2 mb-1 w-full">
                             <div className="inline-flex mb-6 w-full items-center justify-between">
                                 <div className="inline-flex content-center justify-center">
                                     <p className="pl-2 font-medium">{user.firstName}</p>
-                                    <p className="text-stone-500 text-md hover:cursor-pointer pl-2">@{user.userName === null ? 'username' : user.userName}</p>
+                                    <p className="text-stone-500 text-md hover:cursor-pointer pl-2">@{!user.userName ? 'username' : user.userName}</p>
                                 </div>
-                                <DropDownMenu postId={post.id} postType='POST' deleteType='FEED'/>
+                                {authUser.user?.id === user.id && (
+                                    <DropDownMenu postId={post.id} postType='POST' deleteType='FEED'/>
+                                )}
                             </div>
 
                             <Link href={`post/${post.id}`} className="w-full">
@@ -58,7 +60,8 @@ const FeedView: NextPage<PostsWithUsersAndImages> = ( data ) => {
                                     <AspectRatioImage src={post.link} alt="Attached Media for Post" />
                                 )}
                             </Link>
-                            <div className="mt-2 inline-flex ml-2">
+
+                            <div className="mt-2 inline-flex ml-1">
                                 <div className="inline-flex w-auto justify-between">
                                     <CreateLike 
                                         postId={post.id} 
@@ -69,11 +72,11 @@ const FeedView: NextPage<PostsWithUsersAndImages> = ( data ) => {
                                     />
                                 </div>
                                 <div className="inline-flex w-auto justify-between">
-                                    <ChatBubbleIcon className="hover:cursor-pointer dark:text-white ml-20 h-5 w-5" />
+                                    <ChatBubbleIcon className="hover:cursor-pointer dark:text-white ml-16 h-5 w-5" />
                                     <p className='ml-2'>{post.replies.length}</p>
                                 </div>
                                 <Share1Icon 
-                                    className="hover:cursor-pointer dark:text-white ml-20 h-5 w-5 align-right" 
+                                    className="hover:cursor-pointer dark:text-white ml-16 h-5 w-5 align-right" 
                                     onClick={() => {
                                         navigator.clipboard.writeText(`https://moxie-x.vercel.app/post/${post.id}`)
                                         .then(toastHandler)
