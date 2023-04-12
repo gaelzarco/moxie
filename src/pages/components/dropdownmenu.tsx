@@ -5,7 +5,7 @@ import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 
 import Toast from "./toast";
 import { DotsHorizontalIcon, Pencil2Icon, CrumpledPaperIcon } from '@radix-ui/react-icons';
-import { jakartaSans } from "../_app";
+import { customFont } from "../_app";
 
 type PostAndReplyDelete = {
     postId: RouterInputs["posts"]["deleteOneById"]
@@ -71,7 +71,7 @@ const DropDownMenu: NextPage< PostAndReplyDelete > = ({ postId, replyId, postTyp
 
         <DropdownMenuPrimitive.Trigger asChild>
             <button
-            className="rounded-full w-[35px] h-[20px] bg-neutral-900 inline-flex items-center justify-center shadow-[0px_0px_10px] outline-none"
+            className="rounded-full w-[35px] h-[20px] bg-neutral-900 inline-flex items-center justify-center outline-none"
             aria-label="Customise options"
             >
             <DotsHorizontalIcon />
@@ -81,10 +81,10 @@ const DropDownMenu: NextPage< PostAndReplyDelete > = ({ postId, replyId, postTyp
         <DropdownMenuPrimitive.Portal>
 
             <DropdownMenuPrimitive.Content
-            className={`${jakartaSans.variable} font-sans min-w-[150px] backdrop-blur-md dark:bg-neutral-700/30 rounded-md p-[5px] shadow-xl data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade`}
+            className={`${customFont.variable} font-sans min-w-[150px] backdrop-blur-md dark:bg-neutral-700/30 rounded-lg p-[5px] shadow-xl data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade`}
             sideOffset={5}>
 
-            <DropdownMenuPrimitive.Item className='group leading-none rounded-md flex items-center h-[25px] px-[5px] relative pl-[15px] select-none outline-none data-[disabled] data-[disabled]:pointer-events-none data-[highlighted]:bg-neutral-500 data-[highlighted]:text-neutral-100'>
+            <DropdownMenuPrimitive.Item className='group leading-none rounded-lg flex items-center h-[25px] px-[5px] relative pl-[15px] select-none outline-none data-[disabled] data-[disabled]:pointer-events-none data-[highlighted]:bg-neutral-500 data-[highlighted]:text-neutral-100'>
                 Edit{' '}
                 <div className="ml-auto pl-[20px] group-data-[highlighted]:text-neutral-100 group-data-[disabled]">
                 <Pencil2Icon /> 
@@ -94,7 +94,7 @@ const DropDownMenu: NextPage< PostAndReplyDelete > = ({ postId, replyId, postTyp
                 onClick={() => {
                     deleteHandler()
                 }}
-                className='group leading-none rounded-md flex items-center h-[25px] px-[5px] relative pl-[15px] select-none outline-none data-[disabled] data-[disabled]:pointer-events-none data-[highlighted]:bg-neutral-500 data-[highlighted]:text-neutral-100'
+                className='group leading-none rounded-lg flex items-center h-[25px] px-[5px] relative pl-[15px] select-none outline-none data-[disabled] data-[disabled]:pointer-events-none data-[highlighted]:bg-neutral-500 data-[highlighted]:text-neutral-100'
             >
                 Delete{' '}
                 <div className="ml-auto pl-[20px] group-data-[highlighted]:text-neutral-100 group-data-[disabled]">

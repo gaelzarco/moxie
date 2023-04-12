@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import { useState } from 'react';
 import { type RouterInputs, api } from "~/utils/api";
 
-import { FiHeart } from 'react-icons/fi'
+import { HeartIcon, HeartFilledIcon } from '@radix-ui/react-icons';
 
 type Like = {
     postId: RouterInputs['likes']['handlePostLike']['postId'];
@@ -52,17 +52,26 @@ const CreateLike: NextPage< Like > = ({ postId, replyId, postType, likeType, lik
     }
 
   return (
-
         <>
-            <FiHeart
-                className={`hover:cursor-pointer ${likedBool ? 'text-red-600' : 'dark:text-white text-black'}`}
-                size={20}
+        {likedBool ? (
+            <HeartFilledIcon
+                className='hover:cursor-pointer w-5 h-5 text-red-500'
                 onClick={() => {
                     likeHandler()
                     setLikedBool(!likedBool)
                     setLikesLength(!likedBool ? likesLength + 1 :  likesLength - 1)
                 }}
             />
+        ) : (
+            <HeartIcon
+                className='hover:cursor-pointer w-5 h-5 dark:text-white text-black'
+                onClick={() => {
+                    likeHandler()
+                    setLikedBool(!likedBool)
+                    setLikesLength(!likedBool ? likesLength + 1 :  likesLength - 1)
+                }}
+            />
+        )}
             <p className='ml-2'>{likesLength}</p>
         </>
 

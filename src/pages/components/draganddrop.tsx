@@ -48,7 +48,7 @@ const DragAndDrop: NextPage<{ setParentState: (file: File | null) => void }> = (
             </h1>
             <div>
                 <button
-                  className="rounded-full bg-black mt-8 dark:text-white px-10 py-3 font-semibold no-underline transition hover:bg-stone-900 hover: cursor-pointer"
+                  className="rounded-full bg-black dark:text-white px-8 mt-5 h-10 font-semibold no-underline transition dark:hover:bg-neutral-800 hover:cursor-pointer"
                   onClick={(event) => {
                   event.preventDefault()
                   setFile(null)
