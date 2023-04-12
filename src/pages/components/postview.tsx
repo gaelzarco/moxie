@@ -71,7 +71,7 @@ const PostView: NextPage<PostWithUserAndImage> = ( data ) => {
                             <Share1Icon 
                                 className="hover:cursor-pointer dark:text-white ml-20 h-5 w-5 align-right"
                                 onClick={() => {
-                                    navigator.clipboard.writeText(`https://moxie-x.vercel.app/${user.userName as string}/post/${post.id as string}`)
+                                    navigator.clipboard.writeText(`https://moxie-x.vercel.app/post/${post.id && post.id}`)
                                     .then(toastHandler)
                                     .catch((err) => console.log(err))
                                 }} 
