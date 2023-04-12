@@ -1,61 +1,60 @@
 import type { NextPage } from 'next'
-import { useRouter } from "next/router";
+import { useState } from 'react'
 import { useUser } from '@clerk/nextjs';
-import { type RouterOutputs, api } from "~/utils/api";
+import { type RouterOutputs } from "~/utils/api";
 import Image from "next/image";
 
 import CreateLike from "./createlike";
 import UserProfileHoverCard from './hovercard';
 import DropDownMenu from './dropdownmenu';
-import { FiMessageCircle, FiShare, FiArrowLeft } from 'react-icons/fi'
+import Toast from './toast';
+import { Share1Icon, ChatBubbleIcon } from '@radix-ui/react-icons';
 
 type PostWithUserAndImage = RouterOutputs["posts"]["getOneById"]
 
 const PostView: NextPage<PostWithUserAndImage> = ( data ) => {
     
     const authUser = useUser()
-    const apiContext = api.useContext()
-    const router = useRouter()
     const { post, user } = data;
+    const [ toastBool, setToastBool ] = useState(false)
+
+    const toastHandler = () => {
+        setToastBool(true)
+
+        setTimeout(() => {
+            setToastBool(false)
+        }, 2500)
+    }
 
     return (
         <>
+
+        { toastBool ? (
+            <Toast title='Link copied to clipboard!' activateToast /> 
+        ) : null }
+
         {(!!post && !!user) && (
-            <div className="w-full min-w-full cursor-default">
-                <div id='header' className="sticky top-0 backdrop-blur-lg p-4 w-full inline-flex items-center border-b dark:border-stone-700">
-                    <FiArrowLeft className="dark:text-white hover:cursor-pointer"
-                        size={22} 
-                        onClick={(event) => {
-                            event.preventDefault();
-                            void apiContext.posts.getAll.refetch().then(() => router.back())
-                            .catch((err) => console.log(err))
-                        }}
+            <div key={post.id} className="mx-auto text-left w-11/12 p-6 rounded-xl mt-5 dark:text-white dark:bg-neutral-900">
+                <div className="flex leading-none">
+                    <UserProfileHoverCard
+                        url={user.profileImageURL}
+                        firstName={user.firstName}
+                        userName={user.userName}
+                        userBio='This is my profile page'
                     />
-                    <h2 className="ml-5 text-2xl font-bold">
-                    {user.firstName}
-                    </h2>
-                </div>
-                <div key={post.id} className="text-left w-full min-w-full p-4">
-                    <div className="flex leading-none">
-                        <UserProfileHoverCard
-                            url={user.profileImageURL}
-                            firstName={user.firstName}
-                            userName={user.userName}
-                            userBio='This is my profile page'
-                        />
-                        <div className="pl-2 mb-1 w-full">
-                            <div className="inline-flex mb-6 w-full justify-between">
+                    <div className="pl-2 mb-1 w-full">
+                        <div className="inline-flex mb-6 w-full justify-between">
                             <div className="inline-flex items-center">
                                 <p className="pl-2 font-medium">Gael Zarco</p>
                                 <p className="text-stone-500 text-md hover:cursor-pointer pl-2">@{user.userName === null ? 'username' : user.userName}</p>
                             </div>
                             <DropDownMenu postId={post.id} postType='POST' deleteType='POST'/>
-                            </div>
-                            <h4 className="pl-2 mb-6">{post.body}</h4>
-                            {post.link && (
-                            <Image className="h-auto w-full min-w-full mb-4 rounded-3xl" src={post.link} height={300} width={500} alt="Attached Media for Post" />
-                            )}
-                            <div className="mt-1 inline-flex ml-2">
+                        </div>
+                        <h4 className="pl-2 mb-6 leading-5">{post.body}</h4>
+                        {post.link && (
+                        <Image className="h-auto w-full min-w-full mb-4 rounded-3xl" src={post.link} height={300} width={500} alt="Attached Media for Post" />
+                        )}
+                        <div className="mt-2 inline-flex ml-2">
                             <div className="inline-flex w-auto justify-between">
                                 <CreateLike 
                                     postId={post.id} 
@@ -66,14 +65,19 @@ const PostView: NextPage<PostWithUserAndImage> = ( data ) => {
                                 />
                             </div>
                             <div className="inline-flex w-auto justify-between">
-                                <FiMessageCircle className="hover:cursor-pointer dark:text-white ml-20" size={20}/>
+                                <ChatBubbleIcon className="hover:cursor-pointer dark:text-white ml-20 h-5 w-5" />
                                 <p className='ml-2'>{post.replies.length}</p>
                             </div>
-                            <FiShare className="hover:cursor-pointer dark:text-white ml-20 align-right" size={20}/>
-                            </div>
-                        </div> 
+                            <Share1Icon 
+                                className="hover:cursor-pointer dark:text-white ml-20 h-5 w-5 align-right"
+                                onClick={() => {
+                                    navigator.clipboard.writeText(`https://moxie-x.vercel.app/${user.userName}/post/${post.id}`)
+                                    .then(toastHandler)
+                                }} 
+                            />
+                        </div>
                     </div> 
-                </div>
+                </div> 
             </div>
         )}
     </>
