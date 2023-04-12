@@ -34,7 +34,7 @@ const RepliesView: NextPage<RepliesWithUsersAndImages> = ( data ) => {
 
         {!!data && (Object.values(data).map(({ reply, user }) => {
             return (
-                <div key={reply.id} className="cursor-default m-auto text-left w-11/12 p-6 rounded-xl mt-5 dark:text-white dark:bg-neutral-900">
+                <div key={reply.id} className="cursor-default m-auto text-left w-11/12 p-3 rounded-xl mt-5 dark:text-white dark:bg-neutral-900">
                     <div className="flex leading-none">
                         <UserProfileHoverCard
                             url={user.profileImageURL}
@@ -68,7 +68,7 @@ const RepliesView: NextPage<RepliesWithUsersAndImages> = ( data ) => {
                                 <Share1Icon 
                                     className="hover:cursor-pointer dark:text-white ml-20 h-5 w-5 align-right" 
                                     onClick={() => {
-                                        navigator.clipboard.writeText(`https://moxie-x.vercel.app/post/${reply.postId && reply.postId}`)
+                                        navigator.clipboard.writeText(`https://moxie-x.vercel.app/post/${reply.postId}`)
                                         .then(toastHandler)
                                         .catch((err) => console.log(err))
                                     }}    

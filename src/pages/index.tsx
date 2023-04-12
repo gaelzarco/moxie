@@ -11,7 +11,7 @@ const Home: NextPage = () => {
   return (
     <div className="h-auto min-h-screen w-full pb-5 dark:bg-black max-w-[750px]">
 
-      <div className="sticky top-0 backdrop-blur-lg p-4 h-[80px] pl-9 w-full inline-flex justify-between items-center z-10">
+      <div className="sticky top-0 backdrop-blur-lg h-[80px] pl-6 w-full inline-flex justify-between items-center z-10">
         <h2 className="text-2xl font-bold">Home</h2>
         <NavBar />
       </div>

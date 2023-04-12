@@ -17,8 +17,9 @@ const NavBar: NextPage = () => {
         )}
         {(!!isSignedIn && !!user) && (
           <div className="inline-flex items-center">
-            <Image src={user.profileImageUrl} width={45} height={45} className="rounded-full mr-3" alt='user avatar'/>
-            <SignOutButton signOutCallback={router.reload}/>
+            <SignOutButton signOutCallback={router.reload}>
+              <Image src={user.profileImageUrl} width={45} height={45} className="rounded-full mr-3 hover:cursor-pointer" alt='user avatar'/>
+            </SignOutButton>
           </div>
         )}
       </div>

@@ -23,16 +23,16 @@ const Post: NextPage<{ postId: string }> = ({ postId }) => {
     return (
         <div className="h-auto min-h-screen w-full pb-5 dark:bg-black max-w-[750px]">
 
-            <div className="sticky top-0 backdrop-blur-lg p-4 pt-9 pl-7 w-full inline-flex items-center z-10">
+            <div className="sticky top-0 backdrop-blur-lg h-[80px] pl-5 w-full inline-flex items-center z-10">
                 <CaretLeftIcon className="dark:text-white hover:cursor-pointer h-5 w-5"
                     onClick={(event) => {
                         event.preventDefault();
-                        void apiContext.posts.getAll.refetch().then(() => router.back())
+                        void apiContext.posts.getAll.refetch().then(() => router.push('/'))
                         .catch((err) => console.log(err))
                     }}
                 />
                 <h2 className="ml-5 text-2xl font-bold">
-                    {postQuery.data.user.firstName}
+                    {postQuery.data.user.firstName}'s Post
                 </h2>
             </div>
 
