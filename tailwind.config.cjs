@@ -18,7 +18,7 @@ const config = {
         },
         slideIn: {
           from: { transform: 'translateX(calc(100% + var(--viewport-padding)))' },
-          to: { transform: 'translateX(0))' },
+          to: { transform: 'translateX(0)' },
         },
         swipeOut: {
           from: { transform: 'translateX(var(--radix-toast-swipe-end-x))' },
