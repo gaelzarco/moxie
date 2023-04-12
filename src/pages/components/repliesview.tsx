@@ -70,6 +70,7 @@ const RepliesView: NextPage<RepliesWithUsersAndImages> = ( data ) => {
                                     onClick={() => {
                                         navigator.clipboard.writeText(`https://moxie-x.vercel.app/${user.userName}/post/${reply.postId}`)
                                         .then(toastHandler)
+                                        .catch((err) => console.log(err))
                                     }}    
                                 />
                             </div>

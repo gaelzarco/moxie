@@ -77,6 +77,7 @@ const FeedView: NextPage<PostsWithUsersAndImages> = ( data ) => {
                                     onClick={() => {
                                         navigator.clipboard.writeText(`https://moxie-x.vercel.app/${user.userName}/post/${post.id}`)
                                         .then(toastHandler)
+                                        .catch((err) => console.log(err))
                                     }}    
                                 />
                             </div>
