@@ -25,8 +25,8 @@ const Post: NextPage<{ postId: string }> = ({ postId }) => {
     return (
         <>
             <Head>
-                <title>{`${postQuery.data.user.firstName as string}` + "'s Post ✧ Moxie"}</title>
-                <meta name="description" content={`Checkout ${postQuery.data.user.firstName as string}` + "'s post ✧ Moxie"} />
+                <title>{`Moxie ✦ ${postQuery.data.user.firstName as string}` + "'s Post"}</title>
+                <meta name="description" content={`Checkout ${postQuery.data.user.firstName as string}` + "'s post ✦ Moxie"} />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
@@ -41,7 +41,7 @@ const Post: NextPage<{ postId: string }> = ({ postId }) => {
                         }}
                     />
                     <h2 className="ml-5 text-2xl font-bold">
-                        {postQuery.data.user.firstName}
+                        {`${postQuery.data.user.firstName as string}` + "'s Post"}
                     </h2>
                 </Header>
 
