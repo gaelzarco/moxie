@@ -6,7 +6,7 @@ import Image from "next/image";
 
 import DragAndDrop from "./draganddrop";
 import Toast from "./toast";
-import { FiImage } from 'react-icons/fi';
+import { ImageIcon } from "@radix-ui/react-icons";
 
 type Post = RouterInputs["posts"]["createOne"]
 
@@ -95,7 +95,7 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, pos
 
     return (
       <form onSubmit={reply && postId ? handleReplyFormSubmit : handlePostFormSubmit}
-       className="min-w-full border-b dark:border-stone-700">
+       className="w-11/12 m-auto rounded-xl mt-5 dark:text-white dark:bg-neutral-900 p-1">
 
         { toastBool ? (
         <Toast title='Post created successfully!' activateToast /> 
@@ -115,23 +115,21 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, pos
         </div>
 
         {imgView && (
-              <div id='form-dragdrop-input'>
+              <div>
                   <DragAndDrop setParentState={mediaStateHandler}/>
               </div>
           )} 
 
-        <div id='form-imgview-input' className="flex flex-row justify-between items-center mb-3">
-          <FiImage
+        <div className="flex flex-row justify-between items-center mb-3">
+          <ImageIcon
             onClick={(event) => {
               event.preventDefault()
               setImgView(!imgView)
             }}
-            className="ml-28 dark:text-white hover:cursor-pointer"
-            size={20}
+            className="ml-28 h-5 w-5 dark:text-white hover:cursor-pointer"
           />
           
           <button
-            id='form-submit-input'
             type="submit"
             className="rounded-full bg-black dark:text-white px-8 h-10 mr-5 font-semibold no-underline transition dark:hover:bg-neutral-800 hover:cursor-pointer"
           >

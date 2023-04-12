@@ -8,8 +8,8 @@ const Toast: NextPage<{ title: string, activateToast: boolean }> = ({ title, act
     const toastDateRef = useRef(new Date())
 
     return (
-        <ToastPrimitive.Provider swipeDirection="up">
-            <ToastPrimitive.Root className="p-5 w-[350px] dark:bg-neutral-700/30 backdrop-blur-md rounded-md shadow-lg grid [grid-template-areas:_'title_action'_'description_action'] grid-cols-[auto_max-content] gap-x-[15px] items-center data-[state=open]:animate-slideIn data-[state=closed]:animate-hide data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=cancel]:translate-x-0 data-[swipe=cancel]:transition-[transform_200ms_ease-out] data-[swipe=end]:animate-swipeOut"
+        <ToastPrimitive.Provider swipeDirection="right">
+            <ToastPrimitive.Root className="p-5 w-[355px] dark:bg-neutral-700/30 backdrop-blur-md rounded-md shadow-lg grid [grid-template-areas:_'title_action'_'description_action'] grid-cols-[auto_max-content] gap-x-[15px] items-center data-[state=open]:animate-slideIn data-[state=closed]:animate-hide data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=cancel]:translate-x-0 data-[swipe=cancel]:transition-[transform_200ms_ease-out] data-[swipe=end]:animate-swipeOut"
             open={toastOpen}
             onOpenChange={setToastOpen}
             >
