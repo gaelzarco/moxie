@@ -1,9 +1,11 @@
 import { createTRPCRouter } from "~/server/api/trpc";
+import { usersRouter } from "~/server/api/routers/users";
 import { postsRouter } from "~/server/api/routers/posts";
 import { repliesRouter } from "~/server/api/routers/replies";
 import { likesRouter } from "~/server/api/routers/likes";
 
 export const appRouter = createTRPCRouter({
+  users: usersRouter,
   posts: postsRouter,
   replies: repliesRouter,
   likes: likesRouter
