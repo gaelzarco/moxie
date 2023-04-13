@@ -5,7 +5,7 @@ import { Link2Icon } from "@radix-ui/react-icons";
 
 const DragAndDrop: NextPage<{ setParentState: (file: File | null) => void }> = ({ setParentState }) => {
 
-    const [ file, setFile ] = useState<File | null>(null)
+    const [ file, setFile ] = useState< File | null >(null)
 
     const handleDragOver: DragEventHandler<HTMLInputElement> = (event) => event.preventDefault()
     const handleDrop: DragEventHandler<HTMLInputElement> = (event) => {

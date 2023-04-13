@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { type FormEvent, type ChangeEvent, useState, useEffect } from "react";
+import { type FormEvent, type ChangeEvent, useState, useEffect, useRef } from "react";
 import { useUser } from "@clerk/nextjs";
 import { type RouterInputs, api } from "~/utils/api";
 import Image from "next/image";
@@ -8,27 +8,21 @@ import DragAndDrop from "./draganddrop";
 import Toast from "./toast";
 import { ImageIcon } from "@radix-ui/react-icons";
 
-type Post = RouterInputs["posts"]["createOne"]
-
 const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, postId }) => {
 
   const { user, isSignedIn } = useUser()
   const context = api.useContext()
 
-  const [ post, setPost ] = useState<Post>({ body: '', media: null })
-  const [ file, setFile ] = useState<File | null>(null)
+  const [ post, setPost ] = useState< RouterInputs["posts"]["createOne"] >({ body: '', media: null })
+  const [ file, setFile ] = useState< File | null >(null)
   const [ imgView, setImgView ] = useState(false)
-  const [ toastBool, setToastBool ] = useState(false)
+  const toastRef = useRef<{ publish: () => void }>()
 
   const mutationSuccess = () => {
     setPost({ body: '', media: null })
     setFile(null)
     setImgView(false)
-    setToastBool(true)
-
-    setTimeout(() => {
-      setToastBool(false)
-    }, 4000)
+    toastRef.current?.publish()
   }
 
   const postMutation = api.posts.createOne.useMutation({ 
@@ -97,9 +91,7 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, pos
       <form onSubmit={reply && postId ? handleReplyFormSubmit : handlePostFormSubmit}
        className="w-11/12 m-auto mt-5 rounded-xl dark:text-white dark:bg-neutral-900 p-1">
 
-        { toastBool ? (
-        <Toast title='Post created successfully!' activateToast /> 
-        ) : null }
+        <Toast forwardedRef={toastRef} title='Post created successfully!' /> 
           
         <div id='form-body-input' className="m-4 flex flex-row">
           {!!user && 

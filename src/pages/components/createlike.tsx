@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import { useState } from 'react';
+import { useUser, SignInButton } from '@clerk/nextjs';
 import { type RouterInputs, api } from "~/utils/api";
 
 import { HeartIcon, HeartFilledIcon } from '@radix-ui/react-icons';
@@ -15,10 +16,11 @@ type Like = {
 
 const CreateLike: NextPage< Like > = ({ postId, replyId, postType, likeType, liked, likesArrLength }) => {
 
+    const { isSignedIn } = useUser()
+    const context = api.useContext()
+
     const [ likedBool, setLikedBool ] = useState(liked)
     const [ likesLength, setLikesLength ] = useState(likesArrLength)
-
-    const context = api.useContext()
 
     const postLike = api.likes.handlePostLike.useMutation({
         onSuccess: async () => {
@@ -50,6 +52,15 @@ const CreateLike: NextPage< Like > = ({ postId, replyId, postType, likeType, lik
             throw new Error('Like type could not be determined.')
         }
     }
+
+    if (!isSignedIn) return (
+        <>
+            <SignInButton>
+                <HeartIcon className='hover:cursor-pointer w-5 h-5 dark: text-white text-black'/>
+            </SignInButton>
+            <p className='ml-2'>{likesLength}</p>
+        </>
+    )
 
   return (
         <>

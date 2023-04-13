@@ -1,54 +1,46 @@
 import type { NextPage } from 'next'
-import { useState } from 'react'
+import { useRef } from 'react'
 import { useUser } from '@clerk/nextjs'
 import type { RouterOutputs } from "~/utils/api";
 import Image from "next/image";
 
 import CreateLike from "./createlike";
 import UserProfileHoverCard from "./hovercard";
-import DropDownMenu from './dropdownmenu';
+import PostOptionsDropDown from './dropdownmenus';
 import Toast from './toast';
 import { Share1Icon } from '@radix-ui/react-icons';
+import Header from './header';
 
 type RepliesWithUsersAndImages = RouterOutputs["replies"]["getAllByPostId"]
 
-const RepliesView: NextPage<RepliesWithUsersAndImages> = ( data ) => {
+const RepliesView: NextPage< RepliesWithUsersAndImages > = ( replies ) => {
 
     const authUser = useUser()
-    const [ toastBool, setToastBool ] = useState(false)
-
-    const toastHandler = () => {
-        setToastBool(true)
-
-        setTimeout(() => {
-            setToastBool(false)
-        }, 2500)
-    }
+    const toastRef = useRef<{ publish: () => void }>()
     
     return (
         <>
 
-        { toastBool ? (
-            <Toast title='Link copied to clipboard!' activateToast /> 
-        ) : null }
+        <Toast forwardedRef={toastRef} title='Link copied to clipboard!' /> 
 
-        {!!data && (Object.values(data).map(({ reply, user }) => {
+        <Header noNav>
+            <h2 className="ml-5 text-2xl font-bold">
+                Replies
+            </h2>
+        </Header>
+        
+        {!!replies && (Object.values(replies).map(({ reply, user }) => {
             return (
                 <div key={reply.id} className="cursor-default mx-auto text-left w-11/12 p-5 rounded-xl mt-5 dark:text-white dark:bg-neutral-900">
                     <div className="flex leading-none">
-                        <UserProfileHoverCard
-                            url={user.profileImageURL}
-                            firstName={user.firstName}
-                            userName={!user.userName ? 'username' : user.userName}
-                            userBio='This is a bio'
-                        />
+                        <UserProfileHoverCard {...user}/>
                         <div className="pl-2 mb-1 w-full">
                             <div className="inline-flex mb-6 w-full justify-between">
                                 <div className="inline-flex items-center">
                                     <p className="pl-2 font-medium">{user.firstName}</p>
                                     <p className="text-stone-500 text-md hover:cursor-pointer pl-2">@{!user.userName ? 'username' : user.userName}</p>
                                 </div>
-                                <DropDownMenu postId={reply.postId} replyId={reply.id} postType='REPLY' deleteType='REPLY'/>
+                                <PostOptionsDropDown postId={reply.postId} replyId={reply.id} postType='REPLY' deleteType='REPLY'/>
                             </div>
 
                             <h4 className="pl-2 mb-6 leading-5">{reply.body}</h4>
@@ -71,7 +63,7 @@ const RepliesView: NextPage<RepliesWithUsersAndImages> = ( data ) => {
                                     className="hover:cursor-pointer dark:text-white ml-16 h-5 w-5 align-right" 
                                     onClick={() => {
                                         navigator.clipboard.writeText(`https://moxie-x.vercel.app/post/${reply.postId}`)
-                                        .then(toastHandler)
+                                        .then(toastRef.current?.publish)
                                         .catch((err) => console.log(err))
                                     }}    
                                 />
