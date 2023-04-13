@@ -1,7 +1,7 @@
 import type { NextPage, GetStaticProps } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useUser } from '@clerk/nextjs'
+// import { useUser } from '@clerk/nextjs'
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { api } from "~/utils/api";
 

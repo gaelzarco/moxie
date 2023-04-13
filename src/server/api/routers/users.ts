@@ -1,5 +1,6 @@
 import { z } from 'zod'
-import { createTRPCRouter, publicProcedure, protectedProcedure } from "~/server/api/trpc";
+import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+// protectedProcedure 
 import { clerkClient } from '@clerk/nextjs/server';
 import { TRPCError } from '@trpc/server';
 import filterUser from '~/server/helpers/filterUser';
