@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { useState } from "react";
+import { useRef } from "react";
 import { type RouterInputs, api } from "~/utils/api";
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 
@@ -14,37 +14,29 @@ type PostAndReplyDelete = {
     deleteType: "FEED" | "POST" | "REPLY"
 }
 
-const DropDownMenu: NextPage< PostAndReplyDelete > = ({ postId, replyId, postType, deleteType }) => {
+const PostOptionsDropDown: NextPage< PostAndReplyDelete > = ({ postId, replyId, postType, deleteType }) => {
 
     const context = api.useContext();
 
-    const [ toastBool, setToastBool ] = useState(false)
-
-    const toastHandler = () => {
-        setToastBool(true)
-
-        setTimeout(() => {
-          setToastBool(false)
-        }, 4000)
-    }
+    const toastRef = useRef<{ publish: () => void }>()
 
     const postDelete = api.posts.deleteOneById.useMutation({
         onSuccess: async () => {
-            toastHandler()
+            toastRef.current?.publish()
             await context.posts.getOneById.refetch(postId)
             .catch(err => console.log(err));
         },
     })
     const postsDelete = api.posts.deleteOneById.useMutation({
         onSuccess: async () => {
-            toastHandler()
+            toastRef.current?.publish()
             await context.posts.getAll.refetch()
             .catch(err => console.log(err));
         }
     })
     const repliesDelete = api.replies.deleteOneById.useMutation({
         onSuccess: async () => {
-            toastHandler()
+            toastRef.current?.publish()
             await context.replies.getAllByPostId.refetch(postId)
             .catch(err => console.log(err));
         }
@@ -65,9 +57,7 @@ const DropDownMenu: NextPage< PostAndReplyDelete > = ({ postId, replyId, postTyp
     return (
         <DropdownMenuPrimitive.Root>
 
-        { toastBool ? (
-        <Toast title='Post successfully deleted!' activateToast /> 
-        ) : null }
+        <Toast forwardedRef={toastRef} title={`${replyId ? 'Reply' : 'Post'}` + ' deleted successfully!'} /> 
 
         <DropdownMenuPrimitive.Trigger asChild>
             <button
@@ -111,4 +101,4 @@ const DropDownMenu: NextPage< PostAndReplyDelete > = ({ postId, replyId, postTyp
     );
 };
 
-export default DropDownMenu;
+export default PostOptionsDropDown;

@@ -36,7 +36,8 @@ const Post: NextPage<{ postId: string }> = ({ postId }) => {
                     <CaretLeftIcon className="dark:text-white hover:cursor-pointer h-5 w-5"
                         onClick={(event) => {
                             event.preventDefault();
-                            void apiContext.posts.getAll.refetch().then(() => router.push('/'))
+                            void apiContext.posts.getAll.refetch()
+                            .then(!router.query.previousPage ? () => router.push('/') : () => router.back())
                             .catch((err) => console.log(err))
                         }}
                     />
@@ -63,7 +64,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
     const postId = context.params?.id
 
-    if (typeof postId !== 'string') throw new Error ('Invalid post ID')
+    if (typeof postId !== 'string') throw new Error('Invalid post ID')
 
     await ssg.posts.getOneById.prefetch(postId)
 
