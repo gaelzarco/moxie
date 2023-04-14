@@ -26,14 +26,14 @@ const PostOptionsDropDown: NextPage< PostAndReplyDelete > = ({ postId, replyId, 
     const postDelete = api.posts.deleteOneById.useMutation({
         onSuccess: async () => {
             router.back()
-            await context.posts.getAll.refetch()
-            .catch(err => console.log(err));
         },
     })
     const postsDelete = api.posts.deleteOneById.useMutation({
-        onSuccess: () => {
-            router.back()
-        }
+        onSuccess: async () => {
+            toastRef.current?.publish()
+            await context.posts.getAll.refetch()
+            .catch(err => console.log(err));
+        },
     })
     const repliesDelete = api.replies.deleteOneById.useMutation({
         onSuccess: async () => {
