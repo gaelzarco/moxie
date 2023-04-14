@@ -16,7 +16,7 @@ const UserProfileHoverCard: NextPage< PostUser > = (
     <HoverCardPrimitive.Trigger asChild>
 
       <Link href={`/user/${id}`}>
-        <Image className="rounded-full w-11 h-11 bg-neutral-800 cursor-pointer" src={profileImageURL} height={50} width={50} alt="Profile Picture" />
+        <Image className="rounded-full w-12 h-11 bg-neutral-800 cursor-pointer" src={profileImageURL} height={50} width={50} alt="Profile Picture" />
       </Link>
 
 
