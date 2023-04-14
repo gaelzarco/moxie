@@ -15,7 +15,7 @@ const UserProfileHoverCard: NextPage< PostUser > = (
 
     <HoverCardPrimitive.Trigger asChild>
 
-      <Link href={`/user/${id}`} className="flex w-[55px] h-[50px]">
+      <Link href={`/user/${id}`} className="w-[50px] h-[50px]">
         <Image height={55} width={55} className="rounded-full bg-neutral-800 cursor-pointer" src={profileImageURL} alt="Profile Picture" />
       </Link>
 
@@ -23,7 +23,7 @@ const UserProfileHoverCard: NextPage< PostUser > = (
     </HoverCardPrimitive.Trigger>
 
     <HoverCardPrimitive.Portal>
-      <HoverCardPrimitive.Content className={`${customFont.variable} font-sans cursor-pointer backdrop-blur-md dark:bg-neutral-700/30 shadow-xl w-80 rounded-xl p-5 data-[side=bottom]:animate-slideUpAndFade data-[side=right]:animate-slideLeftAndFade data-[side=left]:animate-slideRightAndFade data-[side=top]:animate-slideDownAndFade data-[state=open]:transition-all`}>
+      <HoverCardPrimitive.Content className={`${customFont.variable} font-sans cursor-pointer backdrop-blur-lg dark:bg-neutral-700/30 shadow-xl w-56 rounded-xl p-5 data-[side=bottom]:animate-slideUpAndFade data-[side=right]:animate-slideLeftAndFade data-[side=left]:animate-slideRightAndFade data-[side=top]:animate-slideDownAndFade data-[state=open]:transition-all`}>
 
       <Link href={`/user/${id}`}>
 
