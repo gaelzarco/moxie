@@ -19,19 +19,19 @@ const Toast: ForwardRefExoticComponent<{ title: string, forwardedRef: MutableRef
             
         {Array.from({ length: count }).map((_, index) => (
             <ToastPrimitive.Root key={index} duration={3000}
-                className="p-5 dark:bg-neutral-700/30 backdrop-blur-md rounded-xl shadow-lg grid [grid-template-areas:_'title_action'_'description_action'] grid-cols-[auto_max-content] gap-x-[15px] items-center data-[state=open]:animate-slideIn data-[state=closed]:animate-hide data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=cancel]:translate-x-0 data-[swipe=cancel]:transition-[transform_200ms_ease-out] data-[swipe=end]:animate-swipeOut"
+                className="p-5 dark:bg-neutral-700/30 backdrop-blur-lg rounded-xl shadow-lg grid [grid-template-areas:_'title_action'_'description_action'] grid-cols-[auto_max-content] gap-x-[15px] items-center data-[state=open]:animate-slideIn data-[state=closed]:animate-hide data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=cancel]:translate-x-0 data-[swipe=cancel]:transition-[transform_200ms_ease-out] data-[swipe=end]:animate-swipeOut"
                 >
 
                 <ToastPrimitive.Title className="[grid-area:_title] mb-4 font-medium text-black dark:text-white text-md">{title}</ToastPrimitive.Title>
 
                 <ToastPrimitive.Description asChild>
-                    <time className="[grid-area:_description] dark:text-neutral-400 text-left m-0 text-sm leading-0" dateTime={toastDateRef.current.toISOString()}>
+                    <time className="[grid-area:_description] dark:text-neutral-400 text-left text-sm leading-0" dateTime={toastDateRef.current.toISOString()}>
                         {toastDate(toastDateRef.current)}
                     </time>
                 </ToastPrimitive.Description >
 
                 <ToastPrimitive.Close className="[grid-area:_action]" asChild>
-                    <button className="font-semibold px-6 h-8 bg-green-400 text-white shadow-md hover:bg-green-500 rounded-full">
+                    <button className="font-semibold px-4 h-8 bg-green-400 text-white shadow-md hover:bg-green-500 rounded-full">
                         Close
                     </button>
                 </ToastPrimitive.Close >
