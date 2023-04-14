@@ -17,7 +17,7 @@ type PostAndReplyDelete = {
     deleteType: "FEED" | "POST" | "REPLY"
 }
 
-export const PostOptionsDropDown: NextPage< PostAndReplyDelete > = ({ postId, replyId, postType, deleteType }) => {
+const PostOptionsDropDown: NextPage< PostAndReplyDelete > = ({ postId, replyId, postType, deleteType }) => {
 
     const context = api.useContext();
     const router = useRouter();
@@ -158,3 +158,5 @@ export const UserNavDropDown: NextPage = () => {
         </DropdownMenuPrimitive.Root>
     );
 };
+
+export default PostOptionsDropDown

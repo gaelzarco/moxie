@@ -10,7 +10,7 @@ dayjs.extend(relativeTime)
 
 import CreateLike from "./createlike";
 import UserProfileHoverCard from "./hovercard";
-import { PostOptionsDropDown } from './dropdownmenus';
+import PostOptionsDropDown from './dropdownmenus';
 import Toast from './toast';
 import { Share1Icon } from '@radix-ui/react-icons';
 import Header from './header';
