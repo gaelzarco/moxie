@@ -8,18 +8,12 @@ import { api } from "~/utils/api";
 
 import Header from "../components/header";
 import UserView from "../components/userview";
-// import CreatePost from "../components/createpost";
-// import PostView from "../components/postview";
-// import RepliesView from "../components/repliesview";
 import Loading from "../components/loading";
 import { CaretLeftIcon } from "@radix-ui/react-icons";
 import { Jelly } from "@uiball/loaders";
 
 const Post: NextPage<{ userId: string }> = ({ userId }) => {
-    // const postQuery = api.posts.getOneById.useQuery(userId)
-    // const replyQuery = api.replies.getAllByPostId.useQuery(userId)
     const userQuery = api.users.getOneById.useQuery(userId)
-    // const { isSignedIn } = useUser()
     const apiContext = api.useContext()
     const router = useRouter()
     const [ loading, setLoading ] = useState(false)
@@ -51,14 +45,13 @@ const Post: NextPage<{ userId: string }> = ({ userId }) => {
                     </h2>
 
                     <span className="flex flex-row content-center justify-center ml-5 text-neutral-400">
-                        {loading && <Jelly color='yellow' size={15}/>}
+                        {loading && <Jelly color='white' size={15}/>}
                     </span>
                 </Header>
 
                 <div className='flex items-center justify-center'>
                     <div className="mx-auto text-left w-full">
                         {!!userQuery.data && <UserView {...userQuery.data} />}
-                        {/* {!!replyQuery.data && <RepliesView {...replyQuery.data} />} */}
                     </div>
                 </div>
 

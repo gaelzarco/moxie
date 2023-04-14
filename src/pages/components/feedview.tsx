@@ -3,12 +3,15 @@ import { useRef } from 'react'
 import { useUser } from '@clerk/nextjs';
 import type { RouterOutputs } from "~/utils/api";
 import Link from "next/link";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
 
 import Header from './header';
 import CreateLike from './createlike';
 import UserProfileHoverCard from './hovercard';
 import AspectRatioImage from './aspectratioimage';
-import PostOptionsDropDown from './dropdownmenus';
+import { PostOptionsDropDown } from './dropdownmenus';
 import Toast from './toast';
 import { Share1Icon, ChatBubbleIcon } from '@radix-ui/react-icons';
 
@@ -36,19 +39,24 @@ const FeedView: NextPage< PostsWithUsersAndImages > = ( posts ) => {
                 <div key={post.id} className="cursor-default mx-auto text-left w-11/12 p-5 rounded-xl mt-5 dark:text-white dark:bg-neutral-900">
                     <div className="flex leading-none">
                         <UserProfileHoverCard {...user}/>
-                        <div className="pl-2 mb-1 w-full">
+                        <div className="mb-1 w-full">
                             <div className="inline-flex mb-6 w-full items-center justify-between">
-                                <div className="inline-flex content-center justify-center">
-                                    <p className="pl-2 font-medium">{user.firstName}</p>
-                                    <p className="text-stone-500 text-md hover:cursor-pointer pl-2">@{!user.userName ? 'username' : user.userName}</p>
-                                </div>
+                                <Link href={`/user/${user.id}`} className="w-full hover: cursor-pointer">
+                                    <div className="inline-flex content-center justify-center items-center">
+                                        <p className="font-semibold pl-2">{user.firstName}</p>
+                                        <p className="text-neutral-500 text-md pl-2">@{!user.userName ? 'username' : user.userName}</p>
+                                        <p className="text-neutral-500 text-sm max-sm:text-xs pl-1">
+                                            {` · ${dayjs(post.createdAt).fromNow()}`}
+                                        </p>
+                                    </div>
+                                </Link>
                                 {authUser.user?.id === user.id && (
                                     <PostOptionsDropDown postId={post.id} postType='POST' deleteType='FEED'/>
                                 )}
                             </div>
 
                             <Link href={`post/${post.id}`} className="w-full">
-                                <h4 className="pl-2 mb-6 leading-5">{post.body}</h4>
+                                <h4 className="pl-3 mb-6 leading-5">{post.body}</h4>
                                 {post.link && (
                                     <AspectRatioImage src={post.link} alt="Attached Media for Post" />
                                 )}

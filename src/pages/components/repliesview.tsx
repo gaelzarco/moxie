@@ -3,10 +3,14 @@ import { useRef } from 'react'
 import { useUser } from '@clerk/nextjs'
 import type { RouterOutputs } from "~/utils/api";
 import Image from "next/image";
+import Link from 'next/link'
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+dayjs.extend(relativeTime)
 
 import CreateLike from "./createlike";
 import UserProfileHoverCard from "./hovercard";
-import PostOptionsDropDown from './dropdownmenus';
+import { PostOptionsDropDown } from './dropdownmenus';
 import Toast from './toast';
 import { Share1Icon } from '@radix-ui/react-icons';
 import Header from './header';
@@ -34,12 +38,17 @@ const RepliesView: NextPage< RepliesWithUsersAndImages > = ( replies ) => {
                 <div key={reply.id} className="cursor-default mx-auto text-left w-11/12 p-5 rounded-xl mt-5 dark:text-white dark:bg-neutral-900">
                     <div className="flex leading-none">
                         <UserProfileHoverCard {...user}/>
-                        <div className="pl-2 mb-1 w-full">
-                            <div className="inline-flex mb-6 w-full justify-between">
-                                <div className="inline-flex items-center">
-                                    <p className="pl-2 font-medium">{user.firstName}</p>
-                                    <p className="text-stone-500 text-md hover:cursor-pointer pl-2">@{!user.userName ? 'username' : user.userName}</p>
-                                </div>
+                        <div className="mb-1 w-full">
+                            <div className="inline-flex mb-6 w-full items-center justify-between">
+                                <Link href={`/user/${user.id}`} className="w-full hover:cursor-pointer">
+                                    <div className="inline-flex content-center justify-center items-center">
+                                        <p className="pl-2 font-semibold">{user.firstName}</p>
+                                        <p className="text-neutral-500 text-md pl-2">@{!user.userName ? 'username' : user.userName}</p>
+                                        <p className="text-neutral-500 text-sm pl-1">
+                                            {` · ${dayjs(reply.createdAt).fromNow()}`}
+                                        </p>
+                                    </div>
+                                </Link>
                                 <PostOptionsDropDown postId={reply.postId} replyId={reply.id} postType='REPLY' deleteType='REPLY'/>
                             </div>
 
