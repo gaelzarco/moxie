@@ -25,20 +25,20 @@ const Toast: ForwardRefExoticComponent<{ title: string, forwardedRef: MutableRef
                 <ToastPrimitive.Title className="[grid-area:_title] mb-4 font-medium text-black dark:text-white text-md">{title}</ToastPrimitive.Title>
 
                 <ToastPrimitive.Description asChild>
-                    <time className="[grid-area:_description] dark:text-neutral-400 text-left m-0 text-sm leading-1" dateTime={toastDateRef.current.toISOString()}>
+                    <time className="[grid-area:_description] dark:text-neutral-400 text-left m-0 text-sm leading-0" dateTime={toastDateRef.current.toISOString()}>
                         {toastDate(toastDateRef.current)}
                     </time>
                 </ToastPrimitive.Description >
 
                 <ToastPrimitive.Close className="[grid-area:_action]" asChild>
-                    <button className="text-sm px-5 h-[25px] bg-green-400 text-white shadow-md hover:bg-green-500 rounded-full">
+                    <button className="font-semibold px-6 h-8 bg-green-400 text-white shadow-md hover:bg-green-500 rounded-full">
                         Close
                     </button>
                 </ToastPrimitive.Close >
 
             </ToastPrimitive.Root>
         ))}
-        <ToastPrimitive.Viewport className="[--viewport-padding:_25px] fixed bottom-0 right-0 flex flex-col p-[var(--viewport-padding)] gap-[10px] w-[390px] max-w-[100vw] m-0 list-none z-[2147483647] outline-none"/>
+        <ToastPrimitive.Viewport className="[--viewport-padding:_20px] fixed bottom-0 right-0 flex flex-col p-[var(--viewport-padding)] gap-[10px] w-[390px] max-w-[100vw] m-0 list-none z-[2147483647] outline-none"/>
 
         </ToastPrimitive.Provider>
     )

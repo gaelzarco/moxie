@@ -116,25 +116,25 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, pos
               </div>
           )} 
 
-        <div className="flex flex-row justify-between items-center mb-3">
+        <div className="flex flex-row justify-between items-center content-center mb-5">
 
-          <div className="flex flex-row items-center">
+          <div className="flex flex-row items-center content-center justify-center">
             <ImageIcon
               onClick={(event) => {
                 event.preventDefault()
                 setImgView(!imgView)
               }}
-              className="ml-28 h-5 w-5 dark:text-white hover:cursor-pointer"
+              className="ml-24 h-5 w-5 dark:text-white hover:cursor-pointer"
             />
 
             <span className="flex content-center justify-center ml-5">
-              {loading && <Jelly color="pink" size={15} />}
+              {loading && <Jelly color="white" size={15} />}
             </span>
           </div>
           
           <button
             type="submit"
-            className="rounded-full bg-black dark:text-white px-8 h-10 mr-5 font-semibold no-underline transition dark:hover:bg-neutral-800 hover:cursor-pointer"
+            className="rounded-full bg-green-400 dark:text-white px-6 h-10 mr-5 font-semibold dark:hover:bg-green-500 hover:cursor-pointer"
           >
             Submit
           </button>

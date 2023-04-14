@@ -4,6 +4,7 @@ import { useUser } from '@clerk/nextjs';
 import type { RouterOutputs } from "~/utils/api";
 import Link from "next/link";
 
+import Header from './header';
 import CreateLike from './createlike';
 import UserProfileHoverCard from './hovercard';
 import AspectRatioImage from './aspectratioimage';
@@ -23,6 +24,12 @@ const FeedView: NextPage< PostsWithUsersAndImages > = ( posts ) => {
         <>
 
         <Toast forwardedRef={toastRef} title='Link copied to clipboard!' /> 
+
+        <Header noNav>
+            <h2 className="ml-5 text-2xl font-bold">
+                Posts
+            </h2>
+        </Header>
 
         {!!posts && (Object.values(posts).map(({ post, user }) => {
             return (
