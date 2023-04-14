@@ -128,7 +128,7 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, pos
             />
 
             <span className="flex content-center justify-center ml-5">
-              {loading && <Jelly color="white" size={15} />}
+              {loading && <Jelly color="pink" size={15} />}
             </span>
           </div>
           

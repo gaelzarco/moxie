@@ -51,7 +51,7 @@ const Post: NextPage<{ userId: string }> = ({ userId }) => {
                     </h2>
 
                     <span className="flex flex-row content-center justify-center ml-5 text-neutral-400">
-                        {loading && <Jelly color='white' size={15}/>}
+                        {loading && <Jelly color='yellow' size={15}/>}
                     </span>
                 </Header>
 
