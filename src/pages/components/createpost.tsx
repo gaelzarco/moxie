@@ -126,18 +126,21 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, pos
               }}
               className="ml-24 h-5 w-5 dark:text-white hover:cursor-pointer"
             />
-
-            <span className="flex content-center justify-center ml-5">
-              {loading && <Jelly color="white" size={15} />}
-            </span>
           </div>
           
-          <button
-            type="submit"
-            className="rounded-full bg-green-400 dark:text-white px-6 h-10 mr-5 font-semibold dark:hover:bg-green-500 hover:cursor-pointer"
-          >
-            Submit
-          </button>
+          {loading ? (
+            <span className="flex content-center justify-center px-6 py-4 mr-9">
+              <Jelly color="white" size={15} />
+            </span>
+          ) : (
+            <button
+              type="submit"
+              className="rounded-full bg-green-400 dark:text-white px-6 h-10 mr-5 font-semibold dark:hover:bg-green-500 hover:cursor-pointer"
+            >
+              Submit
+            </button>
+          )}
+
         </div>
 
       </form>

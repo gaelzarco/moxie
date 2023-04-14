@@ -1,7 +1,8 @@
 import type { NextPage } from "next";
 import { type DragEventHandler, useState, useEffect } from "react";
 import Image from "next/image";
-import { Link2Icon } from "@radix-ui/react-icons";
+
+import { Link2Icon, CheckIcon, Cross2Icon } from "@radix-ui/react-icons";
 
 const DragAndDrop: NextPage<{ setParentState: (file: File | null) => void }> = ({ setParentState }) => {
 
@@ -20,12 +21,12 @@ const DragAndDrop: NextPage<{ setParentState: (file: File | null) => void }> = (
       if (file) {
         setParentState(file)
       }
-    }, [ file, setParentState ])
+    }, [ file ])
 
     return (
         <>
         {!file ? (
-          <div className="flex justify-center items-center content-center p-4 mb-8"
+          <div className="flex justify-center items-center content-center p-4 mb-6"
             onDragOver={handleDragOver}
             onDrop={handleDrop}
           >
@@ -50,22 +51,19 @@ const DragAndDrop: NextPage<{ setParentState: (file: File | null) => void }> = (
 
           </div>
         ) : (
-          <div className="flex flex-col justify-center items-center content-center dark:text-neutral-400 mt-8 mb-8">
+          <div className="mx-auto w-11/12 flex items-center content-center items-center justify-center dark:text-neutral-400 mt-2 mb-6">
 
-            <label htmlFor="img" 
-              className="flex flex-col w-10/12 items-center justify-center p-8 py-14 rounded-xl border border-neutral-300 border-dashed cursor-pointer dark:bg-neutral-800"
-            >
-                <Image src={URL.createObjectURL(file)} width={200} height={200} className="mx-auto rounded-xl" alt='Uploaded File'/>
-                <button
-                  className="mx-auto rounded-full dark:bg-red-500 dark:text-white px-8 h-10 font-semibold no-underline transition dark:hover:bg-red-400 hover:cursor-pointer"
-                  onClick={(event) => {
-                  event.preventDefault()
-                  setFile(null)
-                  setParentState(null)
-                }}>
-                  Cancel
-                </button>
-            </label>
+            <Image src={URL.createObjectURL(file)} width={100} height={100} className="rounded-lg h-auto max-w-[150px]" alt='Uploaded File'/>
+            <p className="ml-4">{file.name.slice(0, 4) + '...' +  file.name.slice(-5)}</p>
+            <CheckIcon className="h-5 w-5 text-green-400 ml-4" />
+            <div className="hover:cursor-pointer hover:bg-neutral-800 font-semibold text-red-400 bg-black w-auto h-auto rounded-full p-[10px] ml-4">
+            <Cross2Icon
+            onClick={(event) => {
+              event.preventDefault()
+              setFile(null)
+              setParentState(null)
+            }} />
+            </div>
 
           </div>
         )}
