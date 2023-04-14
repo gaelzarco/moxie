@@ -21,7 +21,7 @@ const DragAndDrop: NextPage<{ setParentState: (file: File | null) => void }> = (
       if (file) {
         setParentState(file)
       }
-    }, [ file ])
+    }, [ file, setParentState ])
 
     return (
         <>
