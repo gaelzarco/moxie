@@ -1,17 +1,19 @@
 import type { NextPage, GetStaticProps } from "next";
 import Head from "next/head";
+import { useState } from "react";
 import { useRouter } from "next/router";
 // import { useUser } from '@clerk/nextjs'
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { api } from "~/utils/api";
 
 import Header from "../components/header";
+import UserView from "../components/userview";
 // import CreatePost from "../components/createpost";
 // import PostView from "../components/postview";
 // import RepliesView from "../components/repliesview";
 import Loading from "../components/loading";
 import { CaretLeftIcon } from "@radix-ui/react-icons";
-import UserView from "../components/userview";
+import { Jelly } from "@uiball/loaders";
 
 const Post: NextPage<{ userId: string }> = ({ userId }) => {
     // const postQuery = api.posts.getOneById.useQuery(userId)
@@ -20,6 +22,7 @@ const Post: NextPage<{ userId: string }> = ({ userId }) => {
     // const { isSignedIn } = useUser()
     const apiContext = api.useContext()
     const router = useRouter()
+    const [ loading, setLoading ] = useState(false)
 
     if (userQuery.isLoading) return <Loading />
     if (!userQuery.data) return <div>Something went wrong...</div>
@@ -36,8 +39,8 @@ const Post: NextPage<{ userId: string }> = ({ userId }) => {
 
                 <Header>
                     <CaretLeftIcon className="dark:text-white hover:cursor-pointer h-5 w-5"
-                        onClick={(event) => {
-                            event.preventDefault();
+                        onClick={() => {
+                            setLoading(true)
                             void apiContext.posts.getAll.refetch()
                             .then(!router.query.previousPage ? () => router.push('/') : () => router.back())
                             .catch((err) => console.log(err))
@@ -46,6 +49,10 @@ const Post: NextPage<{ userId: string }> = ({ userId }) => {
                     <h2 className="ml-5 text-2xl font-bold">
                         {`${userQuery.data.firstName as string}`}
                     </h2>
+
+                    <span className="flex flex-row content-center justify-center ml-5 text-neutral-400">
+                        {loading && <Jelly color='white' size={15}/>}
+                    </span>
                 </Header>
 
                 <div className='flex items-center justify-center'>

@@ -53,9 +53,9 @@ const DragAndDrop: NextPage<{ setParentState: (file: File | null) => void }> = (
           <div className="flex flex-col justify-center items-center content-center dark:text-neutral-400 mt-8 mb-8">
 
             <label htmlFor="img" 
-              className="flex w-10/12 items-center content-center justify-center p-8 py-14 rounded-xl border border-neutral-300 border-dashed cursor-pointer dark:bg-neutral-800"
+              className="flex flex-col w-10/12 items-center justify-center p-8 py-14 rounded-xl border border-neutral-300 border-dashed cursor-pointer dark:bg-neutral-800"
             >
-                <Image src={URL.createObjectURL(file)} width={300} height={300} className="mx-auto rounded-xl" alt='Uploaded File'/>
+                <Image src={URL.createObjectURL(file)} width={200} height={200} className="mx-auto rounded-xl" alt='Uploaded File'/>
                 <button
                   className="mx-auto rounded-full dark:bg-red-500 dark:text-white px-8 h-10 font-semibold no-underline transition dark:hover:bg-red-400 hover:cursor-pointer"
                   onClick={(event) => {

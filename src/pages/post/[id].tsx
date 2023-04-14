@@ -1,5 +1,6 @@
 import type { NextPage, GetStaticProps } from "next";
 import Head from "next/head";
+import { useState } from "react";
 import { useRouter } from "next/router";
 import { useUser } from '@clerk/nextjs'
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
@@ -11,13 +12,16 @@ import PostView from "../components/postview";
 import RepliesView from "../components/repliesview";
 import Loading from "../components/loading";
 import { CaretLeftIcon } from "@radix-ui/react-icons";
+import { Jelly } from "@uiball/loaders";
 
 const Post: NextPage<{ postId: string }> = ({ postId }) => {
+
     const postQuery = api.posts.getOneById.useQuery(postId)
     const replyQuery = api.replies.getAllByPostId.useQuery(postId)
     const { isSignedIn } = useUser()
     const apiContext = api.useContext()
     const router = useRouter()
+    const [ loading, setLoading ] = useState(false)
 
     if (postQuery.isLoading || replyQuery.isLoading) return <Loading />
     if (!postQuery.data || !replyQuery.data) return <div>Something went wrong...</div>
@@ -34,8 +38,8 @@ const Post: NextPage<{ postId: string }> = ({ postId }) => {
 
                 <Header>
                     <CaretLeftIcon className="dark:text-white hover:cursor-pointer h-5 w-5"
-                        onClick={(event) => {
-                            event.preventDefault();
+                        onClick={() => {
+                            setLoading(true)
                             void apiContext.posts.getAll.refetch()
                             .then(!router.query.previousPage ? () => router.push('/') : () => router.back())
                             .catch((err) => console.log(err))
@@ -44,6 +48,10 @@ const Post: NextPage<{ postId: string }> = ({ postId }) => {
                     <h2 className="ml-5 text-2xl font-bold">
                         {`${postQuery.data.user.firstName as string}` + "'s Post"}
                     </h2>
+
+                    <span className="flex flex-row content-center justify-center ml-5 text-neutral-400">
+                        {loading && <Jelly color='white' size={15}/>}
+                    </span>
                 </Header>
 
                 <div className='flex items-center justify-center'>

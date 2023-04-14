@@ -7,6 +7,7 @@ import Image from "next/image";
 import DragAndDrop from "./draganddrop";
 import Toast from "./toast";
 import { ImageIcon } from "@radix-ui/react-icons";
+import { Jelly } from "@uiball/loaders";
 
 const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, postId }) => {
 
@@ -16,9 +17,11 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, pos
   const [ post, setPost ] = useState< RouterInputs["posts"]["createOne"] >({ body: '', media: null })
   const [ file, setFile ] = useState< File | null >(null)
   const [ imgView, setImgView ] = useState(false)
+  const [ loading, setLoading ] = useState(false)
   const toastRef = useRef<{ publish: () => void }>()
 
   const mutationSuccess = () => {
+    setLoading(false)
     setPost({ body: '', media: null })
     setFile(null)
     setImgView(false)
@@ -47,6 +50,7 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, pos
 
   const handlePostFormSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    setLoading(true)
 
     if (!isSignedIn) throw new Error('User is not signed in')
     if (post.body.length < 1) throw new Error('Body is empty')
@@ -113,13 +117,20 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, pos
           )} 
 
         <div className="flex flex-row justify-between items-center mb-3">
-          <ImageIcon
-            onClick={(event) => {
-              event.preventDefault()
-              setImgView(!imgView)
-            }}
-            className="ml-28 h-5 w-5 dark:text-white hover:cursor-pointer"
-          />
+
+          <div className="flex flex-row items-center">
+            <ImageIcon
+              onClick={(event) => {
+                event.preventDefault()
+                setImgView(!imgView)
+              }}
+              className="ml-28 h-5 w-5 dark:text-white hover:cursor-pointer"
+            />
+
+            <span className="flex content-center justify-center ml-5">
+              {loading && <Jelly color="white" size={15} />}
+            </span>
+          </div>
           
           <button
             type="submit"
