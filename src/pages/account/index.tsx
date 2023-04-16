@@ -21,6 +21,7 @@ const Account: NextPage = () => {
                         onClick={() => {
                             setLoading(true)
                             router.push('/')
+                            .catch((err) => console.log(err))
                         }}
                     />
                     <h2 className="ml-5 text-2xl font-bold">

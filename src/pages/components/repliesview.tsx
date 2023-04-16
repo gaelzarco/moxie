@@ -46,7 +46,7 @@ const RepliesView: NextPage< RepliesWithUsersAndImages | RepliesForUserView> = (
                     <div className="text-neutral-500 text-sm mb-6 ml-1">
                         <Link href={`/post/${reply.postId}`} className='inline-flex content-center items-center justify-center'>
                             <PaperPlaneIcon className="w-3 h-3 mr-5 mt-1" />
-                            <p>In reply to {`${postUser?.firstName}` + "'s Post" }</p>
+                            <p>{"In reply to " + `${postUser?.firstName as string}` + "'s Post" }</p>
                         </Link>
                     </div>
                     <div className="flex leading-none">

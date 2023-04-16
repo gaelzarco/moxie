@@ -45,7 +45,7 @@ const Post: NextPage<{ userId: string }> = ({ userId }) => {
                         }}
                     />
                     <h2 className="ml-5 text-2xl font-bold">
-                        {`${userQuery.data.filteredUser.firstName}`}
+                        {`${userQuery.data.filteredUser.firstName as string}`}
                     </h2>
 
                     <span className="flex flex-row content-center justify-center ml-5 text-neutral-400">

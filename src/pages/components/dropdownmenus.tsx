@@ -25,7 +25,7 @@ const PostOptionsDropDown: NextPage< PostAndReplyDelete > = ({ postId, replyId, 
     const toastRef = useRef<{ publish: () => void }>()
 
     const postDelete = api.posts.deleteOneById.useMutation({
-        onSuccess: async () => {
+        onSuccess: () => {
             router.back()
         },
     })
