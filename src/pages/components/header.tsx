@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import type { ReactNode } from "react";
-import NavBar from "./navbar";
+
+import { UserNavDropDown } from "./dropdownmenus";
 
 const Header: NextPage<{ children: ReactNode, noNav?: boolean }> = ({ children, noNav }) => {
     
@@ -10,7 +11,11 @@ const Header: NextPage<{ children: ReactNode, noNav?: boolean }> = ({ children, 
                 {children}
             </div>
 
-            {!noNav && <NavBar />}
+            {!noNav && (
+                <div className="inline-flex p-5 pr-6 justify-between">
+                    <UserNavDropDown />
+                </div>
+            )}
         </div>
     )
 }

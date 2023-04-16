@@ -63,7 +63,7 @@ const PostOptionsDropDown: NextPage< PostAndReplyDelete > = ({ postId, replyId, 
 
         <DropdownMenuPrimitive.Trigger asChild>
             <button
-            className="w-[20px] h-[10px] inline-flex items-center justify-end mr-1 outline-none"
+            className="w-[20px] h-[10px] inline-flex items-center justify-end outline-none"
             aria-label="Customise options"
             >
             <DotsHorizontalIcon />
@@ -114,7 +114,7 @@ export const UserNavDropDown: NextPage = () => {
         <DropdownMenuPrimitive.Trigger asChild>
             {(!!isSignedIn && !!user) ? (
             <div className="inline-flex items-center">
-                    <Image src={user.profileImageUrl} width={45} height={45} className="rounded-full mr-0 hover:cursor-pointer bg-neutral-800" alt='user avatar' />
+                    <Image src={user.profileImageUrl} width={45} height={45} className="w-12 h-12 rounded-full mr-0 hover:cursor-pointer bg-neutral-800" alt='user avatar' />
             </div>
             ) : (
                 <div className="inline-flex items-center">

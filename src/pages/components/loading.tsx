@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import NavBar from "./navbar";
+import { UserNavDropDown } from "./dropdownmenus";
 
 const Loading: NextPage<{ home?: true }> = ({ home }) => {
     
@@ -11,7 +11,9 @@ const Loading: NextPage<{ home?: true }> = ({ home }) => {
                         <div className="w-[185px] h-10 rounded-full animate-pulse bg-neutral-700"></div>
                     </div>
 
-                    <NavBar />
+                    <div className="inline-flex p-5 pr-6 justify-between">
+                        <UserNavDropDown />
+                    </div>
                 </div>
             )}
             {[...Array(20).keys()].map((i) => (

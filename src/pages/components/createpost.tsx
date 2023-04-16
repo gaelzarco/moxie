@@ -96,13 +96,13 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, pos
 
     return (
       <form onSubmit={reply && postId ? handleReplyFormSubmit : handlePostFormSubmit}
-       className="w-11/12 m-auto mt-5 rounded-xl dark:text-white dark:bg-neutral-900 p-1">
+       className="w-11/12 mx-auto mt-5 rounded-xl dark:text-white dark:bg-neutral-900 p-1 max-xs:p-2">
 
         <Toast forwardedRef={toastRef} title='Post created successfully!' /> 
           
-        <div id='form-body-input' className="m-4 flex flex-row">
+        <div id='form-body-input' className="p-4 flex flex-row">
           {!!user && 
-            <Image src={user.profileImageUrl} width={50} height={50} className="m-2 rounded-full bg-neutral-800" alt='User Avatar'/>
+            <Image src={user.profileImageUrl} width={50} height={50} className="h-14 w-14 rounded-full bg-neutral-800" alt='User Avatar'/>
           }
           <input
             type="text"
@@ -131,7 +131,7 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, pos
             />
 
             {charCount > 0 && (
-              <span className="ml-2 text-sm dark:text-white">
+              <span className="ml-4 text-sm dark:text-neutral-500">
                 {charCount}/500
               </span>
             )}

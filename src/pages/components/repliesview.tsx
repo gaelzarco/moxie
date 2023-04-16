@@ -42,7 +42,7 @@ const RepliesView: NextPage< RepliesWithUsersAndImages | RepliesForUserView> = (
         
         {!!replies && (Object.values(replies).map(({ reply, user, postUser }) => {
             return (
-                <div key={reply.id} className="cursor-default mx-auto text-left w-11/12 p-5 rounded-xl mt-5 dark:text-white dark:bg-neutral-900">
+                <div key={reply.id} className="cursor-default mx-auto text-left w-11/12 p-5 rounded-xl mt-5 mb-4 dark:text-white dark:bg-neutral-900">
                     <div className="text-neutral-500 text-sm mb-6 ml-1">
                         <Link href={`/post/${reply.postId}`} className='inline-flex content-center items-center justify-center'>
                             <PaperPlaneIcon className="w-3 h-3 mr-5 mt-1" />
@@ -56,7 +56,7 @@ const RepliesView: NextPage< RepliesWithUsersAndImages | RepliesForUserView> = (
                                 <Link href={`/user/${user.id}`} className="w-full hover:cursor-pointer">
                                     <div className="inline-flex content-center justify-center items-center">
                                         <p className="pl-2 font-semibold">{user.firstName}</p>
-                                        <p className="text-neutral-500 text-md max-sm:text-sm pl-2">@{!user.userName ? 'username' : user.userName}</p>
+                                        <p className="my-auto text-neutral-500 text-md max-sm:text-sm pl-2">@{!user.userName ? 'username' : user.userName}</p>
                                         <p className="text-neutral-500 text-sm max-sm:text-xs pl-1">
                                             {` · ${dayjs(reply.createdAt).fromNow()}`}
                                         </p>

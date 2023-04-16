@@ -15,8 +15,8 @@ const UserProfileHoverCard: NextPage< PostUser > = (
 
     <HoverCardPrimitive.Trigger asChild>
 
-      <Link href={`/user/${id}`} className="w-[50px] h-[50px]">
-        <Image height={55} width={55} className="rounded-full bg-neutral-800 cursor-pointer" src={profileImageURL} alt="Profile Picture" />
+      <Link href={`/user/${id}`} className="min-w-12 min-h-12">
+        <Image height={55} width={55} className="rounded-full bg-neutral-800 cursor-pointer min-h-12 max-h-12 min-w-12 max-w-12" src={profileImageURL} alt="Profile Picture" />
       </Link>
 
 
@@ -28,7 +28,7 @@ const UserProfileHoverCard: NextPage< PostUser > = (
       <Link href={`/user/${id}`}>
 
         <div className="flex flex-col gap-7">
-          <Image className="rounded-full bg-neutral-700/30" src={profileImageURL} alt="User Avatar" width={60} height={60} />
+          <Image className="rounded-full bg-neutral-700/30 h-16 w-16" src={profileImageURL} alt="User Avatar" width={60} height={60} />
 
           <div className="flex flex-col gap-15">
 

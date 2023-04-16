@@ -20,8 +20,9 @@ const DragAndDrop: NextPage<{ setParentState: (file: File | null) => void }> = (
     useEffect(() => {
       if (file) {
         setParentState(file)
+        console.log(file)
       }
-    }, [ file, setParentState ])
+    }, [ file ])
 
     return (
         <>
