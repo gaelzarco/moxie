@@ -53,16 +53,18 @@ const RepliesView: NextPage< RepliesWithUsersAndImages | RepliesForUserView> = (
                         <UserProfileHoverCard {...user}/>
                         <div className="mb-1 w-full">
                             <div className="inline-flex mb-6 w-full items-center justify-between">
-                                <Link href={`/user/${user.id}`} className="w-full hover:cursor-pointer">
                                     <div className="inline-flex content-center justify-center items-center">
-                                        <p className="pl-2 font-semibold">{user.firstName}</p>
-                                        <p className="my-auto text-neutral-500 text-md max-sm:text-sm pl-2">@{!user.userName ? 'username' : user.userName}</p>
+                                        <Link href={`/user/${user.id}`} className="hover:cursor-pointer inline-flex justify-center content-center items-center">
+                                            <p className="font-semibold pl-2">{user.firstName}</p>
+                                            <p className="text-neutral-500 text-md max-sm:text-sm pl-2">@{!user.userName ? 'username' : user.userName}</p>
+                                        </Link>
                                         <p className="text-neutral-500 text-sm max-sm:text-xs pl-1">
                                             {` · ${dayjs(reply.createdAt).fromNow()}`}
                                         </p>
                                     </div>
-                                </Link>
-                                <PostOptionsDropDown postId={reply.postId} replyId={reply.id} postType='REPLY' deleteType='REPLY'/>
+                                {authUser.user?.id === user.id && (
+                                    <PostOptionsDropDown postId={reply.postId} replyId={reply.id} postType='REPLY' deleteType='REPLY'/>
+                                )}
                             </div>
 
                             <h4 className="pl-2 mb-6 leading-5">{reply.body}</h4>

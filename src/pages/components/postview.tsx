@@ -33,16 +33,18 @@ const PostView: NextPage< PostWithUserAndImage > = ( data ) => {
                     <UserProfileHoverCard {...user}/>
                     <div className="mb-1 w-full">
                         <div className="inline-flex mb-6 w-full items-center justify-between">
-                            <Link href={`/user/${user.id}`} className="w-full hover:cursor-ponter">
-                                    <div className="inline-flex content-center justify-center items-center">
-                                        <p className="pl-2 font-semibold">{user.firstName}</p>
-                                        <p className="text-neutral-500 text-md max-sm:text-sm pl-2">@{!user.userName ? 'username' : user.userName}</p>
-                                        <p className="text-neutral-500 text-sm max-sm:text-xs pl-1">
-                                            {` · ${dayjs(post.createdAt).fromNow()}`}
-                                        </p>
-                                    </div>
+                            <div className="inline-flex content-center justify-center items-center">
+                                <Link href={`/user/${user.id}`} className="hover:cursor-pointer inline-flex justify-center content-center items-center">
+                                    <p className="font-semibold pl-2">{user.firstName}</p>
+                                    <p className="text-neutral-500 text-md max-sm:text-sm pl-2">@{!user.userName ? 'username' : user.userName}</p>
                                 </Link>
-                            <PostOptionsDropDown postId={post.id} postType='POST' deleteType='POST'/>
+                                <p className="text-neutral-500 text-sm max-sm:text-xs pl-1">
+                                    {` · ${dayjs(post.createdAt).fromNow()}`}
+                                </p>
+                            </div>
+                            {authUser.user?.id === user.id && (
+                                <PostOptionsDropDown postId={post.id} postType='POST' deleteType='FEED'/>
+                            )}
                         </div>
 
                         <h4 className="pl-2 mb-6 leading-5">{post.body}</h4>

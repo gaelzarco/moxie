@@ -139,9 +139,9 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, pos
           </div>
           
           {loading ? (
-            <span className="flex content-center justify-center px-6 py-4 mr-9">
+            <div className="flex content-center justify-center px-6 py-4 mr-9">
               <Jelly color="white" size={15} />
-            </span>
+            </div>
           ) : (
             <button
               type="submit"

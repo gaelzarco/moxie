@@ -13,7 +13,7 @@ import UserProfileHoverCard from './hovercard';
 import AspectRatioImage from './aspectratioimage';
 import PostOptionsDropDown from './dropdownmenus';
 import Toast from './toast';
-import { Share2Icon, ChatBubbleIcon } from '@radix-ui/react-icons';
+import { Share1Icon, ChatBubbleIcon } from '@radix-ui/react-icons';
 
 type PostsWithUsersAndImages = RouterOutputs["posts"]["getAll"]
 
@@ -41,7 +41,7 @@ const FeedView: NextPage< PostsWithUsersAndImages > = ( posts ) => {
                         <div className="mb-1 w-full">
                             <div className="inline-flex mb-6 w-full items-center justify-between">
                                     <div className="inline-flex content-center justify-center items-center">
-                                        <Link href={`/user/${user.id}`} className="hover: cursor-pointer inline-flex justify-center content-center items-center">
+                                        <Link href={`/user/${user.id}`} className="hover:cursor-pointer inline-flex justify-center content-center items-center">
                                             <p className="font-semibold pl-2">{user.firstName}</p>
                                             <p className="text-neutral-500 text-md max-sm:text-sm pl-2">@{!user.userName ? 'username' : user.userName}</p>
                                         </Link>
@@ -77,7 +77,7 @@ const FeedView: NextPage< PostsWithUsersAndImages > = ( posts ) => {
                                         <p className='ml-2'>{post.replies.length}</p>
                                     </Link>
                                 </div>
-                                <Share2Icon 
+                                <Share1Icon 
                                     className="hover:cursor-pointer dark:text-white ml-16 h-5 w-5 align-right" 
                                     onClick={() => {
                                         navigator.clipboard.writeText(`https://moxie-x.vercel.app/post/${post.id}`)

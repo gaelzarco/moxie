@@ -63,7 +63,7 @@ const PostOptionsDropDown: NextPage< PostAndReplyDelete > = ({ postId, replyId, 
 
         <DropdownMenuPrimitive.Trigger asChild>
             <button
-            className="w-[20px] h-[10px] inline-flex items-center justify-end outline-none"
+            className="w-[20px] h-[20px] inline-flex items-center justify-end outline-none"
             aria-label="Customise options"
             >
             <DotsHorizontalIcon />
