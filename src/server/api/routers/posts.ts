@@ -89,6 +89,50 @@ export const postsRouter = createTRPCRouter({
         
     }),
 
+    getAllByUserId: publicProcedure
+    .input(z.string().min(1)).query(async ({ ctx, input }) => {
+        const posts = await ctx.prisma.post.findMany({
+            where: {
+                userId: input
+            },
+            orderBy: {
+                createdAt: 'desc'
+            },
+            include: {
+                likes: true,
+                replies: true
+            },
+            take: 15,
+        })
+
+        const users = ( await clerkClient.users.getUserList({
+            userId: posts.map((post) => post.userId),
+            limit: 15,
+        }) ).map(filterUserForPost)
+        
+        const postsWithMediaLinks = await Promise.all(posts.map(async (post) => {
+            if (post.media === null) return post
+            
+            const postImgLink = await getFileURL(post.media)
+            post.link = postImgLink
+            return post
+        }))
+
+        return postsWithMediaLinks.map((post) => {
+            const user = users.find((user) => user.id === post.userId)
+
+            if (!user) throw new TRPCError({
+                code: 'INTERNAL_SERVER_ERROR',
+                message: 'User for post not found'
+            })
+            
+            return {
+                post,
+                user
+            }
+        })
+    }),
+
     createOne: protectedProcedure
     .input(z.object({
         body: z.string().min(1).max(500),

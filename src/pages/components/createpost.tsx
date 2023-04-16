@@ -17,6 +17,7 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, pos
   const [ post, setPost ] = useState< RouterInputs["posts"]["createOne"] >({ body: '', media: null })
   const [ file, setFile ] = useState< File | null >(null)
   const [ imgView, setImgView ] = useState(false)
+  const [ charCount, setCharCount ] = useState(0)
   const [ loading, setLoading ] = useState(false)
   const toastRef = useRef<{ publish: () => void }>()
 
@@ -25,6 +26,7 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, pos
     setPost({ body: '', media: null })
     setFile(null)
     setImgView(false)
+    setCharCount(0)
     toastRef.current?.publish()
   }
 
@@ -45,6 +47,7 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, pos
 
   const bodyStateHandler = (event: ChangeEvent<HTMLInputElement>) => {
     setPost({...post, body: event.target.value});
+    setCharCount(event.target.value.length);
   };
   const mediaStateHandler = (file: File | null) => setFile(file)
 
@@ -126,6 +129,13 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, pos
               }}
               className="ml-24 h-5 w-5 dark:text-white hover:cursor-pointer"
             />
+
+            {charCount > 0 && (
+              <span className="ml-2 text-sm dark:text-white">
+                {charCount}/500
+              </span>
+            )}
+            
           </div>
           
           {loading ? (

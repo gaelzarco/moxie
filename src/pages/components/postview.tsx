@@ -14,8 +14,6 @@ import PostOptionsDropDown from './dropdownmenus';
 import Toast from './toast';
 import { Share1Icon } from '@radix-ui/react-icons';
 
-// ChatBubbleIcon 
-
 type PostWithUserAndImage = RouterOutputs["posts"]["getOneById"]
 
 const PostView: NextPage< PostWithUserAndImage > = ( data ) => {
@@ -38,8 +36,8 @@ const PostView: NextPage< PostWithUserAndImage > = ( data ) => {
                             <Link href={`/user/${user.id}`} className="w-full hover:cursor-ponter">
                                     <div className="inline-flex content-center justify-center items-center">
                                         <p className="pl-2 font-semibold">{user.firstName}</p>
-                                        <p className="text-neutral-500 text-md pl-2">@{!user.userName ? 'username' : user.userName}</p>
-                                        <p className="text-neutral-500 text-sm pl-1">
+                                        <p className="text-neutral-500 text-md max-sm:text-sm pl-2">@{!user.userName ? 'username' : user.userName}</p>
+                                        <p className="text-neutral-500 text-sm max-sm:text-xs pl-1">
                                             {` · ${dayjs(post.createdAt).fromNow()}`}
                                         </p>
                                     </div>
@@ -52,7 +50,7 @@ const PostView: NextPage< PostWithUserAndImage > = ( data ) => {
                         <Image className="h-auto w-full min-w-full mb-4 rounded-3xl" src={post.link} height={300} width={500} alt="Attached Media for Post" />
                         )}
 
-                        <div className="mt-2 inline-flex ml-2">
+                        <div className="mt-2 inline-flex justify-center content-center items-center ml-1 text-md max-sm:text-sm">
                             <div className="inline-flex w-auto justify-between">
                                 <CreateLike 
                                     postId={post.id} 

@@ -7,8 +7,9 @@ import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 import Image from "next/image";
 
 import Toast from "./toast";
-import { PersonIcon, DotsHorizontalIcon, Pencil2Icon, CrumpledPaperIcon, EnterIcon, ExitIcon } from '@radix-ui/react-icons';
+import { PersonIcon, DotsHorizontalIcon, Pencil2Icon, CrumpledPaperIcon, EnterIcon, ExitIcon, GearIcon } from '@radix-ui/react-icons';
 import { customFont } from "../_app";
+import Link from "next/link";
 
 type PostAndReplyDelete = {
     postId: RouterInputs["posts"]["deleteOneById"]
@@ -76,7 +77,7 @@ const PostOptionsDropDown: NextPage< PostAndReplyDelete > = ({ postId, replyId, 
             sideOffset={5}>
 
             <DropdownMenuPrimitive.Item className='group leading-none rounded-lg flex items-center h-[35px] px-[5px] relative pl-[15px] select-none outline-none data-[disabled] data-[disabled]:pointer-events-none data-[highlighted]:bg-neutral-500/10 data-[highlighted]:text-neutral-100'>
-                Edit{' '}
+                Edit{' '}(coming soon)
                 <div className="ml-auto pl-[20px] group-data-[highlighted]:text-neutral-100 group-data-[disabled]">
                 <Pencil2Icon /> 
                 </div>
@@ -129,25 +130,42 @@ export const UserNavDropDown: NextPage = () => {
             sideOffset={5}>
 
             {!isSignedIn && (
-            <DropdownMenuPrimitive.Item className='group leading-none rounded-lg flex items-center h-[35px] px-[5px] relative pl-[15px] select-none outline-none data-[disabled] data-[disabled]:pointer-events-none data-[highlighted]:bg-neutral-500/10 data-[highlighted]:text-neutral-100'>
+            <DropdownMenuPrimitive.Item className='group leading-none rounded-lg flex items-center h-[35px] px-[5px] relative pl-[15px] select-none outline-none data-[disabled] data-[disabled]:pointer-events-none hover:bg-neutral-400/10 text-neutral-100 hover:cursor-pointer'>
                 <SignInButton>
-                    <p>Sign-In</p>
+                    <div className="justify-between flex flex-row w-full">
+                        <p>Sign-In</p>
+                        <EnterIcon /> 
+                    </div>
                 </SignInButton>
-                <div className="ml-auto pl-[20px] group-data-[highlighted]:text-neutral-100 group-data-[disabled]">
-                    <EnterIcon /> 
-                </div>
             </DropdownMenuPrimitive.Item>    
             )}
 
             {(!!isSignedIn && !!user) && (
-            <DropdownMenuPrimitive.Item className='group leading-none rounded-lg flex items-center h-[35px] px-[5px] relative pl-[15px] select-none outline-none data-[disabled] data-[disabled]:pointer-events-none hover:bg-red-400/10 text-red-400'>
-                <SignOutButton signOutCallback={router.reload}>
-                    <p>Sign-Out</p>
-                </SignOutButton>
-                <div className="ml-auto pl-[20px] group-data-[disabled]">
-                    <ExitIcon />
-                </div>
-            </DropdownMenuPrimitive.Item>
+            <>
+
+                <DropdownMenuPrimitive.Item className='group leading-none rounded-lg flex items-center h-[35px] px-[5px] relative pl-[15px] select-none outline-none data-[disabled] data-[disabled]:pointer-events-none hover:bg-neutral-400/10 text-neutral-100'>
+                    <Link href={`/user/${user.id}`} className="justify-between flex flex-row w-full hover:cursor-pointer">
+                        <p>Profile</p>
+                        <PersonIcon /> 
+                    </Link>
+                </DropdownMenuPrimitive.Item>
+
+                <DropdownMenuPrimitive.Item className='group leading-none rounded-lg flex items-center h-[35px] px-[5px] relative pl-[15px] select-none outline-none data-[disabled] data-[disabled]:pointer-events-none hover:bg-neutral-400/10 text-neutral-100'>
+                    <Link href='/account' className="justify-between flex flex-row w-full hover:cursor-pointer">
+                        <p>Account</p>
+                        <GearIcon /> 
+                    </Link>
+                </DropdownMenuPrimitive.Item>
+
+                <DropdownMenuPrimitive.Item className='group leading-none rounded-lg flex items-center h-[35px] px-[5px] relative pl-[15px] select-none outline-none data-[disabled] data-[disabled]:pointer-events-none hover:bg-red-400/10 text-red-400'>
+                    <SignOutButton signOutCallback={router.reload}>
+                        <div className="justify-between flex flex-row w-full hover:cursor-pointer">
+                            <p>Sign-Out</p>
+                            <ExitIcon /> 
+                        </div>
+                    </SignOutButton>
+                </DropdownMenuPrimitive.Item>
+            </>
             )}
 
             <DropdownMenuPrimitive.Arrow className="backdrop-blur-md fill-neutral-700/30" />

@@ -4,6 +4,7 @@ import { clerkClient } from '@clerk/nextjs/server';
 import { TRPCError } from '@trpc/server';
 import { uploadFile, getFileURL } from '~/server/api/s3';
 import filterUserForPost from '~/server/helpers/filterUserForPost';
+import filterUserForReply from '~/server/helpers/filterUserForReply';
 
 export const repliesRouter = createTRPCRouter({
 
@@ -14,7 +15,8 @@ export const repliesRouter = createTRPCRouter({
                 postId: input
             },
             include: {
-                likes: true
+                likes: true,
+                post: true
             },
             orderBy: {
                 createdAt: 'desc'
@@ -26,6 +28,10 @@ export const repliesRouter = createTRPCRouter({
             limit: 15,
         }) ).map(filterUserForPost)
 
+        const postUsers = ( await clerkClient.users.getUserList({
+            userId: replies.map((reply) => reply.post.userId)
+        }) ).map(filterUserForReply)
+
         const repliesWithMediaLinks = await Promise.all(replies.map(async (reply) => {
             if (reply.media === null) return reply
             
@@ -36,6 +42,7 @@ export const repliesRouter = createTRPCRouter({
 
         return repliesWithMediaLinks.map((reply) => {
             const user = users.find((user) => user.id === reply.userId)
+            const postUser = postUsers.find((user) => user.id === reply.post.userId)
 
             if (!user) throw new TRPCError({
                 code: 'INTERNAL_SERVER_ERROR',
@@ -44,12 +51,62 @@ export const repliesRouter = createTRPCRouter({
 
             return {
                 reply,
-                user
+                user,
+                postUser
             }
         })
         
     }),
 
+    getAllByUserId: publicProcedure
+    .input(z.string().min(1)).query(async ({ ctx, input }) => {
+        const replies = await ctx.prisma.reply.findMany({
+            where: {
+                userId: input
+            },
+            orderBy: {
+                createdAt: 'desc'
+            },
+            include: {
+                likes: true,
+                post: true
+            },
+            take: 15
+        })
+
+        const users = ( await clerkClient.users.getUserList({
+            userId: replies.map((reply) => reply.userId),
+            limit: 15
+        }) ).map(filterUserForPost)
+
+        const postUsers = ( await clerkClient.users.getUserList({
+            userId: replies.map((reply) => reply.post.userId)
+        }) ).map(filterUserForReply)
+        
+        const repliesWithMediaLinks = await Promise.all(replies.map(async (reply) => {
+            if (reply.media === null) return reply
+            
+            const replyImgLink = await getFileURL(reply.media)
+            reply.link = replyImgLink
+            return reply
+        }))
+
+        return repliesWithMediaLinks.map((reply) => {
+            const user = users.find((user) => user.id === reply.userId)
+            const postUser = postUsers.find((user) => user.id === reply.post.userId)
+
+            if (!user) throw new TRPCError({
+                code: 'INTERNAL_SERVER_ERROR',
+                message: 'User for reply not found'
+            })
+            
+            return {
+                reply,
+                user,
+                postUser
+            }
+        })
+    }),
 
     createOne: protectedProcedure
     .input(z.object({

@@ -29,15 +29,15 @@ const Post: NextPage<{ postId: string }> = ({ postId }) => {
     return (
         <>
             <Head>
-                <title>{`Moxie ✦ ${postQuery.data.user.firstName as string}` + "'s Post"}</title>
-                <meta name="description" content={`Checkout ${postQuery.data.user.firstName as string}` + "'s post ✦ Moxie"} />
+                <title>{`Moxie · ${postQuery.data.user.firstName as string}` + "'s Post"}</title>
+                <meta name="description" content={`Checkout ${postQuery.data.user.firstName as string}` + "'s post · Moxie"} />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
             <div className="h-auto min-h-screen w-full pb-5 dark:bg-black max-w-[750px]">
 
                 <Header>
-                    <CaretLeftIcon className="dark:text-white hover:cursor-pointer h-5 w-5"
+                    <CaretLeftIcon className="dark:text-white hover:cursor-pointer h-6 w-6"
                         onClick={() => {
                             setLoading(true)
                             void apiContext.posts.getAll.refetch()
