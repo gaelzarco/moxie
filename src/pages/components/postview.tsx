@@ -9,7 +9,7 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime)
 
 import CreateLike from "./createlike";
-import UserProfileHoverCard from './hovercard';
+import ProfileHoverCard from './profilehovercard';
 import PostOptionsDropDown from './dropdownmenus';
 import Toast from './toast';
 import { Share1Icon } from '@radix-ui/react-icons';
@@ -30,11 +30,11 @@ const PostView: NextPage< PostWithUserAndImage > = ( data ) => {
         {(!!post && !!user) && (
             <div key={post.id} className="cursor-default mx-auto text-left w-11/12 p-5 rounded-xl mt-5 dark:text-white dark:bg-neutral-900">
                 <div className="flex leading-none">
-                    <UserProfileHoverCard {...user}/>
+                    <ProfileHoverCard {...user}/>
                     <div className="mb-1 w-full">
                         <div className="inline-flex mb-6 w-full items-center justify-between">
                             <div className="inline-flex content-center justify-center items-center">
-                                <Link href={`/user/${user.id}`} className="hover:cursor-pointer inline-flex justify-center content-center items-center">
+                                <Link href={`/profile/${user.id}`} className="hover:cursor-pointer inline-flex justify-center content-center items-center">
                                     <p className="font-semibold pl-2">{user.firstName}</p>
                                     <p className="text-neutral-500 text-md max-sm:text-sm pl-2">@{!user.userName ? 'username' : user.userName}</p>
                                 </Link>

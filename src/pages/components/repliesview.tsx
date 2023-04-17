@@ -9,7 +9,7 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime)
 
 import CreateLike from "./createlike";
-import UserProfileHoverCard from "./hovercard";
+import ProfileHoverCard from "./profilehovercard";
 import PostOptionsDropDown from './dropdownmenus';
 import Toast from './toast';
 import { Share1Icon, PaperPlaneIcon } from '@radix-ui/react-icons';
@@ -36,7 +36,7 @@ const RepliesView: NextPage< Replies > = ({ replies, userView }) => {
             </h2>
         </Header>
 
-        {Object.keys(replies).length === 0 && (
+        {!replies || Object.keys(replies).length === 0 && (
             <div className="cursor-default text-center flex flex-col items-center content-center justify-center w-11/12 p-5 rounded-xl mt-5 mb-20 text-neutral-500">
                 <h1>Nothing to see here</h1>
             </div>
@@ -52,11 +52,11 @@ const RepliesView: NextPage< Replies > = ({ replies, userView }) => {
                         </Link>
                     </div>
                     <div className="flex leading-none">
-                        <UserProfileHoverCard {...user}/>
+                        <ProfileHoverCard {...user}/>
                         <div className="mb-1 w-full">
                             <div className="inline-flex mb-6 w-full items-center justify-between">
                                     <div className="inline-flex content-center justify-center items-center">
-                                        <Link href={`/user/${user.id}`} className="hover:cursor-pointer inline-flex justify-center content-center items-center">
+                                        <Link href={`/profile/${user.id}`} className="hover:cursor-pointer inline-flex justify-center content-center items-center">
                                             <p className="font-semibold pl-2">{user.firstName}</p>
                                             <p className="text-neutral-500 text-md max-sm:text-sm pl-2">@{!user.userName ? 'username' : user.userName}</p>
                                         </Link>
