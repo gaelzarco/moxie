@@ -6,14 +6,14 @@ import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { api } from "~/utils/api";
 
 import Header from "../components/header";
-import UserView from "../components/userview";
+import ProfileView from "../components/profileview";
 import FeedView from "../components/feedview";
 import RepliesView from "../components/repliesview";
 import Loading from "../components/loading";
 import { CaretLeftIcon } from "@radix-ui/react-icons";
 import { Jelly } from "@uiball/loaders";
 
-const Post: NextPage<{ userId: string }> = ({ userId }) => {
+const Profile: NextPage<{ userId: string }> = ({ userId }) => {
 
     const userQuery = api.users.getOneById.useQuery(userId)
     const postsQuery = api.posts.getAllByUserId.useQuery(userId)
@@ -40,7 +40,7 @@ const Post: NextPage<{ userId: string }> = ({ userId }) => {
                         onClick={() => {
                             setLoading(true)
                             void apiContext.posts.getAll.refetch()
-                            .then(!router.query.previousPage ? () => router.push('/') : () => router.back())
+                            .then(() => router.push('/'))
                             .catch((err) => console.log(err))
                         }}
                     />
@@ -56,7 +56,7 @@ const Post: NextPage<{ userId: string }> = ({ userId }) => {
                 <div className='flex items-center justify-center'>
                     <div className="mx-auto text-left w-full">
                         {!!userQuery.data && (
-                        <UserView 
+                        <ProfileView 
                         filteredUser={userQuery.data.filteredUser}
                         postCount={userQuery.data.postsCount}
                         replyCount={userQuery.data.repliesCount}
@@ -93,4 +93,4 @@ export const getStaticPaths = () => {
     return { paths: [], fallback: "blocking" };
   };
 
-export default Post;
+export default Profile;
