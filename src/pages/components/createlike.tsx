@@ -1,9 +1,10 @@
 import type { NextPage } from 'next'
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useUser, SignInButton } from '@clerk/nextjs';
 import { type RouterInputs, api } from "~/utils/api";
 
 import { HeartIcon, HeartFilledIcon } from '@radix-ui/react-icons';
+import Toast from './toast';
 
 type Like = {
     postId: RouterInputs['likes']['handlePostLike']['postId'];
@@ -21,6 +22,7 @@ const CreateLike: NextPage< Like > = ({ postId, replyId, postType, likeType, lik
 
     const [ likedBool, setLikedBool ] = useState(liked)
     const [ likesLength, setLikesLength ] = useState(likesArrLength)
+    const failedToastRef = useRef<{ publish: () => void }>()
 
     const postLike = api.likes.handlePostLike.useMutation({
         onSuccess: async () => {
@@ -49,7 +51,7 @@ const CreateLike: NextPage< Like > = ({ postId, replyId, postType, likeType, lik
         } else if (likeType === 'REPLY' && postType === 'REPLY' && replyId) {
             replyLike.mutate({ replyId: replyId, postType: postType })
         } else {
-            throw new Error('Like type could not be determined.')
+            failedToastRef.current?.publish()
         }
     }
 
@@ -63,29 +65,30 @@ const CreateLike: NextPage< Like > = ({ postId, replyId, postType, likeType, lik
     )
 
   return (
-        <>
-        {likedBool ? (
-            <HeartFilledIcon
-                className='hover:cursor-pointer w-5 h-5 text-red-500'
-                onClick={() => {
-                    likeHandler()
-                    setLikedBool(!likedBool)
-                    setLikesLength(!likedBool ? likesLength + 1 :  likesLength - 1)
-                }}
-            />
-        ) : (
-            <HeartIcon
-                className='hover:cursor-pointer w-5 h-5 dark:text-white text-black'
-                onClick={() => {
-                    likeHandler()
-                    setLikedBool(!likedBool)
-                    setLikesLength(!likedBool ? likesLength + 1 :  likesLength - 1)
-                }}
-            />
-        )}
-            <p className='ml-2'>{likesLength}</p>
-        </>
+    <>
+    <Toast forwardedRef={failedToastRef} title={`${replyId ? 'Reply' : 'Post'}` + ' could not be deleted.'} error />
 
+    {likedBool ? (
+        <HeartFilledIcon
+            className='hover:cursor-pointer w-5 h-5 text-red-500'
+            onClick={() => {
+                likeHandler()
+                setLikedBool(!likedBool)
+                setLikesLength(!likedBool ? likesLength + 1 :  likesLength - 1)
+            }}
+        />
+    ) : (
+        <HeartIcon
+            className='hover:cursor-pointer w-5 h-5 dark:text-white text-black'
+            onClick={() => {
+                likeHandler()
+                setLikedBool(!likedBool)
+                setLikesLength(!likedBool ? likesLength + 1 :  likesLength - 1)
+            }}
+        />
+    )}
+        <p className='ml-2'>{likesLength}</p>
+    </>
   )
 }
 

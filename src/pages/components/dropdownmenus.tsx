@@ -24,6 +24,7 @@ const PostOptionsDropDown: NextPage< PostAndReplyDelete > = ({ postId, replyId, 
     const context = api.useContext();
     const router = useRouter();
     const toastRef = useRef<{ publish: () => void }>()
+    const failedToastRef = useRef<{ publish: () => void }>()
 
     const postDelete = api.posts.deleteOneById.useMutation({
         onSuccess: () => {
@@ -71,7 +72,7 @@ const PostOptionsDropDown: NextPage< PostAndReplyDelete > = ({ postId, replyId, 
         } else if (postType === 'REPLY' && deleteType==='PROFILE'&& userId && replyId) {
             profileReplyDelete.mutate(replyId);
         } else {
-            throw new Error('Post type could not be determined.');
+            failedToastRef.current?.publish()
         }
     };
 
@@ -79,6 +80,7 @@ const PostOptionsDropDown: NextPage< PostAndReplyDelete > = ({ postId, replyId, 
         <DropdownMenuPrimitive.Root>
 
         <Toast forwardedRef={toastRef} title={`${replyId ? 'Reply' : 'Post'}` + ' deleted successfully!'} /> 
+        <Toast forwardedRef={failedToastRef} title={`${replyId ? 'Reply' : 'Post'}` + ' could not be deleted.'} error />
 
         <DropdownMenuPrimitive.Trigger asChild>
             <button
@@ -163,7 +165,7 @@ export const UserNavDropDown: NextPage = () => {
             <>
 
                 <DropdownMenuPrimitive.Item className='group leading-none rounded-lg flex items-center h-[35px] px-[5px] relative pl-[15px] select-none outline-none data-[disabled] data-[disabled]:pointer-events-none hover:bg-neutral-400/10 text-neutral-100'>
-                    <Link href={`/user/${user.id}`} className="justify-between flex flex-row w-full hover:cursor-pointer">
+                    <Link href={`/profile/${user.id}`} className="justify-between flex flex-row w-full hover:cursor-pointer">
                         <p>Profile</p>
                         <PersonIcon /> 
                     </Link>
