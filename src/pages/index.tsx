@@ -8,6 +8,7 @@ import Loading from "./components/loading";
 import Header from "./components/header";
 
 const Home: NextPage = () => {
+  
   return (
     <div className="h-auto min-h-screen w-full pb-5 dark:bg-black max-w-[750px]">
       <Header>

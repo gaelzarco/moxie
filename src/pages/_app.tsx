@@ -6,6 +6,7 @@ import { Plus_Jakarta_Sans } from 'next/font/google';
 import "~/styles/globals.css";
 
 const MyApp: AppType = ( { Component, pageProps } : AppProps  ) => {
+  
   return (
     <>
       <Head>

@@ -23,7 +23,6 @@ const DragAndDrop: NextPage<{ setParentState: (file: File | null) => void }> = (
     useEffect(() => {
       if (file) {
         handleFileChange(file)
-        console.log(file)
       }
     }, [ file ])
 
