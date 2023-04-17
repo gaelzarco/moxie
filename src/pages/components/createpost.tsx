@@ -16,6 +16,7 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, pos
 
   const [ post, setPost ] = useState< RouterInputs["posts"]["createOne"] >({ body: '', media: null })
   const [ file, setFile ] = useState< File | null >(null)
+  const [ errMsg, setErrMsg ] = useState< string | null >(null)
   const [ imgView, setImgView ] = useState(false)
   const [ charCount, setCharCount ] = useState(0)
   const [ loading, setLoading ] = useState(false)
@@ -30,9 +31,9 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, pos
     setCharCount(0)
     toastRef.current?.publish()
   }
-
-  const mutationFailure = () => {
+  const postFailure = (err: string) => {
     setLoading(false)
+    setErrMsg(err)
     failedToastRef.current?.publish()
   }
 
@@ -61,11 +62,8 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, pos
     event.preventDefault()
     setLoading(true)
 
-    if (!isSignedIn) throw new Error('User is not signed in')
-    if (post.body.length < 1) {
-      mutationFailure()
-      throw new Error('Body is empty')
-    }
+    if (!isSignedIn) return postFailure("Sign-in to post.")
+    if (post.body.length < 1) return postFailure("Post body cannot be empty.")
 
     if (!reply && !postId) {
       postMutation.mutate({
@@ -77,11 +75,8 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, pos
   const handleReplyFormSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    if (!isSignedIn) throw new Error('User is not signed in')
-    if (post.body.length < 1) {
-      mutationFailure()
-      throw new Error('Body is empty')
-    }
+    if (!isSignedIn) postFailure("Sign-in to post.")
+    if (post.body.length < 1) return postFailure("Post body cannot be empty.")
 
     if (reply && postId) {
       replyMutation.mutate({
@@ -101,17 +96,18 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, pos
         const buffer = Buffer.from(reader.result as ArrayBuffer)
         const base64 = buffer.toString('base64')
         setPost((prevState) => ({ ...prevState, media: { buffer: base64, mimetype: file.type } }))
-        setFile(null)
       }
+    } else if (!file) {
+      setPost((prevState) => ({ ...prevState, media: null }))
     }
-  }, [ file, post.media ])
+  }, [ file ])
 
     return (
       <form onSubmit={reply && postId ? handleReplyFormSubmit : handlePostFormSubmit}
        className="w-11/12 mx-auto mt-5 rounded-xl dark:text-white dark:bg-neutral-900 p-1 max-xs:p-2">
 
         <Toast forwardedRef={toastRef} title='Post created successfully!' /> 
-        <Toast forwardedRef={failedToastRef} title='Post failed! Try again.' />
+        <Toast forwardedRef={failedToastRef} title={errMsg as string} error />
           
         <div id='form-body-input' className="p-4 flex flex-row">
           {!!user && 

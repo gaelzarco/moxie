@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { type DragEventHandler, useState, useEffect, useCallback } from "react";
+import { type DragEventHandler, useState, useEffect} from "react";
 import Image from "next/image";
 
 import { Link2Icon, CheckIcon, Cross2Icon } from "@radix-ui/react-icons";
@@ -7,9 +7,6 @@ import { Link2Icon, CheckIcon, Cross2Icon } from "@radix-ui/react-icons";
 const DragAndDrop: NextPage<{ setParentState: (file: File | null) => void }> = ({ setParentState }) => {
 
     const [ file, setFile ] = useState< File | null >(null)
-    const handleFileChange = useCallback((file: File) => {
-      setParentState(file)
-    }, [ file ])
 
     const handleDragOver: DragEventHandler<HTMLInputElement> = (event) => event.preventDefault()
     const handleDrop: DragEventHandler<HTMLInputElement> = (event) => {
@@ -22,9 +19,11 @@ const DragAndDrop: NextPage<{ setParentState: (file: File | null) => void }> = (
 
     useEffect(() => {
       if (file) {
-        handleFileChange(file)
+        setParentState(file)
+      } else {
+        setParentState(null)
       }
-    }, [ file ])
+    }, [ file, setParentState ])
 
     return (
         <>
@@ -56,7 +55,7 @@ const DragAndDrop: NextPage<{ setParentState: (file: File | null) => void }> = (
         ) : (
           <div className="mx-auto w-11/12 flex items-center content-center items-center justify-center dark:text-neutral-400 mt-2 mb-6">
 
-            <Image src={URL.createObjectURL(file)} width={100} height={100} className="rounded-lg h-auto max-w-[150px]" alt='Uploaded File'/>
+            <Image src={URL.createObjectURL(file)} className="rounded-lg h-auto w-[150px]" width={100} height={100} alt='Uploaded File'/>
             <p className="ml-4">{file.name.slice(0, 4) + '...' +  file.name.slice(-5)}</p>
             <CheckIcon className="h-5 w-5 text-green-400 ml-4" />
             <div className="hover:cursor-pointer dark:bg-neutral-700/30 hover:bg-red-400/30 font-semibold text-red-400 bg-black w-auto h-auto rounded-full p-[10px] ml-4"
@@ -65,7 +64,7 @@ const DragAndDrop: NextPage<{ setParentState: (file: File | null) => void }> = (
               setFile(null)
               setParentState(null)
             }} >
-            <Cross2Icon/>
+              <Cross2Icon/>
             </div>
 
           </div>
