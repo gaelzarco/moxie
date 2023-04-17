@@ -9,7 +9,7 @@ dayjs.extend(relativeTime);
 
 import Header from './header';
 import CreateLike from './createlike';
-import UserProfileHoverCard from './hovercard';
+import ProfileHoverCard from './profilehovercard';
 import AspectRatioImage from './aspectratioimage';
 import PostOptionsDropDown from './dropdownmenus';
 import Toast from './toast';
@@ -27,7 +27,6 @@ const FeedView: NextPage< Posts > = ({ posts, userView }) => {
     
     return (
         <>
-
         <Toast forwardedRef={toastRef} title='Link copied to clipboard!' /> 
 
         <Header noNav>
@@ -36,15 +35,21 @@ const FeedView: NextPage< Posts > = ({ posts, userView }) => {
             </h2>
         </Header>
 
+        {!posts || Object.keys(posts).length === 0 && (
+            <div className="cursor-default text-center flex flex-col items-center content-center justify-center w-11/12 p-5 rounded-xl mt-5 mb-20 text-neutral-500">
+                <h1>Nothing to see here</h1>
+            </div>
+        )}
+
         {!!posts && (Object.values(posts).map(({ post, user }) => {
             return (
                 <div key={post.id} className="cursor-default mx-auto text-left w-11/12 p-5 rounded-xl mt-5 dark:text-white dark:bg-neutral-900">
                     <div className="flex leading-none">
-                        <UserProfileHoverCard {...user}/>
+                        <ProfileHoverCard {...user}/>
                         <div className="mb-1 w-full">
                             <div className="inline-flex mb-6 w-full items-center justify-between">
                                     <div className="inline-flex content-center justify-center items-center">
-                                        <Link href={`/user/${user.id}`} className="hover:cursor-pointer inline-flex justify-center content-center items-center">
+                                        <Link href={`/profile/${user.id}`} className="hover:cursor-pointer inline-flex justify-center content-center items-center">
                                             <p className="font-semibold pl-2">{user.firstName}</p>
                                             <p className="text-neutral-500 text-md max-sm:text-sm pl-2">@{!user.userName ? 'username' : user.userName}</p>
                                         </Link>
@@ -78,7 +83,7 @@ const FeedView: NextPage< Posts > = ({ posts, userView }) => {
                                     />
                                 </div>
                                 <div className="inline-flex w-auto justify-between">
-                                    <Link href={`post/${post.id}`} className='flex'>
+                                    <Link href={`/post/${post.id}`} className='flex'>
                                         <ChatBubbleIcon className="hover:cursor-pointer dark:text-white ml-16 h-5 w-5" />
                                         <p className='ml-2'>{post.replies.length}</p>
                                     </Link>
