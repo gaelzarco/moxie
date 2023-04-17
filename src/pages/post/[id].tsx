@@ -41,7 +41,7 @@ const Post: NextPage<{ postId: string }> = ({ postId }) => {
                         onClick={() => {
                             setLoading(true)
                             void apiContext.posts.getAll.refetch()
-                            .then(!router.query.previousPage ? () => router.push('/') : () => router.back())
+                            .then(() => router.push('/'))
                             .catch((err) => console.log(err))
                         }}
                     />

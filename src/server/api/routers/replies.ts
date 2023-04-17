@@ -140,9 +140,6 @@ export const repliesRouter = createTRPCRouter({
             }
         })
 
-        console.log(reply)
-        console.log(ctx.userId)
-
         if (!reply) throw new TRPCError({
             code: 'NOT_FOUND',
             message: 'Reply not found.'
