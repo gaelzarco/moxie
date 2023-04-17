@@ -4,8 +4,8 @@ import {
  from "react";
 import * as ToastPrimitive from '@radix-ui/react-toast';
 
-const Toast: ForwardRefExoticComponent<{ title: string, forwardedRef: MutableRefObject<{ publish: () => void } | undefined > }> = forwardRef(
-    ({ forwardedRef, title }) => {
+const Toast: ForwardRefExoticComponent<{ title: string, forwardedRef: MutableRefObject<{ publish: () => void } | undefined >, error?: boolean }> = forwardRef(
+    ({ title, forwardedRef, error }) => {
 
     const [ count, setCount ] = useState(0)
     const toastDateRef = useRef(new Date())
@@ -30,11 +30,19 @@ const Toast: ForwardRefExoticComponent<{ title: string, forwardedRef: MutableRef
                     </time>
                 </ToastPrimitive.Description >
 
-                <ToastPrimitive.Close className="[grid-area:_action]" asChild>
-                    <button className="font-semibold px-4 h-8 bg-green-400 text-white shadow-md hover:bg-green-500 rounded-full">
-                        Close
-                    </button>
-                </ToastPrimitive.Close >
+                {error ? (
+                    <ToastPrimitive.Close className="[grid-area:_action]" asChild>
+                        <button className="font-semibold px-4 h-8 bg-red-400 text-white shadow-md hover:bg-red-500 rounded-full">
+                            Close
+                        </button>
+                    </ToastPrimitive.Close >
+                ) : (
+                    <ToastPrimitive.Close className="[grid-area:_action]" asChild>
+                        <button className="font-semibold px-4 h-8 bg-green-400 text-white shadow-md hover:bg-green-500 rounded-full">
+                            Close
+                        </button>
+                    </ToastPrimitive.Close >
+                )}
 
             </ToastPrimitive.Root>
         ))}
