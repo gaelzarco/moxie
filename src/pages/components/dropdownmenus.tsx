@@ -12,13 +12,14 @@ import { customFont } from "../_app";
 import Link from "next/link";
 
 type PostAndReplyDelete = {
-    postId: RouterInputs["posts"]["deleteOneById"]
+    postId?: RouterInputs["posts"]["deleteOneById"]
     replyId?: RouterInputs["replies"]["deleteOneById"]
+    userId?: RouterInputs["users"]["getOneById"]
     postType: "POST" | "REPLY"
-    deleteType: "FEED" | "POST" | "REPLY"
+    deleteType: "FEED" | "POST" | "REPLY" | "PROFILE"
 }
 
-const PostOptionsDropDown: NextPage< PostAndReplyDelete > = ({ postId, replyId, postType, deleteType }) => {
+const PostOptionsDropDown: NextPage< PostAndReplyDelete > = ({ postId, replyId, userId, postType, deleteType }) => {
 
     const context = api.useContext();
     const router = useRouter();
@@ -43,6 +44,20 @@ const PostOptionsDropDown: NextPage< PostAndReplyDelete > = ({ postId, replyId, 
             .catch(err => console.log(err));
         }
     })
+    const profilePostDelete = api.posts.deleteOneById.useMutation({
+        onSuccess: async () => {
+            toastRef.current?.publish()
+            await context.posts.getAllByUserId.refetch(userId)
+            .catch(err => console.log(err));
+        }
+    })
+    const profileReplyDelete = api.replies.deleteOneById.useMutation({
+        onSuccess: async () => {
+            toastRef.current?.publish()
+            await context.replies.getAllByUserId.refetch(userId)
+            .catch(err => console.log(err));
+        }
+    })
 
     const deleteHandler = () => {
         if (postType === 'POST' && deleteType === 'POST' && postId) {
@@ -51,6 +66,10 @@ const PostOptionsDropDown: NextPage< PostAndReplyDelete > = ({ postId, replyId, 
             postsDelete.mutate(postId)
         } else if (postType === 'REPLY' && deleteType==='REPLY'&& postId && replyId) {
             repliesDelete.mutate(replyId);
+        } else if (postType === 'POST' && deleteType==='PROFILE'&& userId && postId) {
+            profilePostDelete.mutate(postId);
+        } else if (postType === 'REPLY' && deleteType==='PROFILE'&& userId && replyId) {
+            profileReplyDelete.mutate(replyId);
         } else {
             throw new Error('Post type could not be determined.');
         }

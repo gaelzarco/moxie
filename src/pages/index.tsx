@@ -29,7 +29,7 @@ const Feed: NextPage = () => {
   return (
       <>
         {!!isSignedIn && <CreatePost />}
-        {!!data && <FeedView {...data} />}
+        {!!data && <FeedView posts={data} />}
       </>
     )
 }

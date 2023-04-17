@@ -20,6 +20,7 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, pos
   const [ charCount, setCharCount ] = useState(0)
   const [ loading, setLoading ] = useState(false)
   const toastRef = useRef<{ publish: () => void }>()
+  const failedToastRef = useRef<{ publish: () => void }>()
 
   const mutationSuccess = () => {
     setLoading(false)
@@ -28,6 +29,11 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, pos
     setImgView(false)
     setCharCount(0)
     toastRef.current?.publish()
+  }
+
+  const mutationFailure = () => {
+    setLoading(false)
+    failedToastRef.current?.publish()
   }
 
   const postMutation = api.posts.createOne.useMutation({ 
@@ -56,7 +62,10 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, pos
     setLoading(true)
 
     if (!isSignedIn) throw new Error('User is not signed in')
-    if (post.body.length < 1) throw new Error('Body is empty')
+    if (post.body.length < 1) {
+      mutationFailure()
+      throw new Error('Body is empty')
+    }
 
     if (!reply && !postId) {
       postMutation.mutate({
@@ -69,7 +78,10 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, pos
     event.preventDefault()
 
     if (!isSignedIn) throw new Error('User is not signed in')
-    if (post.body.length < 1) throw new Error('Body is empty')
+    if (post.body.length < 1) {
+      mutationFailure()
+      throw new Error('Body is empty')
+    }
 
     if (reply && postId) {
       replyMutation.mutate({
@@ -99,6 +111,7 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, pos
        className="w-11/12 mx-auto mt-5 rounded-xl dark:text-white dark:bg-neutral-900 p-1 max-xs:p-2">
 
         <Toast forwardedRef={toastRef} title='Post created successfully!' /> 
+        <Toast forwardedRef={failedToastRef} title='Post failed! Try again.' />
           
         <div id='form-body-input' className="p-4 flex flex-row">
           {!!user && 

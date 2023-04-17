@@ -15,10 +15,12 @@ import Toast from './toast';
 import { Share1Icon, PaperPlaneIcon } from '@radix-ui/react-icons';
 import Header from './header';
 
-type RepliesWithUsersAndImages = RouterOutputs["replies"]["getAllByPostId"]
-type RepliesForUserView = RouterOutputs["replies"]["getAllByUserId"]
+type Replies = {
+    replies: RouterOutputs["replies"]["getAllByPostId"] | RouterOutputs["replies"]["getAllByUserId"]
+    userView?: boolean
+}
 
-const RepliesView: NextPage< RepliesWithUsersAndImages | RepliesForUserView> = ( replies ) => {
+const RepliesView: NextPage< Replies > = ({ replies, userView }) => {
 
     const authUser = useUser()
     const toastRef = useRef<{ publish: () => void }>()
@@ -36,7 +38,7 @@ const RepliesView: NextPage< RepliesWithUsersAndImages | RepliesForUserView> = (
 
         {Object.keys(replies).length === 0 && (
             <div className="cursor-default text-center flex flex-col items-center content-center justify-center w-11/12 p-5 rounded-xl mt-5 mb-20 text-neutral-500">
-                <h1>Be the first</h1>
+                <h1>Nothing to see here</h1>
             </div>
         )}
         
@@ -62,7 +64,10 @@ const RepliesView: NextPage< RepliesWithUsersAndImages | RepliesForUserView> = (
                                             {` · ${dayjs(reply.createdAt).fromNow()}`}
                                         </p>
                                     </div>
-                                {authUser.user?.id === user.id && (
+                                {authUser.user?.id === user.id && userView && (
+                                    <PostOptionsDropDown userId={user.id} replyId={reply.id} postType='REPLY' deleteType='PROFILE'/>
+                                )}
+                                {authUser.user?.id === user.id && !userView && (
                                     <PostOptionsDropDown postId={reply.postId} replyId={reply.id} postType='REPLY' deleteType='REPLY'/>
                                 )}
                             </div>

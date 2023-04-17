@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { type DragEventHandler, useState, useEffect } from "react";
+import { type DragEventHandler, useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 
 import { Link2Icon, CheckIcon, Cross2Icon } from "@radix-ui/react-icons";
@@ -7,6 +7,9 @@ import { Link2Icon, CheckIcon, Cross2Icon } from "@radix-ui/react-icons";
 const DragAndDrop: NextPage<{ setParentState: (file: File | null) => void }> = ({ setParentState }) => {
 
     const [ file, setFile ] = useState< File | null >(null)
+    const handleFileChange = useCallback((file: File) => {
+      setParentState(file)
+    }, [ file ])
 
     const handleDragOver: DragEventHandler<HTMLInputElement> = (event) => event.preventDefault()
     const handleDrop: DragEventHandler<HTMLInputElement> = (event) => {
@@ -19,7 +22,7 @@ const DragAndDrop: NextPage<{ setParentState: (file: File | null) => void }> = (
 
     useEffect(() => {
       if (file) {
-        setParentState(file)
+        handleFileChange(file)
         console.log(file)
       }
     }, [ file ])

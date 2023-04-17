@@ -62,8 +62,8 @@ const Post: NextPage<{ userId: string }> = ({ userId }) => {
                         replyCount={userQuery.data.repliesCount}
                         />
                         )}
-                        {!!postsQuery.data && <FeedView {...postsQuery.data} />}
-                        {!!repliesQuery.data ? <RepliesView {...repliesQuery.data} /> : <Loading />}
+                        {!!postsQuery.data && <FeedView posts={postsQuery.data} userView />}
+                        {!!repliesQuery.data ? <RepliesView replies={repliesQuery.data} userView /> : <Loading />}
                     </div>
                 </div>
 

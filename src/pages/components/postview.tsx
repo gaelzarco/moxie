@@ -43,7 +43,7 @@ const PostView: NextPage< PostWithUserAndImage > = ( data ) => {
                                 </p>
                             </div>
                             {authUser.user?.id === user.id && (
-                                <PostOptionsDropDown postId={post.id} postType='POST' deleteType='FEED'/>
+                                <PostOptionsDropDown postId={post.id} postType='POST' deleteType='POST'/>
                             )}
                         </div>
 

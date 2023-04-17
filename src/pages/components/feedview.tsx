@@ -15,9 +15,12 @@ import PostOptionsDropDown from './dropdownmenus';
 import Toast from './toast';
 import { Share1Icon, ChatBubbleIcon } from '@radix-ui/react-icons';
 
-type PostsWithUsersAndImages = RouterOutputs["posts"]["getAll"]
+type Posts = {
+    posts: RouterOutputs["posts"]["getAll"] | RouterOutputs["posts"]["getAllByUserId"]
+    userView?: boolean
+}
 
-const FeedView: NextPage< PostsWithUsersAndImages > = ( posts ) => {
+const FeedView: NextPage< Posts > = ({ posts, userView }) => {
 
     const authUser = useUser()
     const toastRef = useRef<{ publish: () => void }>()
@@ -49,7 +52,10 @@ const FeedView: NextPage< PostsWithUsersAndImages > = ( posts ) => {
                                             {` · ${dayjs(post.createdAt).fromNow()}`}
                                         </p>
                                     </div>
-                                {authUser.user?.id === user.id && (
+                                {authUser.user?.id === user.id && userView && (
+                                    <PostOptionsDropDown userId={user.id} postId={post.id} postType='POST' deleteType='PROFILE'/>
+                                )}
+                                {authUser.user?.id === user.id && !userView && (
                                     <PostOptionsDropDown postId={post.id} postType='POST' deleteType='FEED'/>
                                 )}
                             </div>

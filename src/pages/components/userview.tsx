@@ -19,7 +19,7 @@ const UserView: NextPage< UserProfile > = ({ filteredUser, postCount, replyCount
         <>
         {!!filteredUser && (
             <div key={filteredUser.id} className="cursor-default mx-auto text-left w-11/12 p-5 rounded-xl mt-5 dark:text-white dark:bg-neutral-900">
-                <div className="flex flex-col pl-5 mt-5 mb-5">
+                <div className="flex flex-col pl-5 mt-5 mb-4">
                     <Image className="m-2 rounded-full w-24 h-24 bg-neutral-800 cursor-pointer" src={filteredUser.profileImageURL} height={50} width={50} alt="Profile Picture" />
                     <div className="flex flex-col p-2 mb-1 w-full">
                         <p className="text-2xl font-semibold leading-10">{filteredUser.firstName}{' '}{filteredUser.lastName}</p>
@@ -28,7 +28,7 @@ const UserView: NextPage< UserProfile > = ({ filteredUser, postCount, replyCount
                             <CalendarIcon className="w-5 h-5 mr-2" />
                             {`Joined ${dayjs(filteredUser.createdAt).fromNow()}`}
                         </p>
-                        <p className="flex flex-row content-center items-center text-neutral-500 text-sm leading-10">
+                        <div className="flex flex-row content-center items-center text-neutral-500 text-sm leading-5">
                             {postCount} Posts
                             <p className='ml-2'>
                             ·
@@ -36,7 +36,7 @@ const UserView: NextPage< UserProfile > = ({ filteredUser, postCount, replyCount
                             <p className='ml-2'>
                             {replyCount} Replies
                             </p>
-                        </p>
+                        </div>
                     </div> 
                 </div> 
             </div>
