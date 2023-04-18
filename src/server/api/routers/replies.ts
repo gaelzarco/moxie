@@ -14,13 +14,22 @@ export const repliesRouter = createTRPCRouter({
             where: {
                 postId: input
             },
-            include: {
-                likes: true,
-                post: true
-            },
             orderBy: {
                 createdAt: 'desc'
-            }
+            },
+            include: {
+                likes: {
+                    select: {
+                        userId: true
+                    }
+                },
+                post: {
+                    select: {
+                        userId: true
+                    }
+                }
+            },
+            take: 15
         })
 
         const users = ( await clerkClient.users.getUserList({
@@ -68,8 +77,16 @@ export const repliesRouter = createTRPCRouter({
                 createdAt: 'desc'
             },
             include: {
-                likes: true,
-                post: true
+                likes: {
+                    select: {
+                        userId: true
+                    }
+                },
+                post: {
+                    select: {
+                        userId: true,
+                    }
+                }
             },
             take: 15
         })

@@ -6,16 +6,25 @@ import { uploadFile, getFileURL } from '~/server/api/s3';
 import filterUserForPost from '~/server/helpers/filterUserForPost';
 
 export const postsRouter = createTRPCRouter({
+
     getAll: publicProcedure.query(async ({ ctx }) => {
         const posts = await ctx.prisma.post.findMany({
             orderBy: {
                 createdAt: 'desc'
             },
             include: {
-                likes: true,
-                replies: true
+                likes: {
+                    select: {
+                        userId: true
+                    }
+                },
+                _count: {
+                    select: {
+                        replies: true
+                    }
+                }
             },
-            take: 15,
+            take: 15
         })
 
         const users = ( await clerkClient.users.getUserList({
@@ -53,7 +62,11 @@ export const postsRouter = createTRPCRouter({
                 id: input
             },
             include: {
-                likes: true,
+                likes: {
+                    select: {
+                        userId: true
+                    }
+                },
                 replies: true
             }
         })
@@ -99,10 +112,18 @@ export const postsRouter = createTRPCRouter({
                 createdAt: 'desc'
             },
             include: {
-                likes: true,
-                replies: true
+                likes: {
+                    select: {
+                        userId: true
+                    }
+                },
+                _count: {
+                    select: {
+                        replies: true
+                    }
+                }
             },
-            take: 15,
+            take: 15
         })
 
         const users = ( await clerkClient.users.getUserList({
@@ -160,9 +181,6 @@ export const postsRouter = createTRPCRouter({
         const post = await ctx.prisma.post.findUnique({
             where: {
                 id: input
-            },
-            include: {
-                replies: true
             }
         })
 

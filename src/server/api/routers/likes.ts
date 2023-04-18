@@ -20,7 +20,11 @@ export const likesRouter = createTRPCRouter({
                 id: input.postId
             },
             include: {
-                likes: true,
+                likes: {
+                    select: {
+                        userId: true
+                    }
+                }
             }
         })
 
@@ -44,8 +48,7 @@ export const likesRouter = createTRPCRouter({
                     postType: input.postType
                 }
             })
-        }
-        
+        } 
     }),
 
     handleReplyLike: protectedProcedure
@@ -64,7 +67,11 @@ export const likesRouter = createTRPCRouter({
                 id: input.replyId
             },
             include: {
-                likes: true
+                likes: {
+                    select: {
+                        userId: true
+                    }
+                }
             }
         })
 
@@ -89,7 +96,6 @@ export const likesRouter = createTRPCRouter({
                 }
             })
         }
-
     }),
 
 })
