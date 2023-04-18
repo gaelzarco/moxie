@@ -26,7 +26,7 @@ const DragAndDrop: NextPage<{ setParentState: (file: File | null) => void }> = (
     }, [ file, setParentState ])
 
     return (
-        <>
+      <>
         {!file ? (
           <div className="flex justify-center items-center content-center p-4 mb-6"
             onDragOver={handleDragOver}
@@ -69,7 +69,7 @@ const DragAndDrop: NextPage<{ setParentState: (file: File | null) => void }> = (
 
           </div>
         )}
-        </>
+      </>
     )
 }
 
