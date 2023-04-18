@@ -22,8 +22,8 @@ const Profile: NextPage<{ userId: string }> = ({ userId }) => {
     const router = useRouter()
     const [ loading, setLoading ] = useState(false)
 
-    if (userQuery.isLoading || postsQuery.isLoading) return <Loading />
-    if (!userQuery.data) return <div>Something went wrong...</div>
+    if (userQuery.isLoading || postsQuery.isLoading || repliesQuery.isLoading) return <Loading />
+    if (!userQuery.data || !postsQuery.data || !repliesQuery.data ) return <div>Something went wrong...</div>
 
     return (
         <>
@@ -63,7 +63,7 @@ const Profile: NextPage<{ userId: string }> = ({ userId }) => {
                         />
                         )}
                         {!!postsQuery.data && <FeedView posts={postsQuery.data} userView />}
-                        {!!repliesQuery.data ? <RepliesView replies={repliesQuery.data} userView /> : <Loading />}
+                        {!!repliesQuery.data && <RepliesView replies={repliesQuery.data} userView />}
                     </div>
                 </div>
 
@@ -77,7 +77,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
     const userId = context.params?.id
 
-    if (typeof userId !== 'string') throw new Error('Invalid post ID')
+    if (typeof userId !== 'string') throw new Error('Invalid user ID')
 
     await ssg.users.getOneById.prefetch(userId)
 
