@@ -24,7 +24,6 @@ const PostView: NextPage< PostWithUserAndImage > = ( data ) => {
 
     return (
         <>
-
         <Toast forwardedRef={toastRef} title='Link copied to clipboard!' /> 
 
         {(!!post && !!user) && (

@@ -17,7 +17,7 @@ const ProfileView: NextPage< Profile > = ({ filteredUser, postCount, replyCount 
 
     return (
         <>
-        {!!filteredUser && (
+        {(!!filteredUser && !!postCount && !!replyCount)  && (
             <div key={filteredUser.id} className="cursor-default mx-auto text-left w-11/12 p-5 rounded-xl mt-5 dark:text-white dark:bg-neutral-900">
                 <div className="flex flex-col pl-5 mt-5 mb-4">
                     <Image className="m-2 rounded-full w-24 h-24 bg-neutral-800 cursor-pointer" src={filteredUser.profileImageURL} height={50} width={50} alt="Profile Picture" />

@@ -85,7 +85,7 @@ const FeedView: NextPage< Posts > = ({ posts, userView }) => {
                                 <div className="inline-flex w-auto justify-between">
                                     <Link href={`/post/${post.id}`} className='flex'>
                                         <ChatBubbleIcon className="hover:cursor-pointer dark:text-white ml-16 h-5 w-5" />
-                                        <p className='ml-2'>{post.replies.length}</p>
+                                        <p className='ml-2'>{post._count.replies}</p>
                                     </Link>
                                 </div>
                                 <Share1Icon 

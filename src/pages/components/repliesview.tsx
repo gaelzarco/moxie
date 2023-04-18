@@ -27,7 +27,6 @@ const RepliesView: NextPage< Replies > = ({ replies, userView }) => {
     
     return (
         <>
-
         <Toast forwardedRef={toastRef} title='Link copied to clipboard!' /> 
 
         <Header noNav>
