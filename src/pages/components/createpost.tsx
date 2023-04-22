@@ -74,6 +74,7 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, pos
   }
   const handleReplyFormSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    setLoading(true)
 
     if (!isSignedIn) postFailure("Sign-in to post.")
     if (post.body.length < 1) return postFailure("Post body cannot be empty.")
