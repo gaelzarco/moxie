@@ -32,7 +32,7 @@ const Toast: ForwardRefExoticComponent<{ title: string, forwardedRef: MutableRef
 
                 {error ? (
                     <ToastPrimitive.Close className="[grid-area:_action]" asChild>
-                        <button className="font-semibold px-4 h-8 bg-red-400 text-white shadow-md hover:bg-red-500 rounded-full">
+                        <button className="font-semibold px-4 h-8 bg-red-500 text-white shadow-md hover:bg-red-600 rounded-full">
                             Close
                         </button>
                     </ToastPrimitive.Close >
