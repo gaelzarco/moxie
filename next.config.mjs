@@ -10,7 +10,7 @@
 const config = {
   reactStrictMode: true,
   experimental: {
-    runtime: "experimental-edge"
+    // runtime: "experimental-edge"
   },
   images: {
     remotePatterns: [
