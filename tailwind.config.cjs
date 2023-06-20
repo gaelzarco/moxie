@@ -27,8 +27,8 @@ const config = {
 
         // Hover Card
         slideUpAndFade: {
-          '0%': { opacity: 0, transform: 'translateY(-2px)' },
-          '100%': { opacity: 1, transform: 'translateY(-38%)' },
+          '0%': { opacity: 0, transform: 'translateY(-65px)' },
+          '100%': { opacity: 1, transform: 'translateY(-40%)' },
         },
         slideRightAndFade: {
           '0%': { opacity: 0, transform: 'translateX(-2px)' },
