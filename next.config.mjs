@@ -16,7 +16,7 @@ const config = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "mern-social.s3.us-west-2.amazonaws.com",
+        hostname: "moxie-x-images.s3.us-west-2.amazonaws.com",
       },
       {
         protocol: "https",

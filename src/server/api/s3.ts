@@ -24,7 +24,7 @@ export const getFileURL = async (imageName: string) => {
     }
 
     const command = new GetObjectCommand(params);
-    const url = await getSignedUrl(s3, command, { expiresIn: 3600 });
+    const url = await getSignedUrl(s3, command, { expiresIn: 3600 })
 
     return url
 }
