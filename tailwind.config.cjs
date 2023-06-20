@@ -28,7 +28,7 @@ const config = {
         // Hover Card
         slideUpAndFade: {
           '0%': { opacity: 0, transform: 'translateY(-2px)' },
-          '100%': { opacity: 1, transform: 'translateY(0)' },
+          '100%': { opacity: 1, transform: 'translateY(-38%)' },
         },
         slideRightAndFade: {
           '0%': { opacity: 0, transform: 'translateX(-2px)' },
@@ -50,10 +50,10 @@ const config = {
         swipeOut: 'swipeOut 100ms ease-out',
 
         // Hover Card
-        slideUpAndFade: 'slideUpAndFade 300ms cubic-bezier(0.16, 0, 0.13, 1)',
-        slideDownAndFade: 'slideDownAndFade 300ms cubic-bezier(0.16, 0, 0.13, 1)',
-        slideRightAndFade: 'slideRightAndFade 300ms cubic-bezier(0.16, 0, 0.13, 1)',
-        slideLeftAndFade: 'slideLeftAndFade 300ms cubic-bezier(0.16, 0, 0.13, 1)',
+        slideUpAndFade: 'slideUpAndFade 200ms cubic-bezier(0.16, 0, 0.13, 1)',
+        slideDownAndFade: 'slideDownAndFade 200ms cubic-bezier(0.16, 0, 0.13, 1)',
+        slideRightAndFade: 'slideRightAndFade 200ms cubic-bezier(0.16, 0, 0.13, 1)',
+        slideLeftAndFade: 'slideLeftAndFade 200ms cubic-bezier(0.16, 0, 0.13, 1)',
       },
 
     },

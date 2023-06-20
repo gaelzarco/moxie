@@ -36,7 +36,7 @@ const Profile: NextPage<{ userId: string }> = ({ userId }) => {
             <div className="h-auto min-h-screen w-full pb-5 dark:bg-black max-w-[750px]">
 
                 <Header>
-                    <CaretLeftIcon className="dark:text-white hover:cursor-pointer h-6 w-6"
+                    <CaretLeftIcon className="mt-1 dark:text-white hover:cursor-pointer h-6 w-6 bg-neutral-800 rounded-full"
                         onClick={() => {
                             setLoading(true)
                             void apiContext.posts.getAll.refetch()

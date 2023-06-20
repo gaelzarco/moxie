@@ -6,8 +6,8 @@ import { UserNavDropDown } from "./dropdownmenus";
 const Header: NextPage<{ children: ReactNode, noNav?: boolean }> = ({ children, noNav }) => {
     
     return (
-        <div className={`cursor-default sticky mt-4 ${ !noNav ? 'top-0 z-10 mt-0' : '' } backdrop-blur-lg h-[80px] pl-6 w-full inline-flex items-center justify-between`}>
-            <div className="justify-start inline-flex items-center content-center">
+        <div className={`cursor-default sticky ${ !noNav ? 'top-0 z-10' : '' } backdrop-blur-lg h-[90px] pl-6 w-full inline-flex items-center justify-between`}>
+            <div className={`justify-start inline-flex items-center content-center ${ noNav ? 'mt-2' : '' }`}>
                 {children}
             </div>
 

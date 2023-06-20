@@ -29,7 +29,7 @@ const Loading: NextPage<{ home?: true }> = ({ home }) => {
                         </div>
 
                         <div className="ml-12 mb-2 h-5 rounded-full w-auto animate-pulse bg-neutral-700"></div>
-                        <div className="h-auto w-full min-w-full mb-6 h-5 rounded-3xl bg-neutral-700 animate-pulse"></div>
+                        <div className="w-full min-w-full mb-6 h-5 rounded-3xl bg-neutral-700 animate-pulse"></div>
 
                         <div className="ml-12 inline-flex w-full">
 
