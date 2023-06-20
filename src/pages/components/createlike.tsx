@@ -58,7 +58,7 @@ const CreateLike: NextPage< Like > = ({ postId, replyId, postType, likeType, lik
     if (!isSignedIn) return (
         <>
             <SignInButton>
-                <HeartIcon className='hover:cursor-default w-5 h-5 dark: text-white text-black'/>
+                <HeartIcon className='hover:cursor-default w-5 h-5 dark:text-white text-black'/>
             </SignInButton>
             <p className='ml-2'>{likesLength}</p>
         </>
