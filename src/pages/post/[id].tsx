@@ -34,7 +34,7 @@ const Post: NextPage<{ postId: string }> = ({ postId }) => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <div className="h-auto min-h-screen w-full pb-5 dark:bg-black max-w-[750px]">
+            <div className="h-auto min-h-screen w-full dark:bg-black max-w-[750px]">
 
                 <Header>
                     <CaretLeftIcon className="mt-1 dark:text-white hover:cursor-pointer h-6 w-6 bg-neutral-800 rounded-full"
@@ -55,7 +55,7 @@ const Post: NextPage<{ postId: string }> = ({ postId }) => {
                 </Header>
 
                 <div className='flex items-center justify-center'>
-                    <div className="mx-auto text-left w-full">
+                    <div className="mx-auto text-left w-full mb-2">
                         {!!postQuery.data && <PostView {...postQuery.data} />}
                         {!!isSignedIn && <CreatePost postId={postId} reply/>}
                         {!!replyQuery.data && <RepliesView replies={replyQuery.data} />}

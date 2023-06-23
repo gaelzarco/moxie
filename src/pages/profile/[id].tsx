@@ -33,7 +33,7 @@ const Profile: NextPage<{ userId: string }> = ({ userId }) => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <div className="h-auto min-h-screen w-full pb-5 dark:bg-black max-w-[750px]">
+            <div className="h-auto min-h-screen w-full dark:bg-black max-w-[750px]">
 
                 <Header>
                     <CaretLeftIcon className="mt-1 dark:text-white hover:cursor-pointer h-6 w-6 bg-neutral-800 rounded-full"
@@ -54,13 +54,13 @@ const Profile: NextPage<{ userId: string }> = ({ userId }) => {
                 </Header>
 
                 <div className='flex items-center justify-center'>
-                    <div className="mx-auto text-left w-full">
+                    <div className="mx-auto text-left w-full mb-2">
                         {!!userQuery.data && (
-                        <ProfileView 
-                        filteredUser={userQuery.data.filteredUser}
-                        postCount={userQuery.data.postsCount}
-                        replyCount={userQuery.data.repliesCount}
-                        />
+                            <ProfileView 
+                                filteredUser={userQuery.data.filteredUser}
+                                postCount={userQuery.data.postsCount}
+                                replyCount={userQuery.data.repliesCount}
+                            />
                         )}
                         {!!postsQuery.data && <FeedView posts={postsQuery.data} userView />}
                         {!!repliesQuery.data && <RepliesView replies={repliesQuery.data} userView />}
