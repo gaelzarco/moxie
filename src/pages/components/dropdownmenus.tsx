@@ -1,5 +1,4 @@
-import type { NextPage } from "next";
-import { useRef } from "react";
+import { useState, useRef } from "react";
 import { useRouter } from "next/router";
 import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
 import { type RouterInputs, api } from "~/utils/api";
@@ -7,7 +6,7 @@ import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 import Image from "next/image";
 
 import Toast from "./toast";
-import { PersonIcon, DotsHorizontalIcon, Pencil2Icon, CrumpledPaperIcon, EnterIcon, ExitIcon, GearIcon } from '@radix-ui/react-icons';
+import { PersonIcon, DotsHorizontalIcon, Pencil2Icon, CrumpledPaperIcon, EnterIcon, ExitIcon, GearIcon, CaretDownIcon } from '@radix-ui/react-icons';
 import { customFont } from "../_app";
 import Link from "next/link";
 
@@ -19,7 +18,7 @@ type PostAndReplyDelete = {
     deleteType: "FEED" | "POST" | "REPLY" | "PROFILE"
 }
 
-const PostOptionsDropDown: NextPage< PostAndReplyDelete > = ({ postId, replyId, userId, postType, deleteType }) => {
+const PostOptionsDropDown: React.FC< PostAndReplyDelete > = ({ postId, replyId, userId, postType, deleteType }) => {
 
     const context = api.useContext();
     const router = useRouter();
@@ -124,7 +123,7 @@ const PostOptionsDropDown: NextPage< PostAndReplyDelete > = ({ postId, replyId, 
     );
 };
 
-export const UserNavDropDown: NextPage = () => {
+export const UserNavDropDown: React.FC = () => {
 
     const { isSignedIn, user } = useUser()
     const router = useRouter()
@@ -197,5 +196,7 @@ export const UserNavDropDown: NextPage = () => {
         </DropdownMenuPrimitive.Root>
     );
 };
+
+
 
 export default PostOptionsDropDown
