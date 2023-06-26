@@ -53,7 +53,7 @@ const DragAndDrop: NextPage<{ setParentState: (file: File | null) => void }> = (
 
           </div>
         ) : (
-          <div className="mx-auto w-11/12 flex items-center content-center items-center justify-center dark:text-neutral-400 mt-2 mb-6">
+          <div className="mx-auto w-11/12 flex content-center items-center justify-center dark:text-neutral-400 mt-2 mb-6">
 
             <Image src={URL.createObjectURL(file)} className="rounded-lg h-auto w-[150px]" width={100} height={100} alt='Uploaded File'/>
             <p className="ml-4">{file.name.slice(0, 4) + '...' +  file.name.slice(-5)}</p>

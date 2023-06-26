@@ -16,10 +16,12 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, pos
 
   const [ post, setPost ] = useState< RouterInputs["posts"]["createOne"] >({ body: '', media: null })
   const [ file, setFile ] = useState< File | null >(null)
+  
   const [ errMsg, setErrMsg ] = useState< string | null >(null)
   const [ imgView, setImgView ] = useState(false)
   const [ charCount, setCharCount ] = useState(0)
   const [ loading, setLoading ] = useState(false)
+
   const toastRef = useRef<{ publish: () => void }>()
   const failedToastRef = useRef<{ publish: () => void }>()
 
