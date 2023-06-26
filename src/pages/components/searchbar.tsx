@@ -1,11 +1,11 @@
 import { type FormEvent, useState } from "react"
 import { api } from "~/utils/api"
-import { RouterOutputs } from "~/utils/api"
+import type { RouterOutputs } from "~/utils/api"
 import Image from 'next/image'
 import Link from 'next/link'
 
 import { SearchOptiosDropDown } from "./dropdownmenus"
-import { Cross2Icon } from "@radix-ui/react-icons"
+// import { Cross2Icon } from "@radix-ui/react-icons"
 import { Jelly } from "@uiball/loaders"
 
 // type ResultType = 
@@ -23,7 +23,7 @@ export default function SearchBar() {
     }
 
     const searchMutation = api.search.findUser.useMutation({
-        onSuccess: async (data) => {
+        onSuccess: (data) => {
             setResult(data)
         },
         onError: (err) => console.log(err),
