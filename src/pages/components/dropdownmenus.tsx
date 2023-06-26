@@ -197,6 +197,45 @@ export const UserNavDropDown: React.FC = () => {
     );
 };
 
+const SearchOptionsItems: React.FC<{ category: string, setCategory: (category: string) => void }> = ({ category, setCategory }) => {
+    return (
+        <DropdownMenuPrimitive.Item className='group leading-none rounded-lg flex items-center h-[35px] px-[5px] relative pl-[15px] select-none outline-none data-[disabled] data-[disabled]:pointer-events-none data-[highlighted]:bg-neutral-500/10 data-[highlighted]:text-neutral-100 max-md:text-sm z-[20]'
+            onClick={() => setCategory(category)}
+        >
+        {category.charAt(0).toUpperCase() + category.slice(1)}
+    </DropdownMenuPrimitive.Item>
+    )
+}
 
+export const SearchOptiosDropDown: React.FC<{ category: string, setCategory: (category: string) => void }> = ({ category, setCategory }) => {
+
+    return (
+        <DropdownMenuPrimitive.Root>
+
+        <DropdownMenuPrimitive.Trigger asChild>
+            <button className="inline-flex p-2 items-center focus-within:outline-none max-md:text-sm" >
+                <p>{category.charAt(0).toUpperCase() + category.slice(1)}</p>
+                <CaretDownIcon className="h-4 w-4 ml-2"/>
+            </button>
+        </DropdownMenuPrimitive.Trigger>
+
+        <DropdownMenuPrimitive.Portal>
+
+            <DropdownMenuPrimitive.Content
+            className={`${customFont.variable} font-sans min-w-[150px] backdrop-blur-lg dark:bg-neutral-700/30 rounded-lg p-[5px] shadow-xl data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade`}
+            sideOffset={5}>
+
+            <SearchOptionsItems key={"users"} category={'users'} setCategory={setCategory}/>
+            {/* <SearchOptionsItems key={"posts"} category={'posts'} setCategory={setCategory}/>
+            <SearchOptionsItems key={"replies"} category={'replies'} setCategory={setCategory}/> */}
+
+            <DropdownMenuPrimitive.Arrow className="backdrop-blur-md fill-neutral-700/30" />
+            </DropdownMenuPrimitive.Content>
+
+        </DropdownMenuPrimitive.Portal>
+
+        </DropdownMenuPrimitive.Root>
+    );
+};
 
 export default PostOptionsDropDown

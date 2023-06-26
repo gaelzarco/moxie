@@ -4,6 +4,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { api } from "~/utils/api";
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import "~/styles/globals.css";
+import SearchBar from "./components/searchbar";
 
 const MyApp: AppType = ( { Component, pageProps } : AppProps  ) => {
   
@@ -17,8 +18,11 @@ const MyApp: AppType = ( { Component, pageProps } : AppProps  ) => {
 
       <ClerkProvider {...pageProps}>
         <main className={`${customFont.variable} font-sans h-auto w-screen flex flex-col items-center content-center justify-center`}>
-          <div className="mx-auto max-w-[750px] w-full dark:bg-neutral-900">
+          <div className="mx-auto max-w-[750px] w-full dark:bg-neutral-900 mb-16">
             <Component {...pageProps} />
+          </div>
+          <div className="fixed mx-auto bottom-0 left-0 right-0 max-w-[750px]">
+            <SearchBar />
           </div>
         </main>
       </ClerkProvider>
