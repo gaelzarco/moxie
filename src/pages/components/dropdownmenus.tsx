@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import { useRouter } from "next/router";
 import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
 import { type RouterInputs, api } from "~/utils/api";
