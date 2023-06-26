@@ -140,6 +140,7 @@ export const repliesRouter = createTRPCRouter({
         return ctx.prisma.reply.create({
             data: {
                 userId: ctx.userId,
+                userName: ctx.userName,
                 body: input.body,
                 postId: input.postId,
                 media: fileName,

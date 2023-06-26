@@ -39,10 +39,12 @@ export const createTRPCContext = (opts: CreateNextContextOptions) => {
   const sesh = getAuth(req)
 
   const userId = sesh.userId
+  const userName = sesh.user?.username as string
 
   return {
     prisma,
-    userId
+    userId,
+    userName
   }
 };
 
@@ -113,6 +115,7 @@ const isAuthed = t.middleware(async ({ ctx, next }) => {
   return next({
     ctx: {
       userId: ctx.userId,
+      userName: ctx.userName,
       prisma
     },
   });
