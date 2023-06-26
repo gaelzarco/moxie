@@ -1,14 +1,11 @@
 import { z } from 'zod'
-import { createTRPCRouter, publicProcedure, protectedProcedure } from "~/server/api/trpc";
+import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 import { clerkClient } from '@clerk/nextjs/server';
-import { TRPCError } from '@trpc/server';
-import filterUserForPost from '~/server/helpers/filterUserForPost';
-
 export const searchRouter = createTRPCRouter({
     findUser: publicProcedure
     .input(z.object({
         query: z.string().min(1)
-    })).mutation(async ({ ctx, input }) => {
+    })).mutation(async ({ input }) => {
         const users = await clerkClient.users.getUserList({
             query: input.query,
             limit: 15
@@ -40,5 +37,7 @@ export const searchRouter = createTRPCRouter({
             },
             take: 15
         })
+
+        return posts
     })
 })
