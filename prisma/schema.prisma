@@ -30,6 +30,7 @@ model User {
 model Post {
   id        String   @id @default(cuid())
   userId    String
+  userName  String
   media     String? @db.VarChar(150)
   link      String?
   body      String @db.VarChar(300)
@@ -46,6 +47,7 @@ model Reply {
   id        String   @id @default(cuid())
   postId    String
   userId    String
+  userName  String
   media     String?
   link      String?
   body      String   @db.VarChar(500)
