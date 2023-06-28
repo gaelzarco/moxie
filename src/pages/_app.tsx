@@ -4,7 +4,6 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { api } from "~/utils/api";
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import "~/styles/globals.css";
-import SearchBar from "./components/searchbar";
 
 const MyApp: AppType = ( { Component, pageProps } : AppProps  ) => {
   
