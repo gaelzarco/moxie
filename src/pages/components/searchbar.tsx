@@ -219,7 +219,7 @@ function PostSearchComponent({ postResult, postSearchMutationStatus } : {
                                             {post._count.likes > 1 || post._count.likes === 0 ? `${post._count.likes} likes` : `${post._count.likes} like`}
                                         </p>
                                         <p className="text-neutral-500 text-sm max-md:text-xs">
-                                            {post._count.likes > 1 || post._count.replies === 0 ? `${post._count.replies} replies` : `${post._count.replies} reply`}
+                                            {post._count.replies > 1 || post._count.replies === 0 ? `${post._count.replies} replies` : `${post._count.replies} reply`}
                                         </p>
                                     </div>
                                 </div>

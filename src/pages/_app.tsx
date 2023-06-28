@@ -2,7 +2,7 @@ import type { AppType, AppProps } from "next/app";
 import Head from "next/head";
 import { ClerkProvider } from "@clerk/nextjs";
 import { api } from "~/utils/api";
-import { Plus_Jakarta_Sans } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import "~/styles/globals.css";
 
 const MyApp: AppType = ( { Component, pageProps } : AppProps  ) => {
@@ -26,7 +26,7 @@ const MyApp: AppType = ( { Component, pageProps } : AppProps  ) => {
   );
 };
 
-export const customFont = Plus_Jakarta_Sans({
+export const customFont = Inter({
   subsets: [ "latin", "latin-ext" ],
   weight: [ "400", "500", "600", "700", "800" ],
   style: [ "normal" ],

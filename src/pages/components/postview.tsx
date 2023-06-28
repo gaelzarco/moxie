@@ -64,8 +64,9 @@ const PostView: NextPage< PostWithUserAndImage > = ( data ) => {
                                 />
                             </div>
                             <div className="inline-flex w-auto justify-between">
-                                <p className='ml-10'>{post.replies.length}</p>
-                                <h3 className="dark:text-white ml-2 h-5 w-5">Replies</h3>
+                                <p className='ml-10'>
+                                    {post.replies.length > 1 || post.replies.length === 0 ? `${post.replies.length} replies` : `${post.replies.length} reply`}
+                                </p>
                             </div>
                             <Share1Icon 
                                 className="hover:cursor-pointer dark:text-white ml-20 h-5 w-5 align-right"
