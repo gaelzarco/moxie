@@ -168,7 +168,6 @@ export const postsRouter = createTRPCRouter({
         return await ctx.prisma.post.create({
             data: {
                 userId: ctx.userId,
-                userName: ctx.userName as string,
                 body: input.body,
                 media: fileName
             }
