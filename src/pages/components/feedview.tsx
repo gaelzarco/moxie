@@ -48,7 +48,9 @@ const FeedView: NextPage< Posts > = ({ posts, userView }) => {
                 return (
                     <div key={post.id} className="cursor-default mx-auto text-left w-11/12 p-5 rounded-xl mt-5 dark:text-white dark:bg-neutral-900">
                         <div className="flex leading-none">
-                            <ProfileHoverCard {...user}/>
+                            <div className='h-min'>
+                                <ProfileHoverCard {...user}/>
+                            </div>
                             <div className="mb-1 w-full">
                                 <div className="inline-flex mb-6 w-full items-center justify-between">
                                         <div className="inline-flex content-center justify-center items-center">
