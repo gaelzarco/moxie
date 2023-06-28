@@ -1,4 +1,4 @@
-import { type FormEvent, useState, MouseEventHandler, MouseEvent } from "react"
+import { type FormEvent, type MouseEvent, useState } from "react"
 import type { MutationStatus } from "@tanstack/react-query"
 import { api } from "~/utils/api"
 import type { RouterOutputs } from "~/utils/api"
@@ -48,7 +48,7 @@ export default function SearchBar() {
     
     const resetSearchBar = (e: MouseEvent) => {
         e.preventDefault()
-        
+
         setUserResult(null)
         setPostResult(null)
         setReplyResult(null)
@@ -195,7 +195,7 @@ function PostSearchComponent({ postResult, postSearchMutationStatus } : {
                                 </div>
 
                                 <div className="flex flex-col w-full pl-14">
-                                    <p>{post.body.length > 60 ? post.body.slice(0, 60) + `...` : post.body}</p>
+                                    <p>{post.body.length > 60 ? `${post.body.slice(0, 60)}...` : post.body}</p>
 
                                     {post.media && (
                                         <div className="flex flex-row max-w-[150px] justify-between items-center mt-2">
@@ -205,10 +205,10 @@ function PostSearchComponent({ postResult, postSearchMutationStatus } : {
                                     
                                     <div className="flex flex-row max-w-[150px] justify-between items-center mt-4">
                                         <p className="text-neutral-500 text-sm max-md:text-xs">
-                                            {post._count.likes > 1 || post._count.likes === 0 ? post._count.likes + ' likes' : post._count.likes + ' like'}
+                                            {post._count.likes > 1 || post._count.likes === 0 ? `${post._count.likes} likes` : `${post._count.likes} like`}
                                         </p>
                                         <p className="text-neutral-500 text-sm max-md:text-xs">
-                                            {post._count.likes > 1 || post._count.replies === 0 ? post._count.replies + ' replies' : post._count.replies + ' reply'}
+                                            {post._count.likes > 1 || post._count.replies === 0 ? `${post._count.replies} replies` : `${post._count.replies} reply`}
                                         </p>
                                     </div>
                                 </div>
@@ -262,7 +262,7 @@ function ReplySearchComponent({ replyResult, replySearchMutationStatus } : {
                                 </div>
 
                                 <div className="flex flex-col w-full pl-14">
-                                    <p>{reply.body.length > 60 ? reply.body.slice(0, 60) + `...` : reply.body}</p>
+                                    <p>{reply.body.length > 60 ? `${reply.body.slice(0, 60)}...` : reply.body}</p>
 
                                     {reply.media && (
                                         <div className="flex flex-row max-w-[150px] justify-between items-center mt-2">
@@ -272,7 +272,7 @@ function ReplySearchComponent({ replyResult, replySearchMutationStatus } : {
                                     
                                     <div className="flex flex-row max-w-[150px] justify-between items-center mt-4">
                                         <p className="text-neutral-500 text-sm max-md:text-xs">
-                                            {reply._count.likes > 1 || reply._count.likes === 0 ? reply._count.likes + ' likes' : reply._count.likes + ' like'}
+                                            {reply._count.likes > 1 || reply._count.likes === 0 ? `${reply._count.likes} likes` : `${reply._count.likes} like`}
                                         </p>
                                     </div>
                                 </div>
