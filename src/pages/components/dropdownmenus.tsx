@@ -19,7 +19,6 @@ type PostAndReplyDelete = {
 }
 
 const PostOptionsDropDown: React.FC< PostAndReplyDelete > = ({ postId, replyId, userId, postType, deleteType }) => {
-
     const context = api.useContext();
     const router = useRouter();
     const toastRef = useRef<{ publish: () => void }>()
@@ -207,7 +206,7 @@ const SearchOptionsItems: React.FC<{ category: string, setCategory: (category: s
     )
 }
 
-export const SearchOptiosDropDown: React.FC<{ category: string, setCategory: (category: string) => void }> = ({ category, setCategory }) => {
+export const SearchOptionsDropDown: React.FC<{ category: string, setCategory: (category: string) => void }> = ({ category, setCategory }) => {
 
     return (
         <DropdownMenuPrimitive.Root>
@@ -226,8 +225,8 @@ export const SearchOptiosDropDown: React.FC<{ category: string, setCategory: (ca
             sideOffset={5}>
 
             <SearchOptionsItems key={"users"} category={'users'} setCategory={setCategory}/>
-            {/* <SearchOptionsItems key={"posts"} category={'posts'} setCategory={setCategory}/>
-            <SearchOptionsItems key={"replies"} category={'replies'} setCategory={setCategory}/> */}
+            <SearchOptionsItems key={"posts"} category={'posts'} setCategory={setCategory}/>
+            <SearchOptionsItems key={"replies"} category={'replies'} setCategory={setCategory}/>
 
             <DropdownMenuPrimitive.Arrow className="backdrop-blur-md fill-neutral-700/30" />
             </DropdownMenuPrimitive.Content>

@@ -22,7 +22,7 @@ const ProfileHoverCard: NextPage< PostUser > = ({ profileImageURL, id, firstName
     </HoverCardPrimitive.Trigger>
 
     <HoverCardPrimitive.Portal>
-      <HoverCardPrimitive.Content className={`${customFont.variable} font-sans cursor-pointer backdrop-blur-lg dark:bg-neutral-700/30 shadow-xl w-48 rounded-xl p-5 data-[side=bottom]:animate-slideUpAndFadeHoverCard data-[side=bottom]:translate-y-[-40%] data-[side=right]:animate-slideLeftAndFade data-[side=left]:animate-slideRightAndFade data-[side=top]:animate-slideDownAndFade data-[state=open]:transition-all`}>
+      <HoverCardPrimitive.Content className={`${customFont.variable} font-sans cursor-pointer backdrop-blur-lg dark:bg-neutral-700/30 shadow-xl w-48 rounded-xl p-5 data-[side=bottom]:animate-slideUpAndFade data-[side=right]:animate-slideLeftAndFade data-[side=left]:animate-slideRightAndFade data-[side=top]:animate-slideDownAndFade data-[state=open]:transition-all`}>
 
       <Link href={`/profile/${id}`}>
 
