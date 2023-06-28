@@ -55,7 +55,7 @@ const Post: NextPage<{ postId: string }> = ({ postId }) => {
                 </Header>
 
                 <div className='flex items-center justify-center'>
-                    <div className="mx-auto text-left w-full mb-2">
+                    <div className="mx-auto text-left w-full">
                         {!!postQuery.data && <PostView {...postQuery.data} />}
                         {!!isSignedIn && <CreatePost postId={postId} reply/>}
                         {!!replyQuery.data && <RepliesView replies={replyQuery.data} />}

@@ -54,7 +54,7 @@ const Profile: NextPage<{ userId: string }> = ({ userId }) => {
                 </Header>
 
                 <div className='flex items-center justify-center'>
-                    <div className="mx-auto text-left w-full mb-2">
+                    <div className="mx-auto text-left w-full">
                         {!!userQuery.data && (
                             <ProfileView 
                                 filteredUser={userQuery.data.filteredUser}

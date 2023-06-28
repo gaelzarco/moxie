@@ -6,6 +6,7 @@ import CreatePost from "./components/createpost";
 import FeedView from "./components/feedview";
 import Loading from "./components/loading";
 import Header from "./components/header";
+import SearchBar from "./components/searchbar";
 
 const Home: NextPage = () => {
   
@@ -28,10 +29,13 @@ const Feed: NextPage = () => {
   if (!data) return <div className="overflow-hidden flex w-full h-[80vh] text-center items-center content-center justify-center text-neutral-500">Something went wrong...</div>
 
   return (
-      <>
+      <div className="h-full w-full mb-16">
         {!!isSignedIn && <CreatePost />}
         {!!data && <FeedView posts={data} />}
-      </>
+        <div className="fixed mx-auto bottom-0 left-0 right-0 w-full max-w-[750px]">
+          <SearchBar />
+        </div>
+      </div>
     )
 }
 

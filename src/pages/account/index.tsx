@@ -34,18 +34,18 @@ const Account: NextPage = () => {
                 </Header>
 
             <UserProfile appearance={{ 
-            elements: {
-                navbar: `${customFont.variable} font-sans text-white bg-neutral-900 rounded-xl`,
-                scrollBox: `${customFont.variable} font-sans text-white bg-neutral-900`,
-                userButtonPopoverCard: `${customFont.variable} font-sans text-white bg-neutral-900`,
-                card: `${customFont.variable} font-sans text-white bg-neutral-900 rounded-xl`,
-            },
-            variables: {
-                fontFamily: `${customFont.variable} font-sans`,
-                colorText: 'white',
-                colorTextOnPrimaryBackground: 'white',
-                colorTextSecondary: 'gray'
-            }
+                elements: {
+                    navbar: `${customFont.variable} font-sans text-white bg-neutral-900 rounded-xl`,
+                    scrollBox: `${customFont.variable} font-sans text-white bg-neutral-900`,
+                    userButtonPopoverCard: `${customFont.variable} font-sans text-white bg-neutral-900`,
+                    card: `${customFont.variable} font-sans text-white bg-neutral-900 rounded-xl`,
+                },
+                variables: {
+                    fontFamily: `${customFont.variable} font-sans`,
+                    colorText: 'white',
+                    colorTextOnPrimaryBackground: 'white',
+                    colorTextSecondary: 'gray'
+                }
             }}/>
             </div>
         </div>
