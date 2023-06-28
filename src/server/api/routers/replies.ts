@@ -25,7 +25,8 @@ export const repliesRouter = createTRPCRouter({
                 },
                 post: {
                     select: {
-                        userId: true
+                        userId: true,
+                        body: true
                     }
                 }
             },
@@ -85,6 +86,7 @@ export const repliesRouter = createTRPCRouter({
                 post: {
                     select: {
                         userId: true,
+                        body: true
                     }
                 }
             },

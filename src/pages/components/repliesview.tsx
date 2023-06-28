@@ -47,14 +47,27 @@ const RepliesView: NextPage< Replies > = ({ replies, userView }) => {
             {!!replies && (Object.values(replies).map(({ reply, user, postUser }) => {
                 return (
                     <div key={reply.id} className="cursor-default mx-auto text-left w-11/12 p-5 rounded-xl mt-5 mb-4 dark:text-white dark:bg-neutral-900">
-                        <div className="text-neutral-500 text-sm mb-6 ml-1">
-                            <Link href={`/post/${reply.postId}`} className='inline-flex content-center items-center justify-center'>
-                                <PaperPlaneIcon className="w-3 h-3 mr-5 mt-1" />
-                                <p>{"In reply to " + `${postUser?.firstName as string}` + "'s Post" }</p>
-                            </Link>
-                        </div>
+                        {userView && (
+                            <div className="text-sm mb-6 ml-2">
+                                <Link href={`/post/${reply.postId}`} className='flex flex-col'>
+                                    <div className='inline-flex items-center text-neutral-500'>
+                                        <PaperPlaneIcon className="w-3 h-3 mr-5 mt-1" />
+                                        <p>{"In reply to " + `${postUser?.firstName as string}` + "'s post" }</p>
+                                        <div className="inline-flex items-center rounded-full h-6 w-6 border border-neutral-700 ml-2">
+                                            <Image src={user.profileImageURL} alt='User Profile' width={100} height={100} className="w-full h-full rounded-full"/>
+                                        </div>
+                                    </div>
+
+                                    <div className='flex flex-col mt-2 ml-8'>
+                                        <p>{reply.post.body.length > 40 ? reply.post.body.slice(0, 40) + '...' : reply.post.body}</p>
+                                    </div>
+                                </Link>
+                            </div>
+                        )}
                         <div className="flex leading-none">
-                            <ProfileHoverCard {...user}/>
+                            <div className='h-min'>
+                                <ProfileHoverCard {...user}/>
+                            </div>
                             <div className="mb-1 w-full">
                                 <div className="inline-flex mb-6 w-full items-center justify-between">
                                         <div className="inline-flex content-center justify-center items-center">
