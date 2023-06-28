@@ -21,7 +21,7 @@ const MyApp: AppType = ( { Component, pageProps } : AppProps  ) => {
           <div className="mx-auto max-w-[750px] w-full dark:bg-neutral-900 mb-16">
             <Component {...pageProps} />
           </div>
-          <div className="fixed mx-auto bottom-0 left-0 right-0 max-w-[750px]">
+          <div className="sticky mx-auto bottom-0 left-0 right-0 w-full max-w-[750px]">
             <SearchBar />
           </div>
         </main>

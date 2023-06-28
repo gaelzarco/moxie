@@ -198,7 +198,7 @@ export const UserNavDropDown: React.FC = () => {
 
 const SearchOptionsItems: React.FC<{ category: string, setCategory: (category: string) => void }> = ({ category, setCategory }) => {
     return (
-        <DropdownMenuPrimitive.Item className='group leading-none rounded-lg flex items-center h-[35px] px-[5px] relative pl-[15px] select-none outline-none data-[disabled] data-[disabled]:pointer-events-none data-[highlighted]:bg-neutral-500/10 data-[highlighted]:text-neutral-100 max-md:text-sm z-[20]'
+        <DropdownMenuPrimitive.Item className='group leading-none rounded-lg flex items-center h-[35px] px-[5px] relative pl-[15px] select-none outline-none data-[disabled] data-[disabled]:pointer-events-none data-[highlighted]:bg-neutral-500/10 data-[highlighted]:text-neutral-100 text-md z-[20]'
             onClick={() => setCategory(category)}
         >
         {category.charAt(0).toUpperCase() + category.slice(1)}
@@ -212,7 +212,7 @@ export const SearchOptionsDropDown: React.FC<{ category: string, setCategory: (c
         <DropdownMenuPrimitive.Root>
 
         <DropdownMenuPrimitive.Trigger asChild>
-            <button className="inline-flex p-2 items-center focus-within:outline-none max-md:text-sm" >
+            <button className="inline-flex p-2 items-center focus-within:outline-none text-md" >
                 <p>{category.charAt(0).toUpperCase() + category.slice(1)}</p>
                 <CaretDownIcon className="h-4 w-4 ml-2"/>
             </button>

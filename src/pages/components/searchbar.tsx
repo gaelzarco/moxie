@@ -1,4 +1,4 @@
-import { type FormEvent, type MouseEvent, useState } from "react"
+import { type FormEvent, type MouseEvent, useState, useRef, MutableRefObject, KeyboardEventHandler, KeyboardEvent } from "react"
 import type { MutationStatus } from "@tanstack/react-query"
 import { api } from "~/utils/api"
 import type { RouterOutputs } from "~/utils/api"
@@ -20,6 +20,8 @@ export default function SearchBar() {
     const [ userResult, setUserResult ] = useState<UserSearchType | null >(null)
     const [ postResult, setPostResult ] = useState<PostSearchType | null >(null)
     const [ replyResult, setReplyResult ] = useState<ReplySearchType | null >(null)
+
+    const searchBarRef = useRef<HTMLInputElement>(null);
 
     const setSearchCategoryHandler = (category: string) => {
         setSearchCategory(category)
@@ -74,8 +76,15 @@ export default function SearchBar() {
         onError: err => console.log(err),
     })
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        handleSubmit();
+      }
+    };
+
+    const handleSubmit = (e?: FormEvent<HTMLFormElement>) => {
+        e?.preventDefault()
         if (!searchQuery) return console.log("Search query cannot be empty.")
 
         if (searchCategory === 'users') userSearchMutation.mutate({ query: searchQuery })
@@ -106,9 +115,11 @@ export default function SearchBar() {
                     onSubmit={handleSubmit}
                 >
                     <input
+                        ref={searchBarRef}
+                        onKeyDown={handleKeyPress}
                         type='text'
                         placeholder='Search'
-                        className="w-full h-full py-2 bg-transparent focus-within:outline-none text-md max-md:text-sm"
+                        className="w-full h-full py-2 bg-transparent focus-within:outline-none text-md"
                         value={searchQuery || ''}
                         onChange={e => setSearchQueryHandler(e.target.value)}
                     />
