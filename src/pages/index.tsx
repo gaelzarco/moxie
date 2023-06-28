@@ -25,7 +25,7 @@ const Feed: NextPage = () => {
   const { isSignedIn } = useUser()
 
   if (isLoading) return <Loading home/>
-  if (!data) return <div className="overflow-hidden flex w-screen h-screen text-center items-center content-center justify-center text-neutral-500">Something went wrong...</div>
+  if (!data) return <div className="overflow-hidden flex w-full h-[80vh] text-center items-center content-center justify-center text-neutral-500">Something went wrong...</div>
 
   return (
       <>
