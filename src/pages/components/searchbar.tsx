@@ -80,8 +80,15 @@ export default function SearchBar() {
       if (e.key === 'Enter') {
         e.preventDefault();
         handleSubmit();
+        hideKeyboard();
       }
     };
+
+    const hideKeyboard = () => {
+        if (searchBarRef.current) {
+          searchBarRef.current.blur();
+        }
+      };
 
     const handleSubmit = (e?: FormEvent<HTMLFormElement>) => {
         e?.preventDefault()
