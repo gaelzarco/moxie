@@ -32,7 +32,7 @@ const FeedView: NextPage< Posts > = ({ posts, userView }) => {
         <Toast forwardedRef={toastRef} title='Link copied to clipboard!' /> 
 
         <Header noNav>
-            <h2 className="ml-5 text-2xl font-bold">
+            <h2 className="ml-5 mt-2 text-2xl font-semibold">
                 Posts
             </h2>
         </Header>

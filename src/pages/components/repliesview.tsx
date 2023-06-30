@@ -32,7 +32,7 @@ const RepliesView: NextPage< Replies > = ({ replies, userView }) => {
         <Toast forwardedRef={toastRef} title='Link copied to clipboard!' /> 
 
         <Header noNav>
-            <h2 className="ml-5 text-2xl font-bold">
+            <h2 className="ml-5 mt-2 text-2xl font-semibold">
                 Replies
             </h2>
         </Header>
@@ -58,7 +58,7 @@ const RepliesView: NextPage< Replies > = ({ replies, userView }) => {
                                         </div>
                                     </div>
 
-                                    <div className='flex flex-col mt-2 ml-8'>
+                                    <div className='flex flex-col mt-2 ml-8 text-neutral-400'>
                                         <p>{reply.post.body.length > 40 ? reply.post.body.slice(0, 40) + '...' : reply.post.body}</p>
                                     </div>
                                 </Link>
