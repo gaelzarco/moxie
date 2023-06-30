@@ -133,7 +133,7 @@ export const UserNavDropDown: React.FC = () => {
         <DropdownMenuPrimitive.Trigger asChild>
             {(!!isSignedIn && !!user) ? (
             <div className="inline-flex items-center">
-                    <Image src={user.profileImageUrl} width={45} height={45} className="w-12 h-12 rounded-full mr-0 hover:cursor-pointer bg-neutral-800" alt='user avatar' />
+                    <Image priority src={user.profileImageUrl} width={45} height={45} className="w-12 h-12 rounded-full mr-0 hover:cursor-pointer bg-neutral-800" alt='user avatar' />
             </div>
             ) : (
                 <div className="inline-flex items-center">
