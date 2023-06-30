@@ -6,7 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { SearchOptionsDropDown } from "./dropdownmenus"
-import { CrumpledPaperIcon, PaperPlaneIcon } from "@radix-ui/react-icons"
+import { CrumpledPaperIcon, MagnifyingGlassIcon, PaperPlaneIcon } from "@radix-ui/react-icons"
 import { Jelly } from "@uiball/loaders"
 
 type UserSearchType = RouterOutputs["search"]["findUser"]
@@ -101,19 +101,7 @@ export default function SearchBar() {
 
     return (
         <>
-            {userResult && searchCategory === 'users' && (
-                <UserSearchComponent userResult={userResult} userSearchMutationStatus={userSearchMutation.status} />
-            )}
-
-            {postResult && searchCategory === 'posts' && (
-                <PostSearchComponent postResult={postResult} postSearchMutationStatus={postSearchMutation.status} />
-            )}
-
-            {replyResult && searchCategory === 'replies' && (
-                <ReplySearchComponent replyResult={replyResult} replySearchMutationStatus={replySearchMutation.status} />
-            )}
-
-            <div className="flex items-center mb-4 mx-4 border border-neutral-700 bg-neutral-900/30 backdrop-blur-2xl rounded-xl text-white">
+            <div className="flex items-center mb-4 mx-8 border border-neutral-700 bg-neutral-900/30 backdrop-blur-2xl rounded-xl text-white">
                 <div className="flex flex-row items-center px-2 py-2 mr-2">
                     <SearchOptionsDropDown category={searchCategory} setCategory={setSearchCategoryHandler}/>
                 </div>
@@ -137,6 +125,13 @@ export default function SearchBar() {
                         </div>
                     )}
 
+                    <button
+                        type='submit'
+                        className="flex items-center content-center justify-center min-w-[30px] min-h-[30px] bg-neutral-800 rounded-full mr-2"
+                    >
+                        <MagnifyingGlassIcon />
+                    </button>
+
                     <button 
                         className="flex items-center content-center justify-center min-w-[30px] min-h-[30px] bg-neutral-800 rounded-full"
                         onClick={e => resetSearchBar(e as MouseEvent<HTMLButtonElement>)}
@@ -145,6 +140,18 @@ export default function SearchBar() {
                     </button>
                 </form>
             </div>
+
+            {userResult && searchCategory === 'users' &&
+                <UserSearchComponent userResult={userResult} userSearchMutationStatus={userSearchMutation.status} />
+            }
+
+            {postResult && searchCategory === 'posts' &&
+                <PostSearchComponent postResult={postResult} postSearchMutationStatus={postSearchMutation.status} />
+            }
+
+            {replyResult && searchCategory === 'replies' && 
+                <ReplySearchComponent replyResult={replyResult} replySearchMutationStatus={replySearchMutation.status} />
+            }
         </>
     )
 }
@@ -154,13 +161,8 @@ function UserSearchComponent({ userResult, userSearchMutationStatus } : {
     }) {
     return (
         <>
-            {!!userResult && userSearchMutationStatus === 'success' && (
-                <div className="max-h-[400px] max-lg:max-h-[300px] overflow-y-auto overflow-x-hidden max-md:text-sm flex flex-col mx-4 items-center mb-4 p-2 border border-neutral-700 bg-neutral-900/30 backdrop-blur-2xl rounded-xl text-white">
-                    {userResult.length === 0 ? (
-                        <h2 className="text-md max-md:text-sm py-8 px-2">User not found</h2>
-                    ) : (
-                        <h2 className="text-xl max-md:text-lg py-4 px-2 self-start font-bold">Users</h2>
-                    )}
+            {userResult.length > 1 && userSearchMutationStatus === 'success' && (
+                <div className="max-h-[400px] max-lg:max-h-[300px] overflow-y-auto overflow-x-hidden max-md:text-sm flex flex-col mx-8 items-center mb-4 p-2 border border-neutral-700 bg-transparent rounded-xl text-white">
                     {userResult.map((user, idx) => {
                         return (
                             <Link href={`/profile/${user.id}`} key={idx} className="flex flex-row p-4 my-1 w-full cursor-pointer rounded-xl border border-neutral-700">
@@ -177,8 +179,8 @@ function UserSearchComponent({ userResult, userSearchMutationStatus } : {
                 </div>
             )}
 
-            {userSearchMutationStatus === 'error' && (
-                <div className="max-h-[400px] overflow-y-auto overflow-x-hidden max-md:text-sm flex flex-col mx-4 items-center mb-4 p-2 border border-neutral-700 bg-neutral-900/30 backdrop-blur-2xl rounded-xl text-white">
+            {(userSearchMutationStatus === 'error' || userResult.length === 0) && (
+                <div className="max-h-[400px] overflow-y-auto overflow-x-hidden max-md:text-sm flex flex-col mx-8 items-center mb-4 p-2 border border-neutral-700 bg-neutral-900/30 backdrop-blur-2xl rounded-xl text-white">
                     <p>User Not Found</p>
                 </div>
             )}
@@ -191,14 +193,8 @@ function PostSearchComponent({ postResult, postSearchMutationStatus } : {
     }) {
     return (
         <>
-            {!!postResult && postSearchMutationStatus === 'success' && (
-                <div className="max-h-[400px] max-lg:max-h-[300px] overflow-y-auto overflow-x-hidden max-md:text-sm flex flex-col mx-4 items-center mb-4 p-2 border border-neutral-700 bg-neutral-900/30 backdrop-blur-2xl rounded-xl text-white">
-                    {postResult.length === 0 ? (
-                        <h2 className="text-md max-md:text-sm py-8 px-2">Post not found</h2>
-                    ) : (
-                        <h2 className="text-xl max-md:text-lg py-4 px-2 self-start font-bold">Posts</h2>
-                    )}
-                    
+            {postResult.length > 0 && postSearchMutationStatus === 'success' && (
+                <div className="max-h-[400px] max-lg:max-h-[300px] overflow-y-auto overflow-x-hidden max-md:text-sm flex flex-col mx-8 items-center mb-4 p-2 border border-neutral-700 bg-transparent rounded-xl text-white">
                     {Object.values(postResult).map(({ post, user }, idx) => {
                         return (
                             <Link href={`/post/${post.id}`} key={idx} className="flex flex-col p-4 my-1 max-md:pb-6 w-full cursor-pointer rounded-xl border border-neutral-700">
@@ -236,8 +232,8 @@ function PostSearchComponent({ postResult, postSearchMutationStatus } : {
                 </div>
             )}
 
-            {postSearchMutationStatus === 'error' && (
-                <div className="max-h-[400px] overflow-y-auto overflow-x-hidden max-md:text-sm flex flex-col mx-4 items-center mb-4 p-2 border border-neutral-700 bg-neutral-900/30 backdrop-blur-2xl rounded-xl text-white">
+            {(postSearchMutationStatus === 'error' || postResult.length === 0) && (
+                <div className="max-h-[400px] overflow-y-auto overflow-x-hidden max-md:text-sm flex flex-col mx-8 items-center mb-4 p-2 border border-neutral-700 bg-transparent rounded-xl text-white">
                     <p>Post Not Found</p>
                 </div>
             )}
@@ -250,14 +246,8 @@ function ReplySearchComponent({ replyResult, replySearchMutationStatus } : {
     }) {
     return (
         <>
-            {!!replyResult && replySearchMutationStatus === 'success' && (
-                <div className="max-h-[400px] max-lg:max-h-[300px] overflow-y-auto overflow-x-hidden max-md:text-sm flex flex-col mx-4 items-center mb-4 p-2 border border-neutral-700 bg-neutral-900/30 backdrop-blur-2xl rounded-xl text-white">
-                    {replyResult.length === 0 ? (
-                        <h2 className="text-md max-md:text-sm py-8 px-2">Reply not found</h2>
-                    ) : (
-                        <h2 className="text-xl max-md:text-lg py-4 px-2 self-start font-bold">Replies</h2>
-                    )}
-                    
+            {replyResult.length > 0 && replySearchMutationStatus === 'success' && (
+                <div className="max-h-[400px] max-lg:max-h-[300px] overflow-y-auto overflow-x-hidden max-md:text-sm flex flex-col mx-8 items-center mb-4 p-2 border border-neutral-700 bg-transparent rounded-xl text-white">
                     {Object.values(replyResult).map(({ reply, user, postUser }, idx) => {
                         return (
                             <Link href={`/post/${reply.postId}`} key={idx} className="flex flex-col p-4 my-1 max-md:pb-6 w-full cursor-pointer rounded-xl border border-neutral-700">
@@ -300,8 +290,8 @@ function ReplySearchComponent({ replyResult, replySearchMutationStatus } : {
                 </div>
             )}
 
-            {replySearchMutationStatus === 'error' && (
-                <div className="max-h-[400px] overflow-y-auto overflow-x-hidden max-md:text-sm flex flex-col mx-4 items-center mb-4 p-2 border border-neutral-700 bg-neutral-900/30 backdrop-blur-2xl rounded-xl text-white">
+            {(replySearchMutationStatus === 'error' || replyResult.length === 0) && (
+                <div className="max-h-[400px] overflow-y-auto overflow-x-hidden max-md:text-sm flex flex-col mx-8 items-center mb-4 p-2 border border-neutral-700 bg-transparent rounded-xl text-white">
                     <p>Reply Not Found</p>
                 </div>
             )}
