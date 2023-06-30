@@ -57,7 +57,6 @@ const DragAndDrop: NextPage<{ setParentState: (file: File | null) => void }> = (
 
             <Image src={URL.createObjectURL(file)} className="rounded-lg h-auto w-[150px]" width={100} height={100} alt='Uploaded File'/>
             <p className="ml-4">{file.name.slice(0, 4) + '...' +  file.name.slice(-5)}</p>
-            <CheckIcon className="h-5 w-5 text-green-400 ml-4" />
             <div className="hover:cursor-pointer dark:bg-neutral-700/30 hover:bg-red-400/30 font-semibold text-red-400 bg-black w-auto h-auto rounded-full p-[10px] ml-4"
             onClick={(event) => {
               event.preventDefault()
