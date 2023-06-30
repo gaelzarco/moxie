@@ -101,7 +101,7 @@ export default function SearchBar() {
 
     return (
         <>
-            <div className="flex items-center mb-4 mx-8 border border-neutral-700 bg-neutral-900/30 backdrop-blur-2xl rounded-xl text-white">
+            <div className="flex items-center mx-8 border border-neutral-700 bg-neutral-900/30 backdrop-blur-2xl rounded-xl text-white">
                 <div className="flex flex-row items-center px-2 py-2 mr-2">
                     <SearchOptionsDropDown category={searchCategory} setCategory={setSearchCategoryHandler}/>
                 </div>
@@ -162,7 +162,7 @@ function UserSearchComponent({ userResult, userSearchMutationStatus } : {
     return (
         <>
             {userResult.length > 1 && userSearchMutationStatus === 'success' && (
-                <div className="max-h-[400px] max-lg:max-h-[300px] overflow-y-auto overflow-x-hidden max-md:text-sm flex flex-col mx-8 items-center mb-4 p-2 border border-neutral-700 bg-transparent rounded-xl text-white">
+                <div className="max-h-[400px] max-lg:max-h-[300px] overflow-y-auto overflow-x-hidden max-md:text-sm flex flex-col mx-8 mt-4 items-center p-2 border border-neutral-700 bg-transparent rounded-xl text-white">
                     {userResult.map((user, idx) => {
                         return (
                             <Link href={`/profile/${user.id}`} key={idx} className="flex flex-row p-4 my-1 w-full cursor-pointer rounded-xl border border-neutral-700">
@@ -180,7 +180,7 @@ function UserSearchComponent({ userResult, userSearchMutationStatus } : {
             )}
 
             {(userSearchMutationStatus === 'error' || userResult.length === 0) && (
-                <div className="max-h-[400px] overflow-y-auto overflow-x-hidden max-md:text-sm flex flex-col mx-8 items-center mb-4 p-2 border border-neutral-700 bg-neutral-900/30 backdrop-blur-2xl rounded-xl text-white">
+                <div className="max-h-[400px] overflow-y-auto overflow-x-hidden max-md:text-sm flex flex-col mx-8 mt-4 items-center p-2 border border-neutral-700 bg-neutral-900/30 backdrop-blur-2xl rounded-xl text-neutral-400">
                     <p>User Not Found</p>
                 </div>
             )}
@@ -194,7 +194,7 @@ function PostSearchComponent({ postResult, postSearchMutationStatus } : {
     return (
         <>
             {postResult.length > 0 && postSearchMutationStatus === 'success' && (
-                <div className="max-h-[400px] max-lg:max-h-[300px] overflow-y-auto overflow-x-hidden max-md:text-sm flex flex-col mx-8 items-center mb-4 p-2 border border-neutral-700 bg-transparent rounded-xl text-white">
+                <div className="max-h-[400px] max-lg:max-h-[300px] overflow-y-auto overflow-x-hidden max-md:text-sm flex flex-col mx-8 mt-4 items-center p-2 border border-neutral-700 bg-transparent rounded-xl text-white">
                     {Object.values(postResult).map(({ post, user }, idx) => {
                         return (
                             <Link href={`/post/${post.id}`} key={idx} className="flex flex-col p-4 my-1 max-md:pb-6 w-full cursor-pointer rounded-xl border border-neutral-700">
@@ -233,7 +233,7 @@ function PostSearchComponent({ postResult, postSearchMutationStatus } : {
             )}
 
             {(postSearchMutationStatus === 'error' || postResult.length === 0) && (
-                <div className="max-h-[400px] overflow-y-auto overflow-x-hidden max-md:text-sm flex flex-col mx-8 items-center mb-4 p-2 border border-neutral-700 bg-transparent rounded-xl text-white">
+                <div className="max-h-[400px] overflow-y-auto overflow-x-hidden max-md:text-sm flex flex-col mx-8 mt-4 items-center p-2 border border-neutral-700 bg-transparent rounded-xl text-neutral-400">
                     <p>Post Not Found</p>
                 </div>
             )}
@@ -247,7 +247,7 @@ function ReplySearchComponent({ replyResult, replySearchMutationStatus } : {
     return (
         <>
             {replyResult.length > 0 && replySearchMutationStatus === 'success' && (
-                <div className="max-h-[400px] max-lg:max-h-[300px] overflow-y-auto overflow-x-hidden max-md:text-sm flex flex-col mx-8 items-center mb-4 p-2 border border-neutral-700 bg-transparent rounded-xl text-white">
+                <div className="max-h-[400px] max-lg:max-h-[300px] overflow-y-auto overflow-x-hidden max-md:text-sm flex flex-col mx-8 mt-4 items-center p-2 border border-neutral-700 bg-transparent rounded-xl text-white">
                     {Object.values(replyResult).map(({ reply, user, postUser }, idx) => {
                         return (
                             <Link href={`/post/${reply.postId}`} key={idx} className="flex flex-col p-4 my-1 max-md:pb-6 w-full cursor-pointer rounded-xl border border-neutral-700">
@@ -291,7 +291,7 @@ function ReplySearchComponent({ replyResult, replySearchMutationStatus } : {
             )}
 
             {(replySearchMutationStatus === 'error' || replyResult.length === 0) && (
-                <div className="max-h-[400px] overflow-y-auto overflow-x-hidden max-md:text-sm flex flex-col mx-8 items-center mb-4 p-2 border border-neutral-700 bg-transparent rounded-xl text-white">
+                <div className="max-h-[400px] overflow-y-auto overflow-x-hidden max-md:text-sm flex flex-col mx-8 mt-4 items-center p-2 border border-neutral-700 bg-transparent rounded-xl text-neutral-400">
                     <p>Reply Not Found</p>
                 </div>
             )}
