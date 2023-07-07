@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 import { TRPCError } from '@trpc/server';
+import { likeLimiter } from '../ratelimiters';
 
 export const likesRouter = createTRPCRouter({
     
@@ -13,6 +14,13 @@ export const likesRouter = createTRPCRouter({
          if (!input.postId || input.postType !== 'POST') throw new TRPCError({
             code: 'BAD_REQUEST',
             message: 'A post ID is required and post type must be "POST"'
+        })
+
+        const { success } = await likeLimiter.limit(ctx.userId)
+
+        if (!success) throw new TRPCError({
+            code: 'TOO_MANY_REQUESTS',
+            message: 'You have made too many requests. Please try again later.'
         })
 
         const post = await ctx.prisma.post.findUnique({
@@ -60,6 +68,13 @@ export const likesRouter = createTRPCRouter({
         if (!input.replyId || input.postType !== 'REPLY') throw new TRPCError({
             code: 'BAD_REQUEST',
             message: 'A reply ID is required and post type must be "REPLY"'
+        })
+
+        const { success } = await likeLimiter.limit(ctx.userId)
+
+        if (!success) throw new TRPCError({
+            code: 'TOO_MANY_REQUESTS',
+            message: 'You have made too many requests. Please try again later.'
         })
 
         const reply = await ctx.prisma.reply.findUnique({

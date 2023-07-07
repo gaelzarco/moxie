@@ -4,6 +4,7 @@ import { clerkClient } from '@clerk/nextjs/server';
 import { TRPCError } from '@trpc/server';
 import { uploadFile, getFileURL } from '~/server/api/s3';
 import filterUserForPost from '~/server/helpers/filterUserForPost';
+import { postLimiter } from '../ratelimiters';
 
 export const postsRouter = createTRPCRouter({
 
@@ -164,6 +165,13 @@ export const postsRouter = createTRPCRouter({
     }))
     .mutation(async ({ ctx, input }) => {
         const fileName = input.media ? await uploadFile(input.media) : null
+
+        const { success } = await postLimiter.limit(ctx.userId)
+
+        if (!success) throw new TRPCError({
+            code: 'TOO_MANY_REQUESTS',
+            message: 'You have made too many requests. Please try again later.'
+        })
 
         return await ctx.prisma.post.create({
             data: {

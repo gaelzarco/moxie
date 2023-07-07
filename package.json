@@ -27,6 +27,8 @@
     "@trpc/react-query": "^10.9.0",
     "@trpc/server": "^10.9.0",
     "@uiball/loaders": "^1.2.6",
+    "@upstash/ratelimit": "^0.4.3",
+    "@upstash/redis": "^1.22.0",
     "dayjs": "^1.11.7",
     "next": "^13.2.1",
     "react": "18.2.0",
