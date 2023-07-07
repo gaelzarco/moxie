@@ -4,6 +4,14 @@ on: [ push, pull_request ]
 
 env:
     DATABASE_URL: "https://fake.com"
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: "fake"
+    CLERK_SECRET_KEY: "fake"
+    AWS_BUCKET_NAME: "fake"
+    AWS_BUCKET_REGION: "fake"
+    AWS_ACCESS_KEY_ID: "fake"
+    AWS_SECRET_KEY_ID: "fake"
+    UPSTASH_REDIS_REST_URL: "fake"
+    UPSTASH_REDIS_REST_TOKEN: "fake"
 
 jobs:
     build:
