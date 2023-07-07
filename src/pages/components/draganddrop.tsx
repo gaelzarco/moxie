@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import { type DragEventHandler, useState, useEffect} from "react";
 import Image from "next/image";
 
-import { Link2Icon, CheckIcon, Cross2Icon } from "@radix-ui/react-icons";
+import { Link2Icon, Cross2Icon } from "@radix-ui/react-icons";
 
 const DragAndDrop: NextPage<{ setParentState: (file: File | null) => void }> = ({ setParentState }) => {
 
