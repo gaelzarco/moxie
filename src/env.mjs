@@ -13,6 +13,8 @@ const server = z.object({
   AWS_BUCKET_REGION: z.string().min(1),
   AWS_ACCESS_KEY_ID: z.string().min(1),
   AWS_SECRET_KEY_ID: z.string().min(1),
+  UPSTASH_REDIS_REST_URL: z.string().min(1),
+  UPSTASH_REDIS_REST_TOKEN: z.string().min(1),
 
   // Add `.min(1) on ID and SECRET if you want to make sure they're not empty
 });
@@ -40,6 +42,8 @@ const processEnv = {
   AWS_BUCKET_REGION: process.env.AWS_BUCKET_REGION,
   AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
   AWS_SECRET_KEY_ID: process.env.AWS_SECRET_KEY_ID,
+  UPSTASH_REDIS_REST_URL: process.env.UPSTASH_REDIS_REST_URL,
+  UPSTASH_REDIS_REST_TOKEN: process.env.UPSTASH_REDIS_REST_TOKEN,
 };
 
 // Don't touch the part below
