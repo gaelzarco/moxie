@@ -44,14 +44,16 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, pos
       mutationSuccess()
       await context.posts.getAll.refetch()
       .catch(err => console.log(err))
-    }
+    },
+    onError: (err) => postFailure(err.message)
   })
   const replyMutation = api.replies.createOne.useMutation({ 
     onSuccess: async () => {
       mutationSuccess()
       await context.replies.getAllByPostId.refetch(postId as string)
       .catch(err => console.log(err))
-    }
+    },
+    onError: (err) => postFailure(err.message)
    })
 
   const bodyStateHandler = (event: ChangeEvent<HTMLInputElement>) => {

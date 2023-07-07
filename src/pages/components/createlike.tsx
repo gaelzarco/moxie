@@ -22,25 +22,36 @@ const CreateLike: NextPage< Like > = ({ postId, replyId, postType, likeType, lik
 
     const [ likedBool, setLikedBool ] = useState(liked)
     const [ likesLength, setLikesLength ] = useState(likesArrLength)
+    const [ errMsg, setErrMsg ] = useState('')
     const failedToastRef = useRef<{ publish: () => void }>()
+
+    const likeFailure = (err: string) => {
+        setErrMsg(err)
+        failedToastRef.current?.publish()
+        setLikedBool(!likedBool)
+        setLikesLength(!likedBool ? likesLength + 1 :  likesLength - 1)
+    }
 
     const postLike = api.likes.handlePostLike.useMutation({
         onSuccess: async () => {
             await context.posts.getOneById.refetch(postId)
             .catch(err => console.log(err))
-        }
+        },
+        onError: (err) => likeFailure(err.message)
     })
     const postsLike = api.likes.handlePostLike.useMutation({
         onSuccess: async () => {
             await context.posts.getAll.refetch()
             .catch(err => console.log(err))
-        }
+        },
+        onError: (err) => likeFailure(err.message)
     })
     const replyLike = api.likes.handleReplyLike.useMutation({
         onSuccess: async () => {
             await context.replies.getAllByPostId.refetch(postId)
             .catch(err => console.log(err))
-        }
+        },
+        onError: (err) => likeFailure(err.message)
     })
 
     const likeHandler = () => {
@@ -66,7 +77,7 @@ const CreateLike: NextPage< Like > = ({ postId, replyId, postType, likeType, lik
 
   return (
     <>
-    <Toast forwardedRef={failedToastRef} title={`${replyId ? 'Reply' : 'Post'}` + ' could not be deleted.'} error />
+    <Toast forwardedRef={failedToastRef} title={errMsg} error />
 
     {likedBool ? (
         <HeartFilledIcon

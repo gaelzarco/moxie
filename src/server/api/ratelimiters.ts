@@ -16,7 +16,7 @@ export const postLimiter: Ratelimit = new Ratelimit({
 
 export const likeLimiter: Ratelimit = new Ratelimit({
   redis: Redis.fromEnv(),
-  limiter: Ratelimit.slidingWindow(10, "1 m"),
+  limiter: Ratelimit.slidingWindow(6, "1 m"),
   analytics: true,
   /**
    * Optional prefix for the keys used in redis. This is useful if you want to share a redis
