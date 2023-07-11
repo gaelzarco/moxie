@@ -30,18 +30,28 @@
 
 #### Serverless, secure, and bootstrapped with `create-t3-app`
 
-## Featutes
-- CRUD operations
-- User authentication/management (Clerk)
-- User sessions/management (Clerk)
-- Effecient search querying to MySQL database (PlantScale)
-- Post, replies and likes
-- Remote procedure calls (tRPC)
-- S3-bucket storage for user uploaded assets
-- User profiles
-- Serverless architecture
-- Tailwind CSS stlying
-- Prisma ORM usage
+<div align='left'>
+  
+  ## Features
+  
+  - User authentication/management (Clerk)
+  - User sessions/management (Clerk)
+  - Effecient search querying
+  - Create, update, and delete posts, replies and likes
+  - Drag and drop image assets
+  - Toast notifications
+  - Dropdown menus
+  - Skeleton-loading
+  - Remote procedure calls (tRPC)
+  - Ratelimiting on all user actions
+  - S3-bucket storage for user uploaded assets
+  - User profiles
+  - Serverless architecture
+  - Tailwind CSS stlying
+  - Prisma ORM usage
+  - MySQL database (PlantScale)
+    
+</div>
 
 ## Screenshots
 
