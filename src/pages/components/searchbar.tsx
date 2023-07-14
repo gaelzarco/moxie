@@ -2,6 +2,7 @@ import { type FormEvent, type MouseEvent, type KeyboardEvent, useState, useRef }
 import type { MutationStatus } from "@tanstack/react-query"
 import { api } from "~/utils/api"
 import type { RouterOutputs } from "~/utils/api"
+import { useTheme } from "next-themes"
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -24,8 +25,9 @@ export default function SearchBar() {
     const [ replyResult, setReplyResult ] = useState<ReplySearchType | null >(null)
 
     const failedToastRef = useRef<{ publish: () => void }>()
-
     const searchBarRef = useRef<HTMLInputElement>(null);
+
+    const { theme } = useTheme()
 
     const setSearchCategoryHandler = (category: string) => {
         setSearchCategory(category)
@@ -70,7 +72,6 @@ export default function SearchBar() {
             if (data.length === 0) {
                 setErrMsg('No users found')
                 failedToastRef.current?.publish()
-                return
             }
             setUserResult(data)
         },
@@ -86,7 +87,6 @@ export default function SearchBar() {
             if (data.length === 0) {
                 setErrMsg('No posts found')
                 failedToastRef.current?.publish()
-                return
             }
             setPostResult(data)
         },
@@ -102,7 +102,6 @@ export default function SearchBar() {
             if (data.length === 0) {
                 setErrMsg('No replies found')
                 failedToastRef.current?.publish()
-                return
             }
             setReplyResult(data)
         },
@@ -157,14 +156,14 @@ export default function SearchBar() {
                         onKeyDown={handleKeyPress}
                         type='text'
                         placeholder='Search'
-                        className="w-full h-full py-2 bg-transparent focus-within:outline-none text-md text-black dark:text-white"
+                        className="w-full h-full py-2 pr-2 bg-transparent focus-within:outline-none text-md text-black dark:text-white"
                         value={searchQuery || ''}
                         onChange={e => setSearchQueryHandler(e.target.value)}
                     />
 
                     {(userSearchMutation.isLoading || postSearchMutation.isLoading || replySearchMutation.isLoading) && (
-                        <div className="flex items-center self-center mx-2 mr-4 dark:text-white text-black">
-                            <Jelly color="white" size={15} />
+                        <div className="flex items-center self-center mr-3 dark:text-white text-black bg-transparent">
+                            {theme === 'dark' ? <Jelly size={15} color='#fff' /> : <Jelly size={15} color='#000' />}
                         </div>
                     )}
 

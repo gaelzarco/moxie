@@ -12,6 +12,7 @@ const ApectRatioImage: NextPage<{ src: string, alt: string }> = ({ src, alt }) =
                     alt={alt}
                     height={300}
                     width={500}
+                    priority
                 />
             </AspectRatioPrimitive.Root>
         </div>

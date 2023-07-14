@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 import { api } from "~/utils/api";
+import {  useTheme } from "next-themes";
 
 import Header from "../components/header";
 import ProfileView from "../components/profileview";
@@ -21,6 +22,7 @@ const Profile: NextPage<{ userId: string }> = ({ userId }) => {
     const apiContext = api.useContext()
     const router = useRouter()
     const [ loading, setLoading ] = useState(false)
+    const { theme } = useTheme()
 
     if (userQuery.isLoading || postsQuery.isLoading || repliesQuery.isLoading) return <Loading />
     if (!userQuery.data || !postsQuery.data || !repliesQuery.data ) return <div>Something went wrong...</div>
@@ -49,7 +51,8 @@ const Profile: NextPage<{ userId: string }> = ({ userId }) => {
                     </h2>
 
                     <span className="flex flex-row content-center justify-center ml-5 text-neutral-400">
-                        {loading && <Jelly color='white' size={15}/>}
+                        {loading && theme === 'dark' && <Jelly color='white' size={15}/>}
+                        {loading && theme === 'light' && <Jelly color='black' size={15}/>}
                     </span>
                 </Header>
 

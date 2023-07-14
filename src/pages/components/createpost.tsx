@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import { type FormEvent, type ChangeEvent, useState, useEffect, useRef } from "react";
 import { useUser } from "@clerk/nextjs";
 import { type RouterInputs, api } from "~/utils/api";
+import { useTheme } from "next-themes";
 import Image from "next/image";
 
 import DragAndDrop from "./draganddrop";
@@ -24,6 +25,8 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, pos
 
   const toastRef = useRef<{ publish: () => void }>()
   const failedToastRef = useRef<{ publish: () => void }>()
+
+  const { theme } = useTheme()
 
   const mutationSuccess = () => {
     setLoading(false)
@@ -154,7 +157,8 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, pos
           
           {loading ? (
             <div className="flex content-center justify-center px-6 py-4 mr-9">
-              <Jelly color="white" size={15} />
+              {loading && theme === 'dark' && <Jelly color='white' size={15}/>}
+              {loading && theme === 'light' && <Jelly color='black' size={15}/>}
             </div>
           ) : (
             <button

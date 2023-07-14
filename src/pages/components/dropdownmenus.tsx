@@ -21,7 +21,6 @@ type PostAndReplyDelete = {
 const PostOptionsDropDown: React.FC< PostAndReplyDelete > = ({ postId, replyId, userId, postType, deleteType }) => {
     const context = api.useContext();
     const router = useRouter();
-    const toastRef = useRef<{ publish: () => void }>()
     const failedToastRef = useRef<{ publish: () => void }>()
 
     const postDelete = api.posts.deleteOneById.useMutation({
@@ -31,28 +30,24 @@ const PostOptionsDropDown: React.FC< PostAndReplyDelete > = ({ postId, replyId, 
     })
     const postsDelete = api.posts.deleteOneById.useMutation({
         onSuccess: async () => {
-            toastRef.current?.publish()
             await context.posts.getAll.refetch()
             .catch(err => console.log(err));
         },
     })
     const repliesDelete = api.replies.deleteOneById.useMutation({
         onSuccess: async () => {
-            toastRef.current?.publish()
             await context.replies.getAllByPostId.refetch(postId)
             .catch(err => console.log(err));
         }
     })
     const profilePostDelete = api.posts.deleteOneById.useMutation({
         onSuccess: async () => {
-            toastRef.current?.publish()
             await context.posts.getAllByUserId.refetch(userId)
             .catch(err => console.log(err));
         }
     })
     const profileReplyDelete = api.replies.deleteOneById.useMutation({
         onSuccess: async () => {
-            toastRef.current?.publish()
             await context.replies.getAllByUserId.refetch(userId)
             .catch(err => console.log(err));
         }
@@ -77,7 +72,6 @@ const PostOptionsDropDown: React.FC< PostAndReplyDelete > = ({ postId, replyId, 
     return (
         <DropdownMenuPrimitive.Root>
 
-        <Toast forwardedRef={toastRef} title={`${replyId ? 'Reply' : 'Post'}` + ' deleted successfully!'} /> 
         <Toast forwardedRef={failedToastRef} title={`${replyId ? 'Reply' : 'Post'}` + ' could not be deleted.'} error />
 
         <DropdownMenuPrimitive.Trigger asChild>

@@ -9,7 +9,7 @@ import Header from "./components/header";
 import SearchBar from "./components/searchbar";
 
 const Home: NextPage = () => {
-  
+
   return (
     <div className="h-auto min-h-screen w-full pb-5 dark:bg-black max-w-[750px]">
       <Header>
