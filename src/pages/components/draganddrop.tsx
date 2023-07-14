@@ -34,12 +34,12 @@ const DragAndDrop: NextPage<{ setParentState: (file: File | null) => void }> = (
           >
 
             <label htmlFor="img" 
-              className="flex w-10/12 items-center content-center justify-center p-8 py-14 rounded-xl border border-neutral-300 border-dashed cursor-pointer transition dark:bg-neutral-800 dark:hover:bg-neutral-700"
+              className="flex w-10/12 items-center content-center justify-center p-8 py-14 rounded-xl border border-neutral-400 dark:border-neutral-500 border-dashed cursor-pointer transition bg-neutral-200 dark:bg-neutral-800 hover:bg-neutral-300 dark:hover:bg-neutral-700"
             >
               <div className="flex flex-col content-center justify-center">
-                <Link2Icon className="w-10 h-10 text-neutral-400 mx-auto" />
-                <h4 className="font-semibold text-neutral-300 mx-auto">Click to upload a file</h4>
-                <span className="text-sm text-neutral-400 mx-auto">or drag & drop</span>
+                <Link2Icon className="w-10 h-10 text-neutral-800 dark:text-neutral-400 mx-auto" />
+                <h4 className="font-semibold text-neutral-900 dark:text-neutral-300 mx-auto">Click to upload a file</h4>
+                <span className="text-sm text-neutral-800 dark:text-neutral-400 mx-auto">or drag & drop</span>
               </div>
               <input type="file" id="img" name="img" accept="image/*, .gif" hidden
                 onChange={(event) => {

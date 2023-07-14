@@ -12,10 +12,10 @@ const ProfileHoverCard: NextPage< PostUser > = ({ profileImageURL, id, firstName
 
   <HoverCardPrimitive.Root openDelay={400} closeDelay={100}>
 
-    <HoverCardPrimitive.Trigger asChild>
+    <HoverCardPrimitive.Trigger asChild >
 
-      <Link href={`/profile/${id}`} className="min-w-12 min-h-12">
-        <Image height={55} width={55} className="rounded-full bg-neutral-800 cursor-pointer min-h-12 max-h-12 min-w-12 max-w-12" src={profileImageURL} alt="Profile Picture" />
+      <Link href={`/profile/${id}`} >
+        <Image height={50} width={50} className="rounded-full bg-neutral-800 cursor-pointer h-[50px] w-[54px] max-md:w-[60px]" src={profileImageURL} alt="Profile Picture" />
       </Link>
 
 
@@ -27,18 +27,18 @@ const ProfileHoverCard: NextPage< PostUser > = ({ profileImageURL, id, firstName
       <Link href={`/profile/${id}`}>
 
         <div className="flex flex-col gap-7">
-          <Image className="rounded-full bg-neutral-700/30 h-16 w-16" src={profileImageURL} alt="User Avatar" width={60} height={60} />
+          <Image className="rounded-full bg-neutral-800/30 h-16 w-16" src={profileImageURL} alt="User Avatar" width={60} height={60} />
 
           <div className="flex flex-col gap-15">
 
             <div className="leading-5">
               <div className="font-bold dark:text-white">{firstName}</div>
-              <div className="font-medium dark:text-neutral-400">@{userName}</div>
+              <div className="text-neutral-00 dark:text-neutral-400">@{userName}</div>
             </div>
 
           </div>
         </div>
-        <HoverCardPrimitive.Arrow className="backdrop-blur-md fill-neutral-700/30" />
+        <HoverCardPrimitive.Arrow className="backdrop-blur-md fill-neutral-100/30 dark:fill-neutral-700/30" />
 
         </Link>
 

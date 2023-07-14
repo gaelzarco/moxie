@@ -6,7 +6,7 @@ import Image from "next/image";
 
 import DragAndDrop from "./draganddrop";
 import Toast from "./toast";
-import { ImageIcon } from "@radix-ui/react-icons";
+import { ImageIcon, RocketIcon } from "@radix-ui/react-icons";
 import { Jelly } from "@uiball/loaders";
 
 const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, postId }) => {
@@ -109,21 +109,21 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, pos
 
     return (
       <form onSubmit={reply && postId ? handleReplyFormSubmit : handlePostFormSubmit}
-       className="w-11/12 mx-auto mt-5 rounded-xl dark:text-white dark:bg-neutral-900 p-1 max-xs:p-2">
+       className="shadow-xl dark:shadow-none w-11/12 mx-auto mt-5 rounded-xl dark:text-white bg-neutral-100 dark:bg-neutral-900 p-3 max-xs:p-2">
 
         <Toast forwardedRef={toastRef} title='Post created successfully!' /> 
         <Toast forwardedRef={failedToastRef} title={errMsg as string} error />
           
         <div id='form-body-input' className="p-4 flex flex-row">
           {!!user && 
-            <Image src={user.profileImageUrl} width={50} height={50} className="h-14 w-14 rounded-full bg-neutral-800" alt='User Avatar'/>
+            <Image src={user.profileImageUrl} width={50} height={50} className="h-14 w-14 rounded-full bg-neutral-200 dark:bg-neutral-800" alt='User Avatar'/>
           }
           <input
             type="text"
             placeholder="What's on your mind?"
             onChange={(event) => bodyStateHandler(event)}
             value={post.body}
-            className="w-5/6 text-xl min-w-5/6 py-2 px-3 ml-1 dark:text-white dark:bg-neutral-900 active:outline-none focus:outline-none"
+            className="w-5/6 text-xl min-w-5/6 py-2 px-3 ml-1 dark:text-white bg-neutral-100 dark:bg-neutral-900 active:outline-none focus:outline-none"
           />
         </div>
 
@@ -159,9 +159,10 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, pos
           ) : (
             <button
               type="submit"
-              className="rounded-full bg-green-400 dark:text-white px-6 h-10 mr-5 font-semibold dark:hover:bg-green-500 hover:cursor-pointer"
+              className="inline-flex items-center rounded-full bg-green-300/40 dark:bg-green-400/40 dark:text-white px-6 h-8 mr-5 hover:bg-green-400/40 dark:hover:bg-green-500/40 hover:cursor-pointer"
             >
-              Submit
+              Send
+              <RocketIcon className='ml-2' />
             </button>
           )}
 

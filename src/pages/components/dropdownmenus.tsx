@@ -82,7 +82,7 @@ const PostOptionsDropDown: React.FC< PostAndReplyDelete > = ({ postId, replyId, 
 
         <DropdownMenuPrimitive.Trigger asChild>
             <button
-            className="w-[20px] h-[20px] inline-flex items-center justify-end outline-none"
+            className="w-[30px] h-[20px] inline-flex items-center justify-center outline-none rounded-full bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-800 hover:dark:bg-neutral-700"
             aria-label="Customise options"
             >
             <DotsHorizontalIcon />
@@ -95,9 +95,9 @@ const PostOptionsDropDown: React.FC< PostAndReplyDelete > = ({ postId, replyId, 
             className={`${customFont.variable} font-sans min-w-[150px] backdrop-blur-lg dark:bg-neutral-700/30 rounded-lg p-[5px] shadow-xl data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade`}
             sideOffset={5}>
 
-            <DropdownMenuPrimitive.Item className='group leading-none rounded-lg flex items-center h-[35px] px-[5px] relative pl-[15px] select-none outline-none data-[disabled] data-[disabled]:pointer-events-none data-[highlighted]:bg-neutral-500/10 data-[highlighted]:text-neutral-100'>
+            <DropdownMenuPrimitive.Item className='group leading-none rounded-lg flex items-center h-[35px] px-[5px] relative pl-[15px] select-none outline-none data-[disabled] data-[disabled]:pointer-events-none data-[highlighted]:bg-neutral-500/10 dark:data-[highlighted]:text-neutral-100'>
                 Edit{' '}(coming soon)
-                <div className="ml-auto pl-[20px] group-data-[highlighted]:text-neutral-100 group-data-[disabled]">
+                <div className="ml-auto pl-[20px] dark:group-data-[highlighted]:text-neutral-100 group-data-[disabled]">
                 <Pencil2Icon /> 
                 </div>
             </DropdownMenuPrimitive.Item>
@@ -113,7 +113,7 @@ const PostOptionsDropDown: React.FC< PostAndReplyDelete > = ({ postId, replyId, 
                 </div>
             </DropdownMenuPrimitive.Item>
 
-            <DropdownMenuPrimitive.Arrow className="backdrop-blur-md fill-neutral-700/30" />
+            <DropdownMenuPrimitive.Arrow className="backdrop-blur-md fill-neutral-100/30 dark:fill-neutral-700/30" />
             </DropdownMenuPrimitive.Content>
 
         </DropdownMenuPrimitive.Portal>
@@ -133,11 +133,11 @@ export const UserNavDropDown: React.FC = () => {
         <DropdownMenuPrimitive.Trigger asChild>
             {(!!isSignedIn && !!user) ? (
             <div className="inline-flex items-center">
-                    <Image priority src={user.profileImageUrl} width={45} height={45} className="w-12 h-12 rounded-full mr-0 hover:cursor-pointer bg-neutral-800" alt='user avatar' />
+                    <Image priority src={user.profileImageUrl} width={45} height={45} className="w-12 h-12 rounded-full mr-0 hover:cursor-pointer bg-neutral-200 dark:bg-neutral-800" alt='user avatar' />
             </div>
             ) : (
                 <div className="inline-flex items-center">
-                    <PersonIcon className="rounded-full mr-0 hover:cursor-pointer w-12 h-12 bg-neutral-800 p-3"/>
+                    <PersonIcon className="rounded-full mr-0 hover:cursor-pointer w-12 h-12 bg-neutral-200 dark:bg-neutral-800 p-3"/>
                 </div>
             )}
         </DropdownMenuPrimitive.Trigger>
@@ -149,7 +149,7 @@ export const UserNavDropDown: React.FC = () => {
             sideOffset={5}>
 
             {!isSignedIn && (
-            <DropdownMenuPrimitive.Item className='group leading-none rounded-lg flex items-center h-[35px] px-[5px] relative pl-[15px] select-none outline-none data-[disabled] data-[disabled]:pointer-events-none hover:bg-neutral-400/10 text-neutral-100 hover:cursor-pointer'>
+            <DropdownMenuPrimitive.Item className='group leading-none rounded-lg flex items-center h-[35px] px-[5px] relative pl-[15px] select-none outline-none data-[disabled] data-[disabled]:pointer-events-none hover:bg-neutral-400/10 dark:text-neutral-100 hover:cursor-pointer'>
                 <SignInButton>
                     <div className="justify-between flex flex-row w-full">
                         <p>Sign-In</p>
@@ -162,14 +162,14 @@ export const UserNavDropDown: React.FC = () => {
             {(!!isSignedIn && !!user) && (
             <>
 
-                <DropdownMenuPrimitive.Item className='group leading-none rounded-lg flex items-center h-[35px] px-[5px] relative pl-[15px] select-none outline-none data-[disabled] data-[disabled]:pointer-events-none hover:bg-neutral-400/10 text-neutral-100'>
+                <DropdownMenuPrimitive.Item className='group leading-none rounded-lg flex items-center h-[35px] px-[5px] relative pl-[15px] select-none outline-none data-[disabled] data-[disabled]:pointer-events-none hover:bg-neutral-400/10 dark:text-neutral-100 hover:cursor-pointer'>
                     <Link href={`/profile/${user.id}`} className="justify-between flex flex-row w-full hover:cursor-pointer">
                         <p>Profile</p>
                         <PersonIcon /> 
                     </Link>
                 </DropdownMenuPrimitive.Item>
 
-                <DropdownMenuPrimitive.Item className='group leading-none rounded-lg flex items-center h-[35px] px-[5px] relative pl-[15px] select-none outline-none data-[disabled] data-[disabled]:pointer-events-none hover:bg-neutral-400/10 text-neutral-100'>
+                <DropdownMenuPrimitive.Item className='group leading-none rounded-lg flex items-center h-[35px] px-[5px] relative pl-[15px] select-none outline-none data-[disabled] data-[disabled]:pointer-events-none hover:bg-neutral-400/10 dark:text-neutral-100 hover:cursor-pointer'>
                     <Link href='/account' className="justify-between flex flex-row w-full hover:cursor-pointer">
                         <p>Account</p>
                         <GearIcon /> 
@@ -187,7 +187,7 @@ export const UserNavDropDown: React.FC = () => {
             </>
             )}
 
-            <DropdownMenuPrimitive.Arrow className="backdrop-blur-md fill-neutral-700/30" />
+            <DropdownMenuPrimitive.Arrow className="backdrop-blur-md fill-neutral-100/30 dark:fill-neutral-700/30" />
             </DropdownMenuPrimitive.Content>
 
         </DropdownMenuPrimitive.Portal>
@@ -198,7 +198,7 @@ export const UserNavDropDown: React.FC = () => {
 
 const SearchOptionsItems: React.FC<{ category: string, setCategory: (category: string) => void }> = ({ category, setCategory }) => {
     return (
-        <DropdownMenuPrimitive.Item className='group leading-none rounded-lg flex items-center h-[35px] px-[5px] relative pl-[15px] select-none outline-none data-[disabled] data-[disabled]:pointer-events-none data-[highlighted]:bg-neutral-500/10 data-[highlighted]:text-neutral-100 text-md z-[20]'
+        <DropdownMenuPrimitive.Item className='group leading-none rounded-lg flex items-center h-[35px] px-[5px] relative pl-[15px] select-none outline-none data-[disabled] data-[disabled]:pointer-events-none hover:bg-neutral-400/10 dark:text-neutral-100 hover:cursor-pointer'
             onClick={() => setCategory(category)}
         >
             {category.charAt(0).toUpperCase() + category.slice(1)}
@@ -212,7 +212,7 @@ export const SearchOptionsDropDown: React.FC<{ category: string, setCategory: (c
         <DropdownMenuPrimitive.Root>
 
             <DropdownMenuPrimitive.Trigger asChild>
-                <button className="inline-flex p-2 items-center focus-within:outline-none text-md" >
+                <button className="inline-flex p-2 items-center focus-within:outline-none text-md text-black dark:text-white bg-neutral-200 dark:bg-neutral-800 hover:bg-neutral-300 dark:hover:bg-neutral-700 rounded-full px-4" >
                     <p>{category.charAt(0).toUpperCase() + category.slice(1)}</p>
                     <CaretDownIcon className="h-4 w-4 ml-2"/>
                 </button>
@@ -221,14 +221,14 @@ export const SearchOptionsDropDown: React.FC<{ category: string, setCategory: (c
             <DropdownMenuPrimitive.Portal>
 
                 <DropdownMenuPrimitive.Content
-                className={`${customFont.variable} font-sans min-w-[150px] backdrop-blur-lg dark:bg-neutral-700/30 rounded-lg p-[5px] shadow-xl data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade`}
+                className={`${customFont.variable} font-sans min-w-[150px] backdrop-blur-lg bg-neutral-100/30 dark:bg-neutral-700/30 rounded-lg p-[5px] shadow-xl data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade`}
                 sideOffset={5}>
 
                 <SearchOptionsItems key={"users"} category={'users'} setCategory={setCategory}/>
                 <SearchOptionsItems key={"posts"} category={'posts'} setCategory={setCategory}/>
                 <SearchOptionsItems key={"replies"} category={'replies'} setCategory={setCategory}/>
 
-                <DropdownMenuPrimitive.Arrow className="backdrop-blur-md fill-neutral-700/30" />
+                <DropdownMenuPrimitive.Arrow className="backdrop-blur-lg fill-neutral-100/30 dark:fill-neutral-700/30" />
                 </DropdownMenuPrimitive.Content>
 
             </DropdownMenuPrimitive.Portal>

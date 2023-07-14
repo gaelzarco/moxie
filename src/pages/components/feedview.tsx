@@ -46,7 +46,7 @@ const FeedView: NextPage< Posts > = ({ posts, userView }) => {
         <div ref={parent} className='w-full h-auto'>
             {!!posts && (Object.values(posts).map(({ post, user }) => {
                 return (
-                    <div key={post.id} className="cursor-default mx-auto text-left w-11/12 p-5 rounded-xl mt-5 dark:text-white dark:bg-neutral-900">
+                    <div key={post.id} className="shadow-xl dark:shadow-none cursor-default mx-auto text-left w-11/12 p-8 max-md:p-6 rounded-xl mt-5 dark:text-white bg-neutral-100 dark:bg-neutral-900">
                         <div className="flex leading-none">
                             <div className='h-min'>
                                 <ProfileHoverCard {...user}/>

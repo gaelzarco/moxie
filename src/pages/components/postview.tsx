@@ -27,7 +27,7 @@ const PostView: NextPage< PostWithUserAndImage > = ( data ) => {
         <Toast forwardedRef={toastRef} title='Link copied to clipboard!' /> 
 
         {(!!post && !!user) && (
-            <div key={post.id} className="cursor-default mx-auto text-left w-11/12 p-5 rounded-xl mt-5 dark:text-white dark:bg-neutral-900">
+            <div key={post.id} className="shadow-xl dark:shadow-none cursor-default mx-auto text-left w-11/12 p-8 max-md:p-6 rounded-xl mt-5 dark:text-white bg-neutral-100 dark:bg-neutral-900">
                 <div className="flex leading-none">
                     <div className='h-min'>
                         <ProfileHoverCard {...user}/>
@@ -50,7 +50,7 @@ const PostView: NextPage< PostWithUserAndImage > = ( data ) => {
 
                         <h4 className="pl-2 mb-6 leading-5">{post.body}</h4>
                         {post.link && (
-                        <Image className="h-auto w-full min-w-full mb-4 rounded-3xl" src={post.link} height={300} width={500} alt="Attached Media for Post" />
+                        <Image className="shadow-xl dark:shadow-none h-auto w-full min-w-full mb-4 rounded-3xl" src={post.link} height={300} width={500} alt="Attached Media for Post" />
                         )}
 
                         <div className="mt-2 inline-flex justify-center content-center items-center ml-1 text-md max-sm:text-sm">

@@ -5,6 +5,7 @@ import type { RouterOutputs } from "~/utils/api"
 import Image from 'next/image'
 import Link from 'next/link'
 
+import Toast from "./toast"
 import { SearchOptionsDropDown } from "./dropdownmenus"
 import { CrumpledPaperIcon, MagnifyingGlassIcon, PaperPlaneIcon } from "@radix-ui/react-icons"
 import { Jelly } from "@uiball/loaders"
@@ -16,10 +17,13 @@ type ReplySearchType = RouterOutputs["search"]["findReply"]
 export default function SearchBar() {
     const [ searchCategory, setSearchCategory ] = useState<string>("users")
     const [ searchQuery, setSearchQuery ] = useState<string | null>(null)
+    const [ errMsg, setErrMsg ] = useState<string | null>(null)
 
     const [ userResult, setUserResult ] = useState<UserSearchType | null >(null)
     const [ postResult, setPostResult ] = useState<PostSearchType | null >(null)
     const [ replyResult, setReplyResult ] = useState<ReplySearchType | null >(null)
+
+    const failedToastRef = useRef<{ publish: () => void }>()
 
     const searchBarRef = useRef<HTMLInputElement>(null);
 
@@ -62,18 +66,51 @@ export default function SearchBar() {
     }
 
     const userSearchMutation = api.search.findUser.useMutation({
-        onSuccess: data => setUserResult(data),
-        onError: err => console.log(err),
+        onSuccess: data => {
+            if (data.length === 0) {
+                setErrMsg('No users found')
+                failedToastRef.current?.publish()
+                return
+            }
+            setUserResult(data)
+        },
+        onError: err => {
+            setErrMsg(err.message)
+            failedToastRef.current?.publish()
+            return
+        },
     })
 
     const postSearchMutation = api.search.findPost.useMutation({
-        onSuccess: data => setPostResult(data),
-        onError: err => console.log(err),
+        onSuccess: data => {
+            if (data.length === 0) {
+                setErrMsg('No posts found')
+                failedToastRef.current?.publish()
+                return
+            }
+            setPostResult(data)
+        },
+        onError: err => {
+            setErrMsg(err.message)
+            failedToastRef.current
+            return
+        },
     })
 
     const replySearchMutation = api.search.findReply.useMutation({
-        onSuccess: data => setReplyResult(data),
-        onError: err => console.log(err),
+        onSuccess: data => {
+            if (data.length === 0) {
+                setErrMsg('No replies found')
+                failedToastRef.current?.publish()
+                return
+            }
+            setReplyResult(data)
+        },
+        onError: err => {
+            setErrMsg(err.message)
+            failedToastRef.current
+            return
+        },
     })
 
     const handleKeyPress = (e: KeyboardEvent) => {
@@ -92,7 +129,11 @@ export default function SearchBar() {
 
     const handleSubmit = (e?: FormEvent<HTMLFormElement>) => {
         e?.preventDefault()
-        if (!searchQuery) return console.log("Search query cannot be empty.")
+        if (!searchQuery) {
+            setErrMsg('Search query cannot be empty')
+            failedToastRef.current?.publish()
+            return
+        }
 
         if (searchCategory === 'users') userSearchMutation.mutate({ query: searchQuery })
         if (searchCategory === 'posts') postSearchMutation.mutate({ query: searchQuery })
@@ -101,7 +142,9 @@ export default function SearchBar() {
 
     return (
         <>
-            <div className="flex items-center mx-8 border border-neutral-700 bg-neutral-900/30 backdrop-blur-2xl rounded-xl text-white">
+            <Toast forwardedRef={failedToastRef} title={errMsg as string} error />
+
+            <div className="shadow-xl dark:shadow-none flex items-center w-11/12 mx-auto bg-neutral-100 dark:bg-neutral-900 backdrop-blur-2xl rounded-xl text-white">
                 <div className="flex flex-row items-center px-2 py-2 mr-2">
                     <SearchOptionsDropDown category={searchCategory} setCategory={setSearchCategoryHandler}/>
                 </div>
@@ -114,26 +157,26 @@ export default function SearchBar() {
                         onKeyDown={handleKeyPress}
                         type='text'
                         placeholder='Search'
-                        className="w-full h-full py-2 bg-transparent focus-within:outline-none text-md"
+                        className="w-full h-full py-2 bg-transparent focus-within:outline-none text-md text-black dark:text-white"
                         value={searchQuery || ''}
                         onChange={e => setSearchQueryHandler(e.target.value)}
                     />
 
                     {(userSearchMutation.isLoading || postSearchMutation.isLoading || replySearchMutation.isLoading) && (
-                        <div className="flex items-center self-center mx-2">
+                        <div className="flex items-center self-center mx-2 mr-4 dark:text-white text-black">
                             <Jelly color="white" size={15} />
                         </div>
                     )}
 
                     <button
                         type='submit'
-                        className="flex items-center content-center justify-center min-w-[30px] min-h-[30px] bg-neutral-800 rounded-full mr-2"
+                        className="flex items-center content-center justify-center min-w-[30px] min-h-[30px] text-black dark:text-white bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-800 dark:hover:bg-neutral-700 rounded-full mr-2"
                     >
                         <MagnifyingGlassIcon />
                     </button>
 
                     <button 
-                        className="flex items-center content-center justify-center min-w-[30px] min-h-[30px] bg-neutral-800 rounded-full"
+                        className="flex items-center content-center justify-center min-w-[30px] min-h-[30px] text-black dark:text-white bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-800 dark:hover:bg-neutral-700 rounded-full"
                         onClick={e => resetSearchBar(e as MouseEvent<HTMLButtonElement>)}
                     >
                         <CrumpledPaperIcon />
@@ -162,26 +205,20 @@ function UserSearchComponent({ userResult, userSearchMutationStatus } : {
     return (
         <>
             {userResult.length > 1 && userSearchMutationStatus === 'success' && (
-                <div className="max-h-[400px] max-lg:max-h-[300px] overflow-y-auto overflow-x-hidden max-md:text-sm flex flex-col mx-8 mt-4 items-center p-2 border border-neutral-700 bg-transparent rounded-xl text-white">
+                <div className="max-h-[400px] max-lg:max-h-[300px] overflow-y-auto overflow-x-hidden max-md:text-sm flex flex-col mx-8 mt-4 items-center p-2 border border-neutral-300 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-900 text-black dark:text-white bg-transparent rounded-xl">
                     {userResult.map((user, idx) => {
                         return (
-                            <Link href={`/profile/${user.id}`} key={idx} className="flex flex-row p-4 my-1 w-full cursor-pointer rounded-xl border border-neutral-700">
-                                <div className="inline-flex items-center rounded-full h-10 w-10 border border-neutral-700">
+                            <Link href={`/profile/${user.id}`} key={idx} className="flex flex-row p-4 my-1 w-full cursor-pointer rounded-xl border border-neutral-300 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-900">
+                                <div className="inline-flex items-center rounded-full h-10 w-10 border border-neutral-300 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-900">
                                     <Image src={user.profileImageUrl} alt='User Profile' width={100} height={100} className="w-full h-full rounded-full"/>
                                 </div>
                                 <div className="flex flex-col ml-4">
-                                    <p className="text-md max-md:text-sm font-semibold leading-5">{user.firstName}{' '}{user.lastName}</p>
+                                    <p className="text-md max-md:text-sm font-semibold leading-5 text-black dark:text-white ">{user.firstName}{' '}{user.lastName}</p>
                                     <p className="text-stone-500 text-sm max-md:text-xs">@{!user.username ? 'username' : user.username}</p>
                                 </div>
                             </Link> 
                         )
                     })}
-                </div>
-            )}
-
-            {(userSearchMutationStatus === 'error' || userResult.length === 0) && (
-                <div className="max-h-[400px] overflow-y-auto overflow-x-hidden max-md:text-sm flex flex-col mx-8 mt-4 items-center p-2 border border-neutral-700 bg-neutral-900/30 backdrop-blur-2xl rounded-xl text-neutral-400">
-                    <p>User Not Found</p>
                 </div>
             )}
         </>
@@ -194,10 +231,10 @@ function PostSearchComponent({ postResult, postSearchMutationStatus } : {
     return (
         <>
             {postResult.length > 0 && postSearchMutationStatus === 'success' && (
-                <div className="max-h-[400px] max-lg:max-h-[300px] overflow-y-auto overflow-x-hidden max-md:text-sm flex flex-col mx-8 mt-4 items-center p-2 border border-neutral-700 bg-transparent rounded-xl text-white">
+                <div className="max-h-[400px] max-lg:max-h-[300px] overflow-y-auto overflow-x-hidden max-md:text-sm flex flex-col mx-8 mt-4 items-center p-2 border border-neutral-300 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-900 text-black dark:text-white bg-transparent rounded-xl">
                     {Object.values(postResult).map(({ post, user }, idx) => {
                         return (
-                            <Link href={`/post/${post.id}`} key={idx} className="flex flex-col p-4 my-1 max-md:pb-6 w-full cursor-pointer rounded-xl border border-neutral-700">
+                            <Link href={`/post/${post.id}`} key={idx} className="flex flex-col p-4 my-1 max-md:pb-6 w-full cursor-pointer rounded-xl border border-neutral-300 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-900">
                                 <div className="flex flex-row">
                                     <div className="inline-flex items-center rounded-full h-10 w-10 border border-neutral-700">
                                         <Image src={user.profileImageURL} alt='User Profile' width={100} height={100} className="w-full h-full rounded-full"/>
@@ -231,12 +268,6 @@ function PostSearchComponent({ postResult, postSearchMutationStatus } : {
                     })}
                 </div>
             )}
-
-            {(postSearchMutationStatus === 'error' || postResult.length === 0) && (
-                <div className="max-h-[400px] overflow-y-auto overflow-x-hidden max-md:text-sm flex flex-col mx-8 mt-4 items-center p-2 border border-neutral-700 bg-transparent rounded-xl text-neutral-400">
-                    <p>Post Not Found</p>
-                </div>
-            )}
         </>
     )
 }
@@ -247,10 +278,10 @@ function ReplySearchComponent({ replyResult, replySearchMutationStatus } : {
     return (
         <>
             {replyResult.length > 0 && replySearchMutationStatus === 'success' && (
-                <div className="max-h-[400px] max-lg:max-h-[300px] overflow-y-auto overflow-x-hidden max-md:text-sm flex flex-col mx-8 mt-4 items-center p-2 border border-neutral-700 bg-transparent rounded-xl text-white">
+                <div className="max-h-[400px] max-lg:max-h-[300px] overflow-y-auto overflow-x-hidden max-md:text-sm flex flex-col mx-8 mt-4 items-center p-2 border border-neutral-300 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-900 text-black dark:text-white bg-transparent rounded-xl">
                     {Object.values(replyResult).map(({ reply, user, postUser }, idx) => {
                         return (
-                            <Link href={`/post/${reply.postId}`} key={idx} className="flex flex-col p-4 my-1 max-md:pb-6 w-full cursor-pointer rounded-xl border border-neutral-700">
+                            <Link href={`/post/${reply.postId}`} key={idx} className="flex flex-col p-4 my-1 max-md:pb-6 w-full cursor-pointer rounded-xl border border-neutral-300 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-900">
                                 <div className="flex flex-row items-center mb-2 ml-1">
                                     <PaperPlaneIcon className="text-neutral-500 w-3 h-3 mr-4" />
                                     <p className="text-neutral-500 text-sm max-md:text-xs">{"In reply to " + `${postUser?.firstName as string}` + "'s post" }</p>
@@ -287,12 +318,6 @@ function ReplySearchComponent({ replyResult, replySearchMutationStatus } : {
                             </Link> 
                         )
                     })}
-                </div>
-            )}
-
-            {(replySearchMutationStatus === 'error' || replyResult.length === 0) && (
-                <div className="max-h-[400px] overflow-y-auto overflow-x-hidden max-md:text-sm flex flex-col mx-8 mt-4 items-center p-2 border border-neutral-700 bg-transparent rounded-xl text-neutral-400">
-                    <p>Reply Not Found</p>
                 </div>
             )}
         </>

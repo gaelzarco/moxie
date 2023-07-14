@@ -37,7 +37,7 @@ const Post: NextPage<{ postId: string }> = ({ postId }) => {
             <div className="h-auto min-h-screen w-full dark:bg-black max-w-[750px]">
 
                 <Header>
-                    <CaretLeftIcon className="dark:text-white h-6 w-6 bg-neutral-800 rounded-full hover:cursor-pointer"
+                    <CaretLeftIcon className="dark:text-white h-6 w-6 bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-800 dark:hover:bg-neutral-700 rounded-full hover:cursor-pointer"
                         onClick={() => {
                             setLoading(true)
                             void apiContext.posts.getAll.refetch()
