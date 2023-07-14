@@ -163,7 +163,7 @@ const CreatePost: NextPage<{ reply?: boolean, postId?: string }> = ({ reply, pos
           ) : (
             <button
               type="submit"
-              className="inline-flex items-center rounded-full bg-green-300/40 dark:bg-green-400/40 dark:text-white px-6 h-8 mr-5 hover:bg-green-400/40 dark:hover:bg-green-500/40 hover:cursor-pointer"
+              className="font-normal inline-flex items-center rounded-full bg-green-300/40 dark:bg-green-400/40 dark:text-white px-6 h-8 mr-5 hover:bg-green-400/40 dark:hover:bg-green-500/40 hover:cursor-pointer"
             >
               Send
               <RocketIcon className='ml-2' />
