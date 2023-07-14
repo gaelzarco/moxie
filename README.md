@@ -15,6 +15,8 @@
 
 <img src='https://img.shields.io/badge/PlanetScale-PlanetScale/?logo=planetscale&color=black' alt='PlanetScale'>
 
+<img src="https://img.shields.io/badge/Redis-Redis/?logo=redis&color=black" alt="Redis">
+
 <img src='https://img.shields.io/badge/MySQL-MySQL/?logo=mysql&color=black' alt='MySQL'>
 
 <img src='https://img.shields.io/badge/TRPC-TRPC/?logo=trpc&color=black' alt='TRPC'>
@@ -27,6 +29,31 @@
 #### Be the first to know what your friends are up to. 
 
 #### Serverless, secure, and bootstrapped with `create-t3-app`
+
+<div align='left'>
+  
+  ## Features
+  
+  - User authentication/management (Clerk)
+  - User sessions/management (Clerk)
+  - Effecient search querying
+  - Create, update, and delete posts, replies and likes
+  - Drag and drop image assets
+  - Toast notifications
+  - Dropdown menus
+  - Skeleton-loading
+  - Remote procedure calls (tRPC)
+  - Ratelimiting on all user actions
+  - S3-bucket storage for user uploaded assets
+  - User profiles
+  - Serverless architecture
+  - Tailwind CSS stlying
+  - Prisma ORM usage
+  - MySQL database (PlantScale)
+    
+</div>
+
+## Screenshots
 
 <img src='https://readmeimg.s3.us-west-2.amazonaws.com/moxie-x1_so.png' width='100%'>
 
