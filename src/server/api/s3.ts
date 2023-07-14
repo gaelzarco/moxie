@@ -1,4 +1,4 @@
-import { S3Client, PutObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3";
+import { S3Client, PutObjectCommand, GetObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { randomBytes } from "crypto";
 
@@ -49,4 +49,14 @@ export const uploadFile = async (
     await s3.send(command)
 
     return imageName
+}
+
+export const deleteFile = async (imageName: string) => {
+    const params = {
+        Bucket: bucketName,
+        Key: imageName,
+    }
+
+    const command = new DeleteObjectCommand(params);
+    return await s3.send(command)
 }

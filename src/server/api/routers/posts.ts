@@ -2,7 +2,7 @@ import { z } from 'zod'
 import { createTRPCRouter, publicProcedure, protectedProcedure } from "~/server/api/trpc";
 import { clerkClient } from '@clerk/nextjs/server';
 import { TRPCError } from '@trpc/server';
-import { uploadFile, getFileURL } from '~/server/api/s3';
+import { uploadFile, getFileURL, deleteFile } from '~/server/api/s3';
 import filterUserForPost from '~/server/helpers/filterUserForPost';
 import { postLimiter } from '../ratelimiters';
 
@@ -201,6 +201,17 @@ export const postsRouter = createTRPCRouter({
             code: 'UNAUTHORIZED',
             message: 'You are not authorized to delete this post.'
         })
+
+        if (post.media !== null) {
+            try {
+                await deleteFile(post.media)
+            } catch (err) {
+                throw new TRPCError({
+                    code: 'INTERNAL_SERVER_ERROR',
+                    message: 'Error deleting post media. Try again.'
+                })
+            }
+        }
 
         return await ctx.prisma.post.delete({
             where: {
