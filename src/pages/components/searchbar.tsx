@@ -204,16 +204,16 @@ function UserSearchComponent({ userResult, userSearchMutationStatus } : {
     return (
         <>
             {userResult.length > 1 && userSearchMutationStatus === 'success' && (
-                <div className="max-h-[400px] max-lg:max-h-[300px] overflow-y-auto overflow-x-hidden max-md:text-sm flex flex-col mx-8 mt-4 items-center p-2 border border-neutral-300 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-900 text-black dark:text-white bg-transparent rounded-xl">
+                <div className="shadow-xl dark:shadow-none max-h-[400px] max-lg:max-h-[300px] overflow-y-auto overflow-x-hidden max-md:text-sm flex flex-col mx-8 mt-4 items-center p-2 bg-neutral-100 dark:bg-neutral-900 text-black dark:text-white bg-transparent rounded-xl">
                     {userResult.map((user, idx) => {
                         return (
-                            <Link href={`/profile/${user.id}`} key={idx} className="flex flex-row p-4 my-1 w-full cursor-pointer rounded-xl border border-neutral-300 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-900">
+                            <Link href={`/profile/${user.id}`} key={idx} className="flex flex-row p-4 my-1 w-full cursor-pointer rounded-xl border border-neutral-300 dark:border-neutral-700 bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700">
                                 <div className="inline-flex items-center rounded-full h-10 w-10 border border-neutral-300 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-900">
                                     <Image src={user.profileImageUrl} alt='User Profile' width={100} height={100} className="w-full h-full rounded-full"/>
                                 </div>
-                                <div className="flex flex-col ml-4">
-                                    <p className="text-md max-md:text-sm font-semibold leading-5 text-black dark:text-white ">{user.firstName}{' '}{user.lastName}</p>
-                                    <p className="text-stone-500 text-sm max-md:text-xs">@{!user.username ? 'username' : user.username}</p>
+                                <div className="flex flex-col ml-4 -mt-1">
+                                    <p className="text-md max-md:text-sm font-semibold leading-8 text-black dark:text-white ">{user.firstName}{' '}{user.lastName}</p>
+                                    <p className="text-neutral-500 dark:text-neutral-400 text-sm max-md:text-xs">@{!user.username ? 'username' : user.username}</p>
                                 </div>
                             </Link> 
                         )
@@ -230,17 +230,17 @@ function PostSearchComponent({ postResult, postSearchMutationStatus } : {
     return (
         <>
             {postResult.length > 0 && postSearchMutationStatus === 'success' && (
-                <div className="max-h-[400px] max-lg:max-h-[300px] overflow-y-auto overflow-x-hidden max-md:text-sm flex flex-col mx-8 mt-4 items-center p-2 border border-neutral-300 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-900 text-black dark:text-white bg-transparent rounded-xl">
+                <div className="shadow-xl dark:shadow-none max-h-[400px] max-lg:max-h-[300px] overflow-y-auto overflow-x-hidden max-md:text-sm flex flex-col mx-8 mt-4 items-center p-2 bg-neutral-100 dark:bg-neutral-900 text-black dark:text-white bg-transparent rounded-xl">
                     {Object.values(postResult).map(({ post, user }, idx) => {
                         return (
-                            <Link href={`/post/${post.id}`} key={idx} className="flex flex-col p-4 my-1 max-md:pb-6 w-full cursor-pointer rounded-xl border border-neutral-300 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-900">
+                            <Link href={`/post/${post.id}`} key={idx} className="flex flex-col p-4 my-1 max-md:pb-6 w-full cursor-pointer rounded-xl border border-neutral-300 dark:border-neutral-700 bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700">
                                 <div className="flex flex-row">
                                     <div className="inline-flex items-center rounded-full h-10 w-10 border border-neutral-700">
                                         <Image src={user.profileImageURL} alt='User Profile' width={100} height={100} className="w-full h-full rounded-full"/>
                                     </div>
                                     <div className="flex flex-row items-center text-center ml-4 -mt-2">
                                         <p className="text-md max-md:text-sm font-semibold leading-5">{user.firstName}</p>
-                                        <p className="text-stone-500 text-sm max-md:text-xs ml-2">@{user.userName}</p>
+                                        <p className="text-neutral-500 dark:text-neutral-400 text-sm max-md:text-xs ml-2">@{user.userName}</p>
                                     </div>
                                 </div>
 
@@ -277,10 +277,10 @@ function ReplySearchComponent({ replyResult, replySearchMutationStatus } : {
     return (
         <>
             {replyResult.length > 0 && replySearchMutationStatus === 'success' && (
-                <div className="max-h-[400px] max-lg:max-h-[300px] overflow-y-auto overflow-x-hidden max-md:text-sm flex flex-col mx-8 mt-4 items-center p-2 border border-neutral-300 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-900 text-black dark:text-white bg-transparent rounded-xl">
+                <div className="shadow-xl dark:shadow-none max-h-[400px] max-lg:max-h-[300px] overflow-y-auto overflow-x-hidden max-md:text-sm flex flex-col mx-8 mt-4 items-center p-2 bg-neutral-100 dark:bg-neutral-900 text-black dark:text-white bg-transparent rounded-xl">
                     {Object.values(replyResult).map(({ reply, user, postUser }, idx) => {
                         return (
-                            <Link href={`/post/${reply.postId}`} key={idx} className="flex flex-col p-4 my-1 max-md:pb-6 w-full cursor-pointer rounded-xl border border-neutral-300 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-900">
+                            <Link href={`/post/${reply.postId}`} key={idx} className="flex flex-col p-4 my-1 max-md:pb-6 w-full cursor-pointer rounded-xl border border-neutral-300 dark:border-neutral-700 bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700">
                                 <div className="flex flex-row items-center mb-2 ml-1">
                                     <PaperPlaneIcon className="text-neutral-500 w-3 h-3 mr-4" />
                                     <p className="text-neutral-500 text-sm max-md:text-xs">{"In reply to " + `${postUser?.firstName as string}` + "'s post" }</p>
@@ -295,7 +295,7 @@ function ReplySearchComponent({ replyResult, replySearchMutationStatus } : {
                                     </div>
                                     <div className="flex flex-row items-center text-center ml-4 -mt-2">
                                         <p className="text-md max-md:text-sm font-semibold leading-5">{user.firstName}</p>
-                                        <p className="text-stone-500 text-sm max-md:text-xs ml-2">@{user.userName}</p>
+                                        <p className="text-neutral-500 dark:text-neutral-400 text-sm max-md:text-xs ml-2">@{user.userName}</p>
                                     </div>
                                 </div>
 
